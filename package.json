@@ -17,16 +17,19 @@
   "dependencies": {
     "libsodium-wrappers": "^0.8.4",
     "libsodium-wrappers-sumo": "^0.8.4",
+    "lucide-react": "^1.61.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sharp": "^0.35.5"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "@vitejs/plugin-react": "^4.3.0",
     "concurrently": "^9.0.0",
     "cross-env": "^7.0.0",
     "electron": "^35.0.0",
     "electron-builder": "^26.18.0",
+    "tailwindcss": "^4.3.3",
     "vite": "^6.0.0",
     "vitest": "^3.0.0",
     "wait-on": "^8.0.0"
