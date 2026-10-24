@@ -1,0 +1,28 @@
+{
+  "name": "abhedya",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-first image steganography desktop application",
+  "main": "electron/main.cjs",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"wait-on http://localhost:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron .\"",
+    "build": "vite build",
+    "start": "electron .",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.0",
+    "concurrently": "^9.0.0",
+    "cross-env": "^7.0.0",
+    "electron": "^35.0.0",
+    "vite": "^6.0.0",
+    "vitest": "^3.0.0",
+    "wait-on": "^8.0.0"
+  }
+}
