@@ -4,12 +4,40 @@
  * registers validated IPC handlers for file operations and steganography.
  */
 
-const { app, BrowserWindow, session } = require("electron");
+const { app, BrowserWindow, session, ipcMain } = require("electron");
 const path = require("node:path");
 const { registerImageHandlers } = require("./ipc/imageHandlers.cjs");
 const { registerHideHandlers } = require("./ipc/hideHandlers.cjs");
 const { registerRevealHandlers } = require("./ipc/revealHandlers.cjs");
 const { registerAnalysisHandlers } = require("./ipc/analysisHandlers.cjs");
+
+function registerWindowControlHandlers(getMainWindow) {
+  ipcMain.handle("window:minimize", () => {
+    const win = getMainWindow();
+    if (win) win.minimize();
+  });
+  ipcMain.handle("window:maximize", () => {
+    const win = getMainWindow();
+    if (win) {
+      if (win.isMaximized()) {
+        win.unmaximize();
+        return false;
+      } else {
+        win.maximize();
+        return true;
+      }
+    }
+    return false;
+  });
+  ipcMain.handle("window:close", () => {
+    const win = getMainWindow();
+    if (win) win.close();
+  });
+  ipcMain.handle("window:isMaximized", () => {
+    const win = getMainWindow();
+    return win ? win.isMaximized() : false;
+  });
+}
 
 let mainWindow = null;
 
@@ -75,6 +103,7 @@ app.whenReady().then(() => {
   registerHideHandlers();
   registerRevealHandlers();
   registerAnalysisHandlers();
+  registerWindowControlHandlers(() => mainWindow);
 
   createWindow();
 

@@ -11,7 +11,6 @@ import {
   CrosshairIcon,
   BarChartIcon,
   Layers,
-  Terminal,
   RefreshIcon
 } from "../components/Icons";
 
@@ -51,7 +50,6 @@ export default function Steganalysis() {
       if (report && report.success) {
         setAnalysisReport(report);
 
-        // Record in local history store
         historyStore.addEntry({
           type: "analysis",
           fileName: report.fileName || image?.fileName || "analyzed.png",
@@ -82,26 +80,26 @@ export default function Steganalysis() {
   const rsSuspected = analysisReport?.rsAnalysis?.suspectedEmbedding;
 
   return (
-    <div className="h-full flex flex-col gap-5 overflow-y-auto pr-1">
+    <div className="h-full flex flex-col gap-5 overflow-y-auto pr-1 pb-4 min-h-0 min-w-0">
       {/* Module Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--border-subtle)] pb-3 shrink-0">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#c5a059]">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--accent-brass)]">
               WORKSPACE // 03
             </span>
-            <span className="text-zinc-600">/</span>
-            <span className="text-[10px] font-mono uppercase text-zinc-400">
+            <span className="text-[var(--border-strong)]">/</span>
+            <span className="text-[10px] font-mono uppercase text-[var(--text-secondary)]">
               STATISTICAL INSPECTION
             </span>
           </div>
-          <h2 className="text-lg font-bold text-white tracking-tight mt-0.5">
+          <h2 className="text-lg font-bold text-[var(--text-primary)] tracking-tight mt-0.5">
             Steganalysis Laboratory
           </h2>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="px-2.5 py-1 rounded bg-[#c5a059]/10 border border-[#c5a059]/25 text-[11px] font-mono text-[#e5be6b] flex items-center gap-1.5">
+          <span className="px-2.5 py-1 rounded bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] text-[11px] font-mono text-[var(--accent-brass-text)] flex items-center gap-1.5 font-semibold">
             <ActivityIcon size={12} />
             <span>Chi-Square PoV & RS Groups</span>
           </span>
@@ -111,11 +109,11 @@ export default function Steganalysis() {
       {/* Main Workspace Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         {/* Left Column: Image Selection & Preview (5 cols) */}
-        <div className="lg:col-span-5 space-y-4">
-          <div className="glass-panel p-4 bg-[#0f1118]/85 border-white/10">
+        <div className="lg:col-span-5 space-y-4 min-w-0">
+          <div className="glass-panel p-4 border-[var(--border-subtle)]">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-mono font-semibold uppercase text-zinc-300 flex items-center gap-2">
-                <CrosshairIcon size={14} className="text-[#c5a059]" />
+              <span className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
+                <CrosshairIcon size={14} className="text-[var(--accent-brass)]" />
                 Target Image under Test
               </span>
               {image && (
@@ -123,7 +121,7 @@ export default function Steganalysis() {
                   type="button"
                   onClick={() => runSteganalysis(image.filePath)}
                   disabled={isAnalyzing}
-                  className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 hover:bg-white/10 text-zinc-300 border border-white/10 flex items-center gap-1 transition-colors"
+                  className="px-2 py-0.5 rounded text-[10px] font-mono bg-[var(--bg-surface)] hover:bg-[var(--bg-surface-hover)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-subtle)] flex items-center gap-1 transition-colors"
                 >
                   <RefreshIcon size={10} className={isAnalyzing ? "animate-spin" : ""} />
                   Re-analyze
@@ -148,32 +146,32 @@ export default function Steganalysis() {
           </div>
 
           {/* Steganalysis Educational Overview */}
-          <div className="p-4 rounded-xl glass-panel bg-[#0e1017]/80 border-white/10 space-y-3">
-            <h4 className="text-xs font-mono font-semibold uppercase text-zinc-300 flex items-center gap-2">
-              <ShieldIcon size={14} className="text-[#c5a059]" />
+          <div className="p-4 rounded-xl glass-panel border-[var(--border-subtle)] space-y-2.5">
+            <h4 className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
+              <ShieldIcon size={14} className="text-[var(--accent-brass)]" />
               Steganalysis Methodologies
             </h4>
-            <div className="space-y-2 text-xs text-zinc-400 leading-relaxed">
+            <div className="space-y-2 text-xs text-[var(--text-secondary)] leading-relaxed">
               <p>
-                <strong className="text-zinc-200">Chi-Square Test:</strong> Evaluates Pairs of Values (PoVs) (2k, 2k+1) across color channels. Sequential LSB embedding equalizes frequencies of adjacent values, shifting the p-value towards 1.0.
+                <strong className="text-[var(--text-primary)]">Chi-Square Test:</strong> Evaluates Pairs of Values (PoVs) (2k, 2k+1) across color channels. Sequential LSB embedding equalizes frequencies of adjacent values, shifting the p-value towards 1.0.
               </p>
               <p>
-                <strong className="text-zinc-200">RS Steganalysis:</strong> Evaluates variation increases/decreases across pixel groups under positive/negative inversion masks (+M / -M). Identifies asymmetry caused by LSB embedding.
+                <strong className="text-[var(--text-primary)]">RS Steganalysis:</strong> Evaluates variation across pixel groups under positive/negative inversion masks (+M / -M). Identifies asymmetry caused by LSB embedding.
               </p>
             </div>
           </div>
         </div>
 
         {/* Right Column: Analysis Telemetry & Diagnostic Report (7 cols) */}
-        <div className="lg:col-span-7 space-y-4">
+        <div className="lg:col-span-7 space-y-4 min-w-0">
           {isAnalyzing && (
-            <div className="p-8 rounded-xl glass-panel bg-[#0f1118]/90 border border-[#c5a059]/30 flex flex-col items-center justify-center text-center gap-3">
-              <div className="w-10 h-10 rounded-full border-2 border-[#c5a059] border-t-transparent animate-spin" />
+            <div className="p-8 rounded-xl glass-panel border border-[var(--accent-brass-border)] flex flex-col items-center justify-center text-center gap-3">
+              <div className="w-10 h-10 rounded-full border-2 border-[var(--accent-brass)] border-t-transparent animate-spin" />
               <div className="space-y-1">
-                <p className="text-xs font-mono font-bold tracking-wider text-zinc-200 uppercase">
+                <p className="text-xs font-mono font-bold tracking-wider text-[var(--text-primary)] uppercase">
                   Performing Pixel Distribution & RS Mask Analysis...
                 </p>
-                <p className="text-xs font-mono text-zinc-400">
+                <p className="text-xs font-mono text-[var(--text-secondary)]">
                   Constructing 256-bin histograms and testing pixel group variation.
                 </p>
               </div>
@@ -181,17 +179,17 @@ export default function Steganalysis() {
           )}
 
           {error && (
-            <div className="p-4 rounded-xl bg-rose-950/30 border border-rose-800/40 text-xs text-rose-300 flex items-center gap-2">
-              <AlertCircleIcon size={16} className="text-rose-400 shrink-0" />
+            <div className="p-4 rounded-xl bg-[var(--accent-crimson-bg)] border border-[var(--accent-crimson-border)] text-xs text-[var(--accent-crimson-text)] flex items-center gap-2">
+              <AlertCircleIcon size={16} className="shrink-0" />
               <span>{error}</span>
             </div>
           )}
 
           {!image && !isAnalyzing && (
-            <div className="p-12 rounded-xl glass-panel bg-[#0f1118]/60 border-white/5 text-center space-y-2 text-zinc-500 font-mono text-xs">
-              <ActivityIcon size={32} className="mx-auto text-zinc-600 mb-2" />
-              <p className="text-zinc-400 font-medium">No Image Loaded for Inspection</p>
-              <p className="max-w-md mx-auto text-[11px]">
+            <div className="p-12 rounded-xl glass-panel border-[var(--border-subtle)] text-center space-y-2 text-[var(--text-muted)] font-mono text-xs">
+              <ActivityIcon size={32} className="mx-auto text-[var(--text-dim)] mb-2" />
+              <p className="text-[var(--text-secondary)] font-medium">No Image Loaded for Inspection</p>
+              <p className="max-w-md mx-auto text-[11px] text-[var(--text-muted)]">
                 Select an image on the left to initiate Chi-Square Pair-of-Values distribution analysis and RS variation evaluations.
               </p>
             </div>
@@ -202,23 +200,23 @@ export default function Steganalysis() {
               {/* Overall Diagnostic Assessment Summary */}
               <div className={`p-4 rounded-xl border ${
                 chiSuspected || rsSuspected
-                  ? "bg-amber-950/20 border-amber-600/40"
-                  : "bg-[#101814]/80 border-[#10b981]/30"
+                  ? "bg-[var(--accent-amber-bg)] border-[var(--accent-amber-border)]"
+                  : "bg-[var(--accent-jade-bg)] border-[var(--accent-jade-border)]"
               }`}>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5 min-w-0">
                     {chiSuspected || rsSuspected ? (
-                      <AlertCircleIcon size={18} className="text-amber-400 shrink-0" />
+                      <AlertCircleIcon size={18} className="text-[var(--accent-amber)] shrink-0" />
                     ) : (
-                      <CheckCircle2 size={18} className="text-[#34d399] shrink-0" />
+                      <CheckCircle2 size={18} className="text-[var(--accent-jade)] shrink-0" />
                     )}
-                    <div>
-                      <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider">
+                    <div className="min-w-0">
+                      <h4 className="text-xs font-mono font-bold text-[var(--text-primary)] uppercase tracking-wider truncate">
                         {chiSuspected || rsSuspected
                           ? "Potential LSB Embedding Detected"
                           : "No Obvious LSB Anomalies Detected"}
                       </h4>
-                      <p className="text-[11px] text-zinc-400 mt-0.5">
+                      <p className="text-[11px] text-[var(--text-secondary)] mt-0.5 leading-normal">
                         {chiSuspected || rsSuspected
                           ? "Statistical indicators show anomalous Pair-of-Value equalization or RS group asymmetry."
                           : "Histogram pairs and RS group variation fall within normal natural image thresholds."}
@@ -228,8 +226,8 @@ export default function Steganalysis() {
 
                   <span className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase shrink-0 ${
                     chiSuspected || rsSuspected
-                      ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
-                      : "bg-[#10b981]/20 text-[#34d399] border border-[#10b981]/30"
+                      ? "bg-[var(--accent-amber-bg)] text-[var(--accent-amber-text)] border border-[var(--accent-amber-border)]"
+                      : "bg-[var(--accent-jade-bg)] text-[var(--accent-jade-text)] border border-[var(--accent-jade-border)]"
                   }`}>
                     {chiSuspected || rsSuspected ? "SUSPECT" : "CLEAN"}
                   </span>
@@ -237,30 +235,30 @@ export default function Steganalysis() {
               </div>
 
               {/* Chi-Square Test Details */}
-              <div className="glass-panel p-4 bg-[#0f1118]/85 border-white/10 space-y-3">
+              <div className="glass-panel p-4 border-[var(--border-subtle)] space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-semibold uppercase text-zinc-200 flex items-center gap-2">
-                    <BarChartIcon size={14} className="text-[#c5a059]" />
-                    Chi-Square Test (Pair-of-Values Flattening)
+                  <span className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
+                    <BarChartIcon size={14} className="text-[var(--accent-brass)]" />
+                    Chi-Square Test (PoV Flattening)
                   </span>
-                  <span className="text-[11px] font-mono text-zinc-400">
-                    Avg P-Value: <strong className="text-zinc-200">{analysisReport.chiSquare?.averagePValue ?? "0.00"}</strong>
+                  <span className="text-[11px] font-mono text-[var(--text-secondary)]">
+                    Avg P-Value: <strong className="text-[var(--text-primary)]">{analysisReport.chiSquare?.averagePValue ?? "0.00"}</strong>
                   </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {analysisReport.chiSquare?.channels?.map((ch) => (
-                    <div key={ch.channel} className="p-3 rounded-lg bg-black/40 border border-white/5 space-y-1">
+                    <div key={ch.channel} className="p-2.5 sm:p-3 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1 min-w-0">
                       <div className="flex items-center justify-between text-[11px] font-mono uppercase">
-                        <span className="font-bold text-zinc-300">{ch.channel}</span>
-                        <span className={`text-[10px] ${ch.suspected ? "text-amber-400" : "text-[#34d399]"}`}>
+                        <span className="font-bold text-[var(--text-primary)]">{ch.channel}</span>
+                        <span className={`text-[10px] font-semibold ${ch.suspected ? "text-[var(--accent-amber-text)]" : "text-[var(--accent-jade-text)]"}`}>
                           {ch.suspected ? "SUSPECT" : "NORMAL"}
                         </span>
                       </div>
-                      <div className="text-xs font-mono text-zinc-400">
-                        χ²: <span className="text-zinc-200 font-semibold">{ch.chiSquare}</span>
+                      <div className="text-xs font-mono text-[var(--text-secondary)]">
+                        χ²: <span className="text-[var(--text-primary)] font-semibold">{ch.chiSquare}</span>
                       </div>
-                      <div className="text-[10px] font-mono text-zinc-500">
+                      <div className="text-[10px] font-mono text-[var(--text-muted)] truncate">
                         p: {ch.pValue} (DoF {ch.degreesOfFreedom})
                       </div>
                     </div>
@@ -269,32 +267,32 @@ export default function Steganalysis() {
               </div>
 
               {/* RS Analysis Details */}
-              <div className="glass-panel p-4 bg-[#0f1118]/85 border-white/10 space-y-3">
+              <div className="glass-panel p-4 border-[var(--border-subtle)] space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-semibold uppercase text-zinc-200 flex items-center gap-2">
-                    <Layers size={14} className="text-[#34d399]" />
+                  <span className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
+                    <Layers size={14} className="text-[var(--accent-jade)]" />
                     RS Steganalysis (Dual Mask Variation)
                   </span>
-                  <span className="text-[11px] font-mono text-zinc-400">
-                    Est. Payload Ratio: <strong className="text-zinc-200">
+                  <span className="text-[11px] font-mono text-[var(--text-secondary)]">
+                    Est. Payload: <strong className="text-[var(--text-primary)]">
                       {((analysisReport.rsAnalysis?.averageEstimatedPayloadRatio ?? 0) * 100).toFixed(1)}%
                     </strong>
                   </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {analysisReport.rsAnalysis?.channels?.map((ch) => (
-                    <div key={ch.channel} className="p-3 rounded-lg bg-black/40 border border-white/5 space-y-1 text-xs font-mono">
+                    <div key={ch.channel} className="p-2.5 sm:p-3 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1 text-xs font-mono min-w-0">
                       <div className="flex items-center justify-between text-[11px] uppercase">
-                        <span className="font-bold text-zinc-300">{ch.channel}</span>
-                        <span className={`text-[10px] ${ch.suspected ? "text-amber-400" : "text-[#34d399]"}`}>
+                        <span className="font-bold text-[var(--text-primary)]">{ch.channel}</span>
+                        <span className={`text-[10px] font-semibold ${ch.suspected ? "text-[var(--accent-amber-text)]" : "text-[var(--accent-jade-text)]"}`}>
                           {ch.suspected ? "ANOMALY" : "BALANCED"}
                         </span>
                       </div>
-                      <div className="text-[11px] text-zinc-400">
-                        Asymmetry: <span className="text-zinc-200">{ch.asymmetry}</span>
+                      <div className="text-[11px] text-[var(--text-secondary)]">
+                        Asymmetry: <span className="text-[var(--text-primary)]">{ch.asymmetry}</span>
                       </div>
-                      <div className="text-[10px] text-zinc-500">
+                      <div className="text-[10px] text-[var(--text-muted)] truncate">
                         Rm: {ch.regularM} · Sm: {ch.singularM}
                       </div>
                     </div>
@@ -303,13 +301,13 @@ export default function Steganalysis() {
               </div>
 
               {/* Scientific Caveat / Limitations Notice */}
-              <div className="p-3.5 rounded-xl bg-[#14151e]/80 border border-white/10 text-xs text-zinc-400 leading-relaxed space-y-1.5">
-                <div className="flex items-center gap-1.5 font-semibold text-zinc-200">
-                  <AlertCircleIcon size={14} className="text-[#c5a059]" />
+              <div className="p-3.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-xs text-[var(--text-secondary)] leading-relaxed space-y-1.5">
+                <div className="flex items-center gap-1.5 font-semibold text-[var(--text-primary)]">
+                  <AlertCircleIcon size={14} className="text-[var(--accent-brass)]" />
                   <span>Steganalysis Limitations & False Positives</span>
                 </div>
                 <p className="text-[11px]">
-                  Statistical steganalysis tools are heuristic evaluations, not infallible proofs. Natural images with smooth gradients or uniform noise can trigger false positives, while key-seeded pseudo-random scattering actively disrupts contiguous Pair-of-Value patterns. Never rely on a single analysis score as definitive confirmation.
+                  Statistical steganalysis tools are heuristic evaluations, not infallible proofs. Natural images with high-frequency noise or uniform gradients can trigger false positives, while key-seeded pseudo-random scattering actively diffuses bit patterns across the spatial domain. Never rely on a single analysis score as definitive confirmation.
                 </p>
               </div>
             </div>

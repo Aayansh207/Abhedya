@@ -6,10 +6,7 @@ import {
   UnlockIcon,
   ActivityIcon,
   TrashIcon,
-  CheckCircle2,
-  AlertCircleIcon,
   ShieldIcon,
-  Clock,
   Filter
 } from "../components/Icons";
 
@@ -53,20 +50,20 @@ export default function History() {
   });
 
   return (
-    <div className="h-full flex flex-col gap-5 overflow-y-auto pr-1">
+    <div className="h-full flex flex-col gap-5 overflow-y-auto pr-1 pb-4 min-h-0 min-w-0">
       {/* Module Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--border-subtle)] pb-3 shrink-0">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#c5a059]">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--accent-brass)]">
               WORKSPACE // 04
             </span>
-            <span className="text-zinc-600">/</span>
-            <span className="text-[10px] font-mono uppercase text-zinc-400">
+            <span className="text-[var(--border-strong)]">/</span>
+            <span className="text-[10px] font-mono uppercase text-[var(--text-secondary)]">
               AUDIT LOG
             </span>
           </div>
-          <h2 className="text-lg font-bold text-white tracking-tight mt-0.5">
+          <h2 className="text-lg font-bold text-[var(--text-primary)] tracking-tight mt-0.5">
             Operation History
           </h2>
         </div>
@@ -76,9 +73,9 @@ export default function History() {
             <button
               type="button"
               onClick={handleClear}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-rose-400 hover:text-rose-200 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-[var(--accent-crimson-text)] hover:opacity-90 bg-[var(--accent-crimson-bg)] border border-[var(--accent-crimson-border)] transition-colors"
             >
-              <TrashIcon size={13} />
+              <TrashIcon size={12} />
               <span>Clear Log</span>
             </button>
           )}
@@ -86,10 +83,10 @@ export default function History() {
       </div>
 
       {/* Filter and Security Notice Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 rounded-xl glass-panel bg-[#0e1017]/80 border-white/10">
-        <div className="flex items-center gap-2">
-          <Filter size={14} className="text-[#c5a059]" />
-          <span className="text-xs font-mono text-zinc-400 uppercase">Filter Operations:</span>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 rounded-xl glass-panel border-[var(--border-subtle)]">
+        <div className="flex flex-wrap items-center gap-2">
+          <Filter size={13} className="text-[var(--accent-brass)]" />
+          <span className="text-xs font-mono text-[var(--text-secondary)] uppercase">Filter:</span>
           <div className="flex items-center gap-1 text-xs font-mono">
             {["all", "encode", "decode", "analysis"].map((cat) => (
               <button
@@ -98,8 +95,8 @@ export default function History() {
                 onClick={() => setFilter(cat)}
                 className={`px-2.5 py-1 rounded capitalize transition-colors ${
                   filter === cat
-                    ? "bg-[#c5a059]/20 text-[#e5be6b] font-bold border border-[#c5a059]/30"
-                    : "text-zinc-400 hover:text-zinc-200 bg-black/20"
+                    ? "bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] font-bold border border-[var(--accent-brass-border)]"
+                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-inset)] hover:bg-[var(--bg-surface-hover)]"
                 }`}
               >
                 {cat === "all" ? "All Logs" : cat}
@@ -108,8 +105,8 @@ export default function History() {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-[11px] font-mono text-zinc-400">
-          <ShieldIcon size={13} className="text-[#10b981]" />
+        <div className="flex items-center gap-2 text-[11px] font-mono text-[var(--text-secondary)]">
+          <ShieldIcon size={13} className="text-[var(--accent-jade)]" />
           <span>Local session storage only · No plaintexts or keys persisted</span>
         </div>
       </div>
@@ -117,10 +114,10 @@ export default function History() {
       {/* History Log List */}
       <div className="space-y-2.5">
         {filteredItems.length === 0 ? (
-          <div className="p-12 text-center rounded-xl glass-panel bg-[#0f1118]/50 border-white/5 space-y-2 text-zinc-500 font-mono text-xs">
-            <HistoryIcon size={32} className="mx-auto text-zinc-600 mb-2" />
-            <p className="text-zinc-300 font-medium">No Operations Logged</p>
-            <p className="max-w-md mx-auto text-[11px]">
+          <div className="p-12 text-center rounded-xl glass-panel border-[var(--border-subtle)] space-y-2 text-[var(--text-muted)] font-mono text-xs">
+            <HistoryIcon size={32} className="mx-auto text-[var(--text-dim)] mb-2" />
+            <p className="text-[var(--text-primary)] font-medium">No Operations Logged</p>
+            <p className="max-w-md mx-auto text-[11px] text-[var(--text-muted)]">
               Cryptographic encoding, decoding, and steganalysis runs will be audited here during your current session.
             </p>
           </div>
@@ -128,55 +125,55 @@ export default function History() {
           filteredItems.map((item) => (
             <div
               key={item.id}
-              className="p-4 rounded-xl glass-panel bg-[#0f1118]/85 border-white/10 hover:border-white/20 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+              className="p-3.5 sm:p-4 rounded-xl glass-panel border-[var(--border-subtle)] hover:border-[var(--border-medium)] transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
             >
               <div className="flex items-center gap-3 min-w-0">
-                <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 border ${
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${
                   item.type === "encode"
-                    ? "bg-[#c5a059]/15 border-[#c5a059]/30 text-[#e5be6b]"
+                    ? "bg-[var(--accent-brass-bg)] border-[var(--accent-brass-border)] text-[var(--accent-brass)]"
                     : item.type === "decode"
-                    ? "bg-[#10b981]/15 border-[#10b981]/30 text-[#34d399]"
-                    : "bg-blue-500/15 border-blue-500/30 text-blue-400"
+                    ? "bg-[var(--accent-jade-bg)] border-[var(--accent-jade-border)] text-[var(--accent-jade)]"
+                    : "bg-[var(--bg-surface-elevated)] border-[var(--border-medium)] text-[var(--text-secondary)]"
                 }`}>
                   {item.type === "encode" ? (
-                    <LockIcon size={16} />
+                    <LockIcon size={15} />
                   ) : item.type === "decode" ? (
-                    <UnlockIcon size={16} />
+                    <UnlockIcon size={15} />
                   ) : (
-                    <ActivityIcon size={16} />
+                    <ActivityIcon size={15} />
                   )}
                 </div>
 
                 <div className="min-w-0 space-y-0.5">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono font-bold text-zinc-200 uppercase tracking-wide">
+                    <span className="font-mono font-bold text-[var(--text-primary)] uppercase tracking-wide">
                       {item.type === "encode"
                         ? "Message Concealment"
                         : item.type === "decode"
                         ? "Message Extraction"
                         : "Steganalysis Scan"}
                     </span>
-                    <span className={`px-1.5 py-0.2 rounded text-[10px] font-mono uppercase ${
+                    <span className={`px-1.5 py-0.2 rounded text-[10px] font-mono uppercase font-semibold ${
                       item.status === "success"
-                        ? "bg-[#10b981]/20 text-[#34d399]"
-                        : "bg-rose-500/20 text-rose-300"
+                        ? "bg-[var(--accent-jade-bg)] text-[var(--accent-jade-text)] border border-[var(--accent-jade-border)]"
+                        : "bg-[var(--accent-crimson-bg)] text-[var(--accent-crimson-text)] border border-[var(--accent-crimson-border)]"
                     }`}>
                       {item.status}
                     </span>
                   </div>
-                  <div className="text-[11px] font-mono text-zinc-400 truncate">
-                    File: <span className="text-zinc-200 font-medium">{item.fileName}</span>
+                  <div className="text-[11px] font-mono text-[var(--text-secondary)] truncate">
+                    File: <span className="text-[var(--text-primary)] font-medium truncate">{item.fileName}</span>
                     {item.dimensions?.width ? ` (${item.dimensions.width}×${item.dimensions.height}px)` : ""}
                     {item.payloadBytes > 0 ? ` · ${item.payloadBytes} bytes` : ""}
                     {item.mode ? ` · Mode: ${item.mode}` : ""}
                   </div>
                   {item.note && (
-                    <p className="text-[10px] font-mono text-zinc-500">{item.note}</p>
+                    <p className="text-[10px] font-mono text-[var(--text-muted)] truncate">{item.note}</p>
                   )}
                 </div>
               </div>
 
-              <div className="text-[11px] font-mono text-zinc-500 shrink-0 sm:text-right">
+              <div className="text-[11px] font-mono text-[var(--text-muted)] shrink-0 sm:text-right">
                 {formatTimestamp(item.timestamp)}
               </div>
             </div>

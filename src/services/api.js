@@ -214,5 +214,33 @@ export const api = {
         });
       }, 600);
     });
+  },
+
+  /**
+   * Electron Window Controls
+   */
+  windowControl: {
+    async minimize() {
+      if (isElectron && window.abhedya?.windowControl?.minimize) {
+        return window.abhedya.windowControl.minimize();
+      }
+    },
+    async maximize() {
+      if (isElectron && window.abhedya?.windowControl?.maximize) {
+        return window.abhedya.windowControl.maximize();
+      }
+      return false;
+    },
+    async close() {
+      if (isElectron && window.abhedya?.windowControl?.close) {
+        return window.abhedya.windowControl.close();
+      }
+    },
+    async isMaximized() {
+      if (isElectron && window.abhedya?.windowControl?.isMaximized) {
+        return window.abhedya.windowControl.isMaximized();
+      }
+      return false;
+    }
   }
 };

@@ -36,7 +36,13 @@ import {
   RefreshCw,
   Search,
   Filter,
-  Clock
+  Clock,
+  Sun,
+  Moon,
+  Monitor,
+  Minus,
+  Square,
+  X
 } from "lucide-react";
 
 export function ShieldIcon({ className = "", size = 20 }) {
@@ -171,5 +177,11 @@ export {
   RefreshCw,
   Search,
   Filter,
-  Clock
+  Clock,
+  Sun,
+  Moon,
+  Monitor,
+  Minus,
+  Square,
+  X
 };

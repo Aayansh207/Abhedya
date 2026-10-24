@@ -31,6 +31,14 @@ contextBridge.exposeInMainWorld(
     estimateCapacity: (params = {}) => ipcRenderer.invoke("stego:estimateCapacity", params),
     hideMessage: (params = {}) => ipcRenderer.invoke("stego:hide", params),
     revealMessage: (params = {}) => ipcRenderer.invoke("stego:reveal", params),
-    analyzeImage: (params = {}) => ipcRenderer.invoke("stego:analyze", params)
+    analyzeImage: (params = {}) => ipcRenderer.invoke("stego:analyze", params),
+
+    // Window controls
+    windowControl: {
+      minimize: () => ipcRenderer.invoke("window:minimize"),
+      maximize: () => ipcRenderer.invoke("window:maximize"),
+      close: () => ipcRenderer.invoke("window:close"),
+      isMaximized: () => ipcRenderer.invoke("window:isMaximized")
+    }
   })
 );

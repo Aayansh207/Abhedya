@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { UploadIcon, AlertCircleIcon, ImageIcon } from "./Icons";
+import { UploadIcon, AlertCircleIcon } from "./Icons";
 
 export default function ImageUploader({
   onSelect,
@@ -42,10 +42,10 @@ export default function ImageUploader({
   return (
     <div className="w-full">
       <div
-        className={`relative group cursor-pointer rounded-xl border border-dashed transition-all duration-200 p-8 flex flex-col items-center justify-center text-center overflow-hidden ${
+        className={`relative group cursor-pointer rounded-xl border-2 border-dashed transition-all duration-200 p-7 sm:p-8 flex flex-col items-center justify-center text-center overflow-hidden ${
           isDragging
-            ? "border-[#c5a059] bg-[#c5a059]/5 shadow-[0_0_24px_rgba(197,160,89,0.15)]"
-            : "border-white/10 hover:border-[#c5a059]/50 bg-[#0e1015]/60 hover:bg-[#14161f]/80"
+            ? "border-[var(--accent-brass)] bg-[var(--accent-brass-bg)] shadow-md"
+            : "border-[var(--border-medium)] hover:border-[var(--accent-brass)] bg-[var(--bg-inset)] hover:bg-[var(--bg-surface-hover)]"
         }`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -60,55 +60,55 @@ export default function ImageUploader({
         }}
       >
         {/* Subtle tactical corner markers */}
-        <div className="absolute top-2 left-2 w-2 h-2 border-t border-l border-white/20 group-hover:border-[#c5a059]/60 transition-colors" />
-        <div className="absolute top-2 right-2 w-2 h-2 border-t border-r border-white/20 group-hover:border-[#c5a059]/60 transition-colors" />
-        <div className="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-white/20 group-hover:border-[#c5a059]/60 transition-colors" />
-        <div className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-white/20 group-hover:border-[#c5a059]/60 transition-colors" />
+        <div className="absolute top-2 left-2 w-2.5 h-2.5 border-t-2 border-l-2 border-[var(--border-strong)] group-hover:border-[var(--accent-brass)] transition-colors pointer-events-none" />
+        <div className="absolute top-2 right-2 w-2.5 h-2.5 border-t-2 border-r-2 border-[var(--border-strong)] group-hover:border-[var(--accent-brass)] transition-colors pointer-events-none" />
+        <div className="absolute bottom-2 left-2 w-2.5 h-2.5 border-b-2 border-l-2 border-[var(--border-strong)] group-hover:border-[var(--accent-brass)] transition-colors pointer-events-none" />
+        <div className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b-2 border-r-2 border-[var(--border-strong)] group-hover:border-[var(--accent-brass)] transition-colors pointer-events-none" />
 
         {/* Tactical Icon Node */}
-        <div className="w-14 h-14 rounded-full bg-[#181a24] border border-white/10 flex items-center justify-center text-white/60 group-hover:text-[#c5a059] group-hover:border-[#c5a059]/40 group-hover:scale-105 transition-all duration-200 mb-4 shadow-inner">
-          <UploadIcon size={24} />
+        <div className="w-12 h-12 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-medium)] flex items-center justify-center text-[var(--text-secondary)] group-hover:text-[var(--accent-brass)] group-hover:border-[var(--accent-brass-border)] group-hover:scale-105 transition-all duration-200 mb-3.5 shadow-sm">
+          <UploadIcon size={22} />
         </div>
 
-        <div className="space-y-1 mb-4">
-          <p className="text-sm font-semibold tracking-wide text-zinc-100 group-hover:text-[#d8b671] transition-colors">
+        <div className="space-y-1 mb-3.5">
+          <p className="text-sm font-semibold tracking-wide text-[var(--text-primary)] group-hover:text-[var(--accent-brass)] transition-colors">
             {label}
           </p>
-          <p className="text-xs text-zinc-400 max-w-sm">
+          <p className="text-xs text-[var(--text-secondary)] max-w-sm">
             {sublabel}
           </p>
         </div>
 
         {/* Technical specs pill row */}
-        <div className="flex flex-wrap items-center justify-center gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-1.5">
           {requirePng ? (
-            <span className="px-2.5 py-1 text-[11px] font-mono tracking-wider font-semibold rounded bg-[#c5a059]/15 text-[#e5be6b] border border-[#c5a059]/30">
+            <span className="px-2.5 py-1 text-[11px] font-mono tracking-wider font-semibold rounded bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] border border-[var(--accent-brass-border)]">
               LOSSLESS PNG REQUIRED
             </span>
           ) : (
             <>
-              <span className="px-2 py-0.5 text-[10px] font-mono font-medium rounded bg-white/5 text-zinc-300 border border-white/10">
+              <span className="px-2 py-0.5 text-[10px] font-mono font-medium rounded bg-[var(--bg-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)]">
                 PNG
               </span>
-              <span className="px-2 py-0.5 text-[10px] font-mono font-medium rounded bg-white/5 text-zinc-300 border border-white/10">
+              <span className="px-2 py-0.5 text-[10px] font-mono font-medium rounded bg-[var(--bg-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)]">
                 JPEG
               </span>
-              <span className="px-2 py-0.5 text-[10px] font-mono font-medium rounded bg-white/5 text-zinc-300 border border-white/10">
+              <span className="px-2 py-0.5 text-[10px] font-mono font-medium rounded bg-[var(--bg-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)]">
                 WEBP
               </span>
-              <span className="px-2 py-0.5 text-[10px] font-mono font-medium rounded bg-white/5 text-zinc-300 border border-white/10">
+              <span className="px-2 py-0.5 text-[10px] font-mono font-medium rounded bg-[var(--bg-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)]">
                 BMP
               </span>
             </>
           )}
-          <span className="px-2 py-0.5 text-[10px] font-mono text-zinc-500 rounded bg-black/30 border border-white/5">
+          <span className="px-2 py-0.5 text-[10px] font-mono text-[var(--text-muted)] rounded bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
             MAX 50MB · UP TO 8192×8192
           </span>
         </div>
       </div>
 
       {dragError && (
-        <div className="mt-2.5 flex items-center gap-2 text-xs text-rose-400 bg-rose-950/40 border border-rose-800/40 px-3 py-2 rounded-lg">
+        <div className="mt-2.5 flex items-center gap-2 text-xs text-[var(--accent-crimson-text)] bg-[var(--accent-crimson-bg)] border border-[var(--accent-crimson-border)] px-3 py-2 rounded-lg">
           <AlertCircleIcon size={14} className="shrink-0" />
           <span>{dragError}</span>
         </div>

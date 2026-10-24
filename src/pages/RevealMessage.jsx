@@ -8,12 +8,9 @@ import { historyStore } from "../services/history";
 import {
   UnlockIcon,
   ShieldIcon,
-  AlertCircleIcon,
   CrosshairIcon,
   Layers,
-  KeyIcon,
-  CheckCircle2,
-  LockIcon
+  KeyIcon
 } from "../components/Icons";
 
 export default function RevealMessage() {
@@ -32,7 +29,6 @@ export default function RevealMessage() {
     setRevealResult(null);
 
     try {
-      // Require lossless PNG for extraction
       const result = await api.selectImage({ requirePng: true });
       if (result.canceled) return;
 
@@ -79,7 +75,6 @@ export default function RevealMessage() {
         setRevealResult(result);
         setStatus("success");
 
-        // Record in local history store
         historyStore.addEntry({
           type: "decode",
           fileName: image.fileName || "encoded.png",
@@ -122,30 +117,30 @@ export default function RevealMessage() {
   };
 
   return (
-    <div className="h-full flex flex-col gap-5 overflow-y-auto pr-1">
+    <div className="h-full flex flex-col gap-5 overflow-y-auto pr-1 pb-4 min-h-0 min-w-0">
       {/* Workspace Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--border-subtle)] pb-3 shrink-0">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#34d399]">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--accent-jade)]">
               WORKSPACE // 02
             </span>
-            <span className="text-zinc-600">/</span>
-            <span className="text-[10px] font-mono uppercase text-zinc-400">
+            <span className="text-[var(--border-strong)]">/</span>
+            <span className="text-[10px] font-mono uppercase text-[var(--text-secondary)]">
               PAYLOAD EXTRACTION
             </span>
           </div>
-          <h2 className="text-lg font-bold text-white tracking-tight mt-0.5">
+          <h2 className="text-lg font-bold text-[var(--text-primary)] tracking-tight mt-0.5">
             Extract Hidden Message
           </h2>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="px-2.5 py-1 rounded bg-[#10b981]/10 border border-[#10b981]/25 text-[11px] font-mono text-[#34d399] flex items-center gap-1.5">
+          <span className="px-2.5 py-1 rounded bg-[var(--accent-jade-bg)] border border-[var(--accent-jade-border)] text-[11px] font-mono text-[var(--accent-jade-text)] flex items-center gap-1.5 font-semibold">
             <UnlockIcon size={12} />
             <span>Lossless PNG Decoder</span>
           </span>
-          <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[11px] font-mono text-zinc-400">
+          <span className="px-2.5 py-1 rounded bg-[var(--bg-inset)] border border-[var(--border-subtle)] text-[11px] font-mono text-[var(--text-secondary)]">
             Strict MAC Tag Verify
           </span>
         </div>
@@ -154,16 +149,16 @@ export default function RevealMessage() {
       {/* Main Workspace Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         {/* Left Column: Image Stage (7 cols) */}
-        <div className="lg:col-span-7 space-y-4">
-          <div className="glass-panel p-4 bg-[#0f1118]/85 border-white/10">
+        <div className="lg:col-span-7 space-y-4 min-w-0">
+          <div className="glass-panel p-4 border-[var(--border-subtle)]">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-mono font-semibold uppercase text-zinc-300 flex items-center gap-2">
-                <CrosshairIcon size={14} className="text-[#34d399]" />
+              <span className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
+                <CrosshairIcon size={14} className="text-[var(--accent-jade)]" />
                 1. Encoded PNG Vessel
               </span>
               {image && (
-                <span className="text-[11px] font-mono text-[#34d399] flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
+                <span className="text-[11px] font-mono text-[var(--accent-jade-text)] flex items-center gap-1 font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-jade)]" />
                   PNG VERIFIED
                 </span>
               )}
@@ -186,10 +181,10 @@ export default function RevealMessage() {
             )}
           </div>
 
-          {/* Extraction Strategy Pill */}
-          <div className="glass-panel p-4 bg-[#0f1118]/85 border-white/10 space-y-2.5">
-            <span className="text-xs font-mono font-semibold uppercase text-zinc-300 flex items-center gap-2">
-              <Layers size={14} className="text-[#34d399]" />
+          {/* Extraction Strategy Selector */}
+          <div className="glass-panel p-4 border-[var(--border-subtle)] space-y-2.5">
+            <span className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
+              <Layers size={14} className="text-[var(--accent-jade)]" />
               Extraction Mode
             </span>
 
@@ -199,12 +194,12 @@ export default function RevealMessage() {
                 onClick={() => setMode("auto")}
                 className={`p-2.5 rounded-lg border text-left transition-all ${
                   mode === "auto"
-                    ? "bg-[#10b981]/15 border-[#10b981]/60 text-white"
-                    : "bg-black/30 border-white/10 text-zinc-400 hover:text-zinc-200"
+                    ? "bg-[var(--accent-jade-bg)] border-[var(--accent-jade)] text-[var(--text-primary)] font-semibold shadow-sm"
+                    : "bg-[var(--bg-inset)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-medium)]"
                 }`}
               >
                 <div className="text-xs font-mono font-bold">Auto-Detect</div>
-                <div className="text-[10px] text-zinc-500 mt-0.5">Scattered + Sequential</div>
+                <div className="text-[10px] text-[var(--text-muted)] mt-0.5 truncate">Scattered + Sequential</div>
               </button>
 
               <button
@@ -212,12 +207,12 @@ export default function RevealMessage() {
                 onClick={() => setMode("scattered")}
                 className={`p-2.5 rounded-lg border text-left transition-all ${
                   mode === "scattered"
-                    ? "bg-[#10b981]/15 border-[#10b981]/60 text-white"
-                    : "bg-black/30 border-white/10 text-zinc-400 hover:text-zinc-200"
+                    ? "bg-[var(--accent-jade-bg)] border-[var(--accent-jade)] text-[var(--text-primary)] font-semibold shadow-sm"
+                    : "bg-[var(--bg-inset)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-medium)]"
                 }`}
               >
                 <div className="text-xs font-mono font-bold">Key-Seeded</div>
-                <div className="text-[10px] text-zinc-500 mt-0.5">PRNG Pixel Walk</div>
+                <div className="text-[10px] text-[var(--text-muted)] mt-0.5 truncate">PRNG Pixel Walk</div>
               </button>
 
               <button
@@ -225,30 +220,30 @@ export default function RevealMessage() {
                 onClick={() => setMode("basic")}
                 className={`p-2.5 rounded-lg border text-left transition-all ${
                   mode === "basic"
-                    ? "bg-[#10b981]/15 border-[#10b981]/60 text-white"
-                    : "bg-black/30 border-white/10 text-zinc-400 hover:text-zinc-200"
+                    ? "bg-[var(--accent-jade-bg)] border-[var(--accent-jade)] text-[var(--text-primary)] font-semibold shadow-sm"
+                    : "bg-[var(--bg-inset)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-medium)]"
                 }`}
               >
                 <div className="text-xs font-mono font-bold">Sequential</div>
-                <div className="text-[10px] text-zinc-500 mt-0.5">Contiguous LSB</div>
+                <div className="text-[10px] text-[var(--text-muted)] mt-0.5 truncate">Contiguous LSB</div>
               </button>
             </div>
           </div>
 
           {/* Zero-Leakage Assurance Notice */}
-          <div className="p-3.5 rounded-xl bg-[#101814]/70 border border-[#10b981]/20 flex items-start gap-3">
-            <ShieldIcon size={16} className="text-[#10b981] shrink-0 mt-0.5" />
-            <div className="text-xs text-zinc-300 leading-relaxed">
-              <strong className="text-white font-semibold">Zero-Leakage Guarantee:</strong> Plaintext data is never written to disk or surfaced in memory unless the Poly1305 MAC tag matches the ciphertext perfectly. Wrong passwords produce no output.
+          <div className="p-3.5 rounded-xl bg-[var(--accent-jade-bg)] border border-[var(--accent-jade-border)] flex items-start gap-3">
+            <ShieldIcon size={16} className="text-[var(--accent-jade)] shrink-0 mt-0.5" />
+            <div className="text-xs text-[var(--text-primary)] leading-relaxed">
+              <strong className="font-semibold">Zero-Leakage Guarantee:</strong> Plaintext data is never written to disk or surfaced in memory unless the Poly1305 MAC tag matches the ciphertext perfectly. Wrong passwords produce no output.
             </div>
           </div>
         </div>
 
         {/* Right Column: Passphrase & Actions (5 cols) */}
-        <div className="lg:col-span-5 space-y-4">
-          <div className="glass-panel p-4 bg-[#0f1118]/85 border-white/10 space-y-3">
-            <span className="text-xs font-mono font-semibold uppercase text-zinc-300 flex items-center gap-2">
-              <KeyIcon size={14} className="text-[#34d399]" />
+        <div className="lg:col-span-5 space-y-4 min-w-0">
+          <div className="glass-panel p-4 border-[var(--border-subtle)] space-y-3">
+            <span className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
+              <KeyIcon size={14} className="text-[var(--accent-jade)]" />
               2. Decryption Passphrase
             </span>
 
@@ -278,13 +273,13 @@ export default function RevealMessage() {
                 type="button"
                 disabled={!isFormValid || status === "processing"}
                 onClick={handleStartReveal}
-                className={`w-full py-3 px-4 rounded-xl font-mono text-xs font-bold tracking-wider uppercase transition-all duration-200 flex items-center justify-center gap-2 shadow-2xl ${
+                className={`w-full py-3 px-4 rounded-xl font-mono text-xs font-bold tracking-wider uppercase transition-all duration-200 flex items-center justify-center gap-2 shadow-sm ${
                   isFormValid && status !== "processing"
-                    ? "bg-[#10b981] hover:bg-[#34d399] text-black shadow-[0_0_20px_rgba(16,185,129,0.3)] active:scale-[0.99] cursor-pointer"
-                    : "bg-white/5 border border-white/5 text-zinc-600 cursor-not-allowed"
+                    ? "bg-[var(--accent-jade)] hover:bg-[var(--accent-jade-hover)] text-white dark:text-black shadow-md active:scale-[0.99] cursor-pointer"
+                    : "bg-[var(--bg-inset)] border border-[var(--border-subtle)] text-[var(--text-muted)] cursor-not-allowed"
                 }`}
               >
-                <UnlockIcon size={16} />
+                <UnlockIcon size={15} />
                 <span>
                   {status === "processing"
                     ? "Decrypting Payload..."
@@ -293,12 +288,12 @@ export default function RevealMessage() {
               </button>
 
               {!image && (
-                <p className="text-[11px] font-mono text-center text-zinc-500">
+                <p className="text-[11px] font-mono text-center text-[var(--text-muted)]">
                   Select an encoded PNG image to begin extraction.
                 </p>
               )}
               {image && password.length === 0 && (
-                <p className="text-[11px] font-mono text-center text-zinc-500">
+                <p className="text-[11px] font-mono text-center text-[var(--text-muted)]">
                   Enter the passphrase used during message embedding.
                 </p>
               )}

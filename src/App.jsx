@@ -5,25 +5,18 @@ import RevealMessage from "./pages/RevealMessage";
 import Steganalysis from "./pages/Steganalysis";
 import History from "./pages/History";
 import TechSecurity from "./pages/TechSecurity";
+import ThemeSwitcher from "./components/ThemeSwitcher";
+import WindowControls from "./components/WindowControls";
 import {
   ShieldIcon,
-  LockIcon,
-  UnlockIcon,
-  ActivityIcon,
-  HistoryIcon,
-  HomeIcon,
-  CpuIcon,
-  Layers,
-  CrosshairIcon,
   Lock,
   Unlock,
   Activity,
   History as HistIcon,
   Home as HmIcon,
-  ShieldAlert,
   ShieldCheck,
-  Clock,
-  Terminal
+  Terminal,
+  ActivityIcon
 } from "./components/Icons";
 import { api } from "./services/api";
 
@@ -40,7 +33,6 @@ export default function App() {
   useEffect(() => {
     api.getAppInfo().then(setAppInfo).catch(() => {});
 
-    // Clock update
     const updateTime = () => {
       const now = new Date();
       setCurrentTime(
@@ -61,36 +53,36 @@ export default function App() {
     { id: "tech", label: "Technology & Security", icon: ShieldCheck, shortcut: "06" }
   ];
 
+  const currentNav = navItems.find((n) => n.id === activeTab) || navItems[0];
+
   return (
-    <div className="flex h-screen w-screen bg-[#07080b] text-[#f2f2ef] overflow-hidden select-none font-sans">
+    <div className="flex h-screen w-screen bg-[var(--bg-app)] text-[var(--text-primary)] overflow-hidden select-none font-sans">
       {/* PERSISTENT TACTICAL LEFT NAVIGATION RAIL */}
-      <aside className="w-16 md:w-64 bg-[#0c0d12] border-r border-white/5 flex flex-col justify-between shrink-0 z-30 transition-all duration-200">
-        {/* Brand Header */}
-        <div>
+      <aside className="w-16 md:w-60 bg-[var(--bg-sidebar)] border-r border-[var(--border-subtle)] flex flex-col justify-between shrink-0 z-30 transition-all duration-200 overflow-hidden">
+        {/* Brand Header & Nav Area */}
+        <div className="flex flex-col min-h-0 flex-1 overflow-hidden">
           <div
             onClick={() => setActiveTab("home")}
-            className="h-16 px-4 flex items-center gap-3 border-b border-white/5 cursor-pointer hover:bg-white/[0.02] transition-colors"
+            className="h-14 px-3.5 flex items-center gap-3 border-b border-[var(--border-subtle)] cursor-pointer hover:bg-[var(--bg-surface-hover)] transition-colors app-no-drag shrink-0"
           >
-            {/* Hexagonal Tactical Brand Glyph */}
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#c5a059] to-[#7f6428] p-[1px] shadow-lg shrink-0 flex items-center justify-center">
-              <div className="w-full h-full bg-[#0d0e14] rounded-xl flex items-center justify-center text-[#e5be6b]">
-                <ShieldIcon size={18} />
-              </div>
+            {/* Tactical Brand Glyph */}
+            <div className="w-8 h-8 rounded-lg bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] shrink-0 flex items-center justify-center text-[var(--accent-brass)] shadow-sm">
+              <ShieldIcon size={18} />
             </div>
 
             <div className="hidden md:flex flex-col min-w-0">
-              <span className="text-xs font-mono font-bold tracking-widest text-zinc-100 uppercase truncate">
+              <span className="text-xs font-mono font-bold tracking-widest text-[var(--text-primary)] uppercase truncate">
                 ABHEDYA
               </span>
-              <span className="text-[10px] font-mono tracking-wider text-[#c5a059] uppercase truncate">
+              <span className="text-[9px] font-mono tracking-wider text-[var(--accent-brass)] uppercase truncate">
                 VISHANTI CIPHER
               </span>
             </div>
           </div>
 
           {/* Navigation Item Stack */}
-          <nav className="p-2 md:p-3 space-y-1.5" aria-label="Main Navigation">
-            <div className="hidden md:block px-2.5 py-1 text-[9px] font-mono uppercase tracking-widest text-zinc-600 font-semibold">
+          <nav className="p-2 md:p-2.5 space-y-1 overflow-y-auto flex-1" aria-label="Main Navigation">
+            <div className="hidden md:block px-2.5 py-1 text-[9px] font-mono uppercase tracking-widest text-[var(--text-dim)] font-semibold">
               WORKSPACES
             </div>
 
@@ -103,26 +95,26 @@ export default function App() {
                   type="button"
                   onClick={() => setActiveTab(item.id)}
                   title={item.label}
-                  className={`w-full group relative flex items-center gap-3 px-2.5 py-2.5 rounded-xl text-xs font-mono transition-all duration-150 ${
+                  className={`w-full group relative flex items-center gap-3 px-2.5 py-2 rounded-xl text-xs font-mono transition-all duration-150 app-no-drag ${
                     isActive
-                      ? "bg-[#181a24] text-white shadow-[0_4px_20px_-2px_rgba(0,0,0,0.5)] border border-white/10"
-                      : "text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.03]"
+                      ? "bg-[var(--bg-surface-elevated)] text-[var(--text-primary)] shadow-sm border border-[var(--border-medium)]"
+                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)]"
                   }`}
                 >
                   {/* Active Indicator Bar */}
                   {isActive && (
-                    <div className="absolute left-0 top-2 bottom-2 w-1 rounded-r bg-[#c5a059] shadow-[0_0_10px_rgba(197,160,89,0.8)]" />
+                    <div className="absolute left-0 top-2 bottom-2 w-1 rounded-r bg-[var(--accent-brass)]" />
                   )}
 
-                  <div className={`shrink-0 transition-colors ${isActive ? "text-[#c5a059]" : "group-hover:text-zinc-200"}`}>
-                    <Icon size={18} />
+                  <div className={`shrink-0 transition-colors ${isActive ? "text-[var(--accent-brass)]" : "text-[var(--text-muted)] group-hover:text-[var(--text-primary)]"}`}>
+                    <Icon size={16} />
                   </div>
 
                   <span className="hidden md:inline truncate font-medium text-[12px] tracking-wide">
                     {item.label}
                   </span>
 
-                  <span className={`hidden md:inline ml-auto text-[9px] font-mono ${isActive ? "text-[#c5a059]/70" : "text-zinc-600 group-hover:text-zinc-400"}`}>
+                  <span className={`hidden md:inline ml-auto text-[9px] font-mono ${isActive ? "text-[var(--accent-brass)]" : "text-[var(--text-dim)] group-hover:text-[var(--text-muted)]"}`}>
                     {item.shortcut}
                   </span>
                 </button>
@@ -132,72 +124,86 @@ export default function App() {
         </div>
 
         {/* Sidebar Footer Telemetry */}
-        <div className="p-3 border-t border-white/5 bg-[#090a0f] space-y-2">
+        <div className="p-3 border-t border-[var(--border-subtle)] bg-[var(--bg-inset)] space-y-1.5 shrink-0">
           <div className="hidden md:flex items-center justify-between text-[11px] font-mono">
-            <span className="text-zinc-500 uppercase tracking-wider text-[10px]">
+            <span className="text-[var(--text-muted)] uppercase tracking-wider text-[10px]">
               Engine Posture
             </span>
-            <span className="flex items-center gap-1.5 text-[#34d399] font-medium text-[10px]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] indicator-pulse" />
+            <span className="flex items-center gap-1.5 text-[var(--accent-jade)] font-medium text-[10px]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-jade)] indicator-pulse" />
               AIRGAPPED
             </span>
           </div>
 
-          <div className="hidden md:flex items-center justify-between text-[10px] font-mono text-zinc-500 pt-1 border-t border-white/5">
-            <span>Core v{appInfo.version}</span>
-            <span>{appInfo.isElectron ? "Electron Shell" : "Web Preview"}</span>
+          <div className="hidden md:flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)] pt-1 border-t border-[var(--border-subtle)]">
+            <span>v{appInfo.version}</span>
+            <span>{appInfo.isElectron ? "Electron" : "Web Preview"}</span>
           </div>
 
           {/* Minimalist Mobile/Narrow Rail Dot */}
           <div className="md:hidden flex justify-center py-1">
-            <span className="w-2 h-2 rounded-full bg-[#10b981] indicator-pulse" title="Hardware Isolated" />
+            <span className="w-2 h-2 rounded-full bg-[var(--accent-jade)] indicator-pulse" title="Hardware Isolated" />
           </div>
         </div>
       </aside>
 
       {/* RIGHT MAIN CONTROL SURFACE WORKSPACE */}
-      <div className="flex-1 flex flex-col h-full min-w-0 bg-[#090a0d] relative overflow-hidden">
-        {/* TOP STATUS & TELEMETRY HEADER */}
-        <header className="h-16 px-6 border-b border-white/5 bg-[#0d0e14]/90 backdrop-blur-md flex items-center justify-between shrink-0 z-20">
+      <div className="flex-1 flex flex-col h-full min-w-0 bg-[var(--bg-app)] relative overflow-hidden">
+        {/* TOP STATUS & TELEMETRY HEADER / TITLEBAR */}
+        <header className="h-14 px-4 sm:px-6 border-b border-[var(--border-subtle)] bg-[var(--bg-header)] backdrop-blur-md flex items-center justify-between shrink-0 z-20 app-drag-region">
           {/* Breadcrumb Module Locator */}
-          <div className="flex items-center gap-3">
-            <span className="text-[11px] font-mono text-zinc-500 tracking-widest uppercase">
-              ABHEDYA // CONSOLE
+          <div className="flex items-center gap-2.5 min-w-0 app-no-drag">
+            <span className="text-[10px] font-mono text-[var(--text-muted)] tracking-widest uppercase hidden sm:inline">
+              ABHEDYA
             </span>
-            <span className="text-zinc-700">/</span>
-            <span className="text-xs font-mono font-bold text-zinc-200 tracking-wider uppercase">
-              {navItems.find((n) => n.id === activeTab)?.label}
+            <span className="text-[var(--border-strong)] hidden sm:inline">/</span>
+            <span className="text-xs font-mono font-bold text-[var(--text-primary)] tracking-wider uppercase truncate">
+              {currentNav.label}
             </span>
           </div>
 
-          {/* Live System Telemetry Status Badges */}
-          <div className="flex items-center gap-3 font-mono text-xs">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-lg bg-black/40 border border-white/5 text-[11px] text-zinc-400">
-              <span className="text-zinc-600">CIPHER:</span>
-              <span className="text-zinc-200 font-semibold">XCHACHA20-POLY1305</span>
+          {/* Right Header Controls: Status Badges, Theme Switcher, Clock, Window Controls */}
+          <div className="flex items-center gap-2 sm:gap-3 font-mono text-xs app-no-drag">
+            {/* Technical Badges */}
+            <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[var(--bg-inset)] border border-[var(--border-subtle)] text-[10px] text-[var(--text-secondary)]">
+              <span className="text-[var(--text-muted)]">CIPHER:</span>
+              <span className="text-[var(--text-primary)] font-semibold">XCHACHA20-POLY1305</span>
             </div>
 
-            <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-lg bg-black/40 border border-white/5 text-[11px] text-zinc-400">
-              <span className="text-zinc-600">FORMAT:</span>
-              <span className="text-[#e5be6b] font-semibold">LOSSLESS PNG</span>
+            <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[var(--bg-inset)] border border-[var(--border-subtle)] text-[10px] text-[var(--text-secondary)]">
+              <span className="text-[var(--text-muted)]">FORMAT:</span>
+              <span className="text-[var(--accent-brass)] font-semibold">LOSSLESS PNG</span>
             </div>
 
+            {/* Live Clock */}
             {currentTime && (
-              <div className="px-3 py-1 rounded-lg bg-black/40 border border-white/5 text-[11px] font-mono text-zinc-300">
+              <div className="hidden md:inline px-2.5 py-1 rounded-md bg-[var(--bg-inset)] border border-[var(--border-subtle)] text-[11px] text-[var(--text-secondary)]">
                 {currentTime}
+              </div>
+            )}
+
+            {/* Theme Switcher */}
+            <ThemeSwitcher />
+
+            {/* Desktop Window Controls */}
+            {(api.isElectron || appInfo.isElectron) && (
+              <div className="pl-1 border-l border-[var(--border-subtle)]">
+                <WindowControls />
               </div>
             )}
           </div>
         </header>
 
         {/* WORKSPACE VIEWPORT */}
-        <main className="flex-1 p-5 md:p-6 overflow-hidden relative">
-          {activeTab === "home" && <Home onNavigate={(tab) => setActiveTab(tab)} />}
-          {activeTab === "hide" && <HideMessage />}
-          {activeTab === "reveal" && <RevealMessage />}
-          {activeTab === "stego" && <Steganalysis />}
-          {activeTab === "history" && <History />}
-          {activeTab === "tech" && <TechSecurity />}
+        <main className="flex-1 p-4 md:p-6 overflow-hidden relative min-h-0 min-w-0">
+          <div className="h-full w-full max-w-7xl mx-auto overflow-hidden">
+            {activeTab === "home" && <Home onNavigate={(tab) => setActiveTab(tab)} />}
+            {activeTab === "hide" && <HideMessage />}
+            {activeTab === "reveal" && <RevealMessage />}
+            {activeTab === "stego" && <Steganalysis />}
+            {activeTab === "history" && <History />}
+            {activeTab === "tech" && <TechSecurity />}
+          </div>
         </main>
       </div>
     </div>
