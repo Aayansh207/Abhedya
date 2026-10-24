@@ -4,12 +4,22 @@ import ImagePreview from "../components/ImagePreview";
 import PasswordInput from "../components/PasswordInput";
 import OperationStatus from "../components/OperationStatus";
 import { api } from "../services/api";
-import { UnlockIcon, ShieldIcon, AlertCircleIcon } from "../components/Icons";
+import { historyStore } from "../services/history";
+import {
+  UnlockIcon,
+  ShieldIcon,
+  AlertCircleIcon,
+  CrosshairIcon,
+  Layers,
+  KeyIcon,
+  CheckCircle2,
+  LockIcon
+} from "../components/Icons";
 
 export default function RevealMessage() {
   const [image, setImage] = useState(null);
   const [password, setPassword] = useState("");
-  const [mode, setMode] = useState("standard"); // 'standard' | 'scattered'
+  const [mode, setMode] = useState("auto"); // 'auto' | 'scattered' | 'basic'
 
   const [status, setStatus] = useState("idle"); // 'idle' | 'processing' | 'success' | 'error'
   const [statusPhase, setStatusPhase] = useState("");
@@ -50,13 +60,13 @@ export default function RevealMessage() {
     if (!isFormValid) return;
 
     setStatus("processing");
-    setStatusPhase("Inspecting pixel bitstreams and extracting header...");
+    setStatusPhase("Inspecting discrete pixel bitstreams and extracting header payload...");
     setErrorMessage("");
     setRevealResult(null);
 
     try {
       setTimeout(() => {
-        setStatusPhase("Deriving keys and verifying authenticated decryption tag...");
+        setStatusPhase("Deriving keys and verifying Poly1305 authentication MAC tag...");
       }, 400);
 
       const result = await api.revealMessage({
@@ -68,13 +78,33 @@ export default function RevealMessage() {
       if (result.success && result.message) {
         setRevealResult(result);
         setStatus("success");
+
+        // Record in local history store
+        historyStore.addEntry({
+          type: "decode",
+          fileName: image.fileName || "encoded.png",
+          fileSize: image.fileSize,
+          dimensions: { width: image.width, height: image.height },
+          mode: result.mode || mode,
+          payloadBytes: result.message.length,
+          status: "success"
+        });
       } else {
         setStatus("error");
-        // Always display the generic failure message required by security rules
         setErrorMessage(
           result.error ||
             "Decryption failed. The password may be incorrect, or the image does not contain a valid encrypted payload."
         );
+
+        historyStore.addEntry({
+          type: "decode",
+          fileName: image.fileName || "encoded.png",
+          fileSize: image.fileSize,
+          dimensions: { width: image.width, height: image.height },
+          mode,
+          payloadBytes: 0,
+          status: "error"
+        });
       }
     } catch (_err) {
       setStatus("error");
@@ -92,121 +122,185 @@ export default function RevealMessage() {
   };
 
   return (
-    <div className="page-container workflow-page">
-      <div className="workflow-header">
+    <div className="h-full flex flex-col gap-5 overflow-y-auto pr-1">
+      {/* Workspace Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-3">
         <div>
-          <span className="eyebrow">DECODE WORKFLOW</span>
-          <h2 className="page-title">Reveal a Hidden Message</h2>
-          <p className="page-desc">
-            Recover and decrypt secret payload data from an encoded lossless PNG image.
-          </p>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#34d399]">
+              WORKSPACE // 02
+            </span>
+            <span className="text-zinc-600">/</span>
+            <span className="text-[10px] font-mono uppercase text-zinc-400">
+              PAYLOAD EXTRACTION
+            </span>
+          </div>
+          <h2 className="text-lg font-bold text-white tracking-tight mt-0.5">
+            Extract Hidden Message
+          </h2>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span className="px-2.5 py-1 rounded bg-[#10b981]/10 border border-[#10b981]/25 text-[11px] font-mono text-[#34d399] flex items-center gap-1.5">
+            <UnlockIcon size={12} />
+            <span>Lossless PNG Decoder</span>
+          </span>
+          <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[11px] font-mono text-zinc-400">
+            Strict MAC Tag Verify
+          </span>
         </div>
       </div>
 
-      <div className="workflow-grid">
-        {/* Left Column: Encoded PNG Selection */}
-        <div className="workflow-col">
-          <div className="panel-card">
-            <h3 className="panel-title">1. Encoded PNG Image</h3>
+      {/* Main Workspace Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        {/* Left Column: Image Stage (7 cols) */}
+        <div className="lg:col-span-7 space-y-4">
+          <div className="glass-panel p-4 bg-[#0f1118]/85 border-white/10">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-mono font-semibold uppercase text-zinc-300 flex items-center gap-2">
+                <CrosshairIcon size={14} className="text-[#34d399]" />
+                1. Encoded PNG Vessel
+              </span>
+              {image && (
+                <span className="text-[11px] font-mono text-[#34d399] flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
+                  PNG VERIFIED
+                </span>
+              )}
+            </div>
+
             {!image ? (
               <ImageUploader
                 onSelect={handleSelectImage}
                 requirePng={true}
-                label="Select Encoded PNG"
+                label="Select Encoded PNG Image"
+                sublabel="Select the lossless PNG containing the concealed encrypted payload"
               />
             ) : (
               <ImagePreview
                 image={image}
                 onClear={handleClearImage}
                 onChange={handleSelectImage}
+                title="Target Encoded Image"
               />
             )}
           </div>
 
-          <div className="panel-card mt-4">
-            <h3 className="panel-title">Extraction Mode</h3>
-            <div className="radio-pill-group">
-              <label className={`radio-pill ${mode === "standard" ? "active" : ""}`}>
-                <input
-                  type="radio"
-                  name="reveal-mode"
-                  value="standard"
-                  checked={mode === "standard"}
-                  onChange={(e) => setMode(e.target.value)}
-                />
-                <div>
-                  <strong>Standard Sequential</strong>
-                  <span className="pill-sub">Default contiguous bit extraction</span>
-                </div>
-              </label>
+          {/* Extraction Strategy Pill */}
+          <div className="glass-panel p-4 bg-[#0f1118]/85 border-white/10 space-y-2.5">
+            <span className="text-xs font-mono font-semibold uppercase text-zinc-300 flex items-center gap-2">
+              <Layers size={14} className="text-[#34d399]" />
+              Extraction Mode
+            </span>
 
-              <label className={`radio-pill ${mode === "scattered" ? "active" : ""}`}>
-                <input
-                  type="radio"
-                  name="reveal-mode"
-                  value="scattered"
-                  checked={mode === "scattered"}
-                  onChange={(e) => setMode(e.target.value)}
-                />
-                <div>
-                  <strong>Key-Seeded Scattering</strong>
-                  <span className="pill-sub">Password-derived pseudo-random walk</span>
-                </div>
-              </label>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                type="button"
+                onClick={() => setMode("auto")}
+                className={`p-2.5 rounded-lg border text-left transition-all ${
+                  mode === "auto"
+                    ? "bg-[#10b981]/15 border-[#10b981]/60 text-white"
+                    : "bg-black/30 border-white/10 text-zinc-400 hover:text-zinc-200"
+                }`}
+              >
+                <div className="text-xs font-mono font-bold">Auto-Detect</div>
+                <div className="text-[10px] text-zinc-500 mt-0.5">Scattered + Sequential</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setMode("scattered")}
+                className={`p-2.5 rounded-lg border text-left transition-all ${
+                  mode === "scattered"
+                    ? "bg-[#10b981]/15 border-[#10b981]/60 text-white"
+                    : "bg-black/30 border-white/10 text-zinc-400 hover:text-zinc-200"
+                }`}
+              >
+                <div className="text-xs font-mono font-bold">Key-Seeded</div>
+                <div className="text-[10px] text-zinc-500 mt-0.5">PRNG Pixel Walk</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setMode("basic")}
+                className={`p-2.5 rounded-lg border text-left transition-all ${
+                  mode === "basic"
+                    ? "bg-[#10b981]/15 border-[#10b981]/60 text-white"
+                    : "bg-black/30 border-white/10 text-zinc-400 hover:text-zinc-200"
+                }`}
+              >
+                <div className="text-xs font-mono font-bold">Sequential</div>
+                <div className="text-[10px] text-zinc-500 mt-0.5">Contiguous LSB</div>
+              </button>
             </div>
           </div>
 
-          <div className="info-callout mt-4">
-            <ShieldIcon size={18} />
-            <div className="callout-text">
-              <strong>Zero-Leakage Assurance:</strong> Decrypted plaintexts are only surfaced in memory when the cryptographic authentication tag matches the ciphertext perfectly.
+          {/* Zero-Leakage Assurance Notice */}
+          <div className="p-3.5 rounded-xl bg-[#101814]/70 border border-[#10b981]/20 flex items-start gap-3">
+            <ShieldIcon size={16} className="text-[#10b981] shrink-0 mt-0.5" />
+            <div className="text-xs text-zinc-300 leading-relaxed">
+              <strong className="text-white font-semibold">Zero-Leakage Guarantee:</strong> Plaintext data is never written to disk or surfaced in memory unless the Poly1305 MAC tag matches the ciphertext perfectly. Wrong passwords produce no output.
             </div>
           </div>
         </div>
 
-        {/* Right Column: Password & Action */}
-        <div className="workflow-col">
-          <div className="panel-card">
-            <h3 className="panel-title">2. Decryption Password</h3>
+        {/* Right Column: Passphrase & Actions (5 cols) */}
+        <div className="lg:col-span-5 space-y-4">
+          <div className="glass-panel p-4 bg-[#0f1118]/85 border-white/10 space-y-3">
+            <span className="text-xs font-mono font-semibold uppercase text-zinc-300 flex items-center gap-2">
+              <KeyIcon size={14} className="text-[#34d399]" />
+              2. Decryption Passphrase
+            </span>
+
             <PasswordInput
               password={password}
               onPasswordChange={setPassword}
               showConfirmation={false}
-              label="Decryption Password"
+              label="Decryption Passphrase"
               idPrefix="reveal-pwd"
             />
           </div>
 
-          <div className="mt-4">
-            <OperationStatus
-              status={status}
-              phase={statusPhase}
-              error={errorMessage}
-              output={revealResult}
-              onReset={handleReset}
-              type="reveal"
-            />
-          </div>
+          {/* Operation Status Feedback */}
+          <OperationStatus
+            status={status}
+            phase={statusPhase}
+            error={errorMessage}
+            output={revealResult}
+            onReset={handleReset}
+            type="reveal"
+          />
 
+          {/* Primary Action Button */}
           {status !== "success" && (
-            <div className="action-button-panel mt-4">
+            <div className="space-y-2 pt-1">
               <button
                 type="button"
-                className="btn btn-primary btn-large w-full"
                 disabled={!isFormValid || status === "processing"}
                 onClick={handleStartReveal}
+                className={`w-full py-3 px-4 rounded-xl font-mono text-xs font-bold tracking-wider uppercase transition-all duration-200 flex items-center justify-center gap-2 shadow-2xl ${
+                  isFormValid && status !== "processing"
+                    ? "bg-[#10b981] hover:bg-[#34d399] text-black shadow-[0_0_20px_rgba(16,185,129,0.3)] active:scale-[0.99] cursor-pointer"
+                    : "bg-white/5 border border-white/5 text-zinc-600 cursor-not-allowed"
+                }`}
               >
-                <UnlockIcon size={18} />
+                <UnlockIcon size={16} />
                 <span>
-                  {status === "processing" ? "Extracting..." : "Extract & Decrypt Message"}
+                  {status === "processing"
+                    ? "Decrypting Payload..."
+                    : "Extract & Decrypt Message"}
                 </span>
               </button>
 
               {!image && (
-                <p className="field-hint text-center">Please select an encoded PNG image to begin.</p>
+                <p className="text-[11px] font-mono text-center text-zinc-500">
+                  Select an encoded PNG image to begin extraction.
+                </p>
               )}
               {image && password.length === 0 && (
-                <p className="field-hint text-center">Please enter the password used during encoding.</p>
+                <p className="text-[11px] font-mono text-center text-zinc-500">
+                  Enter the passphrase used during message embedding.
+                </p>
               )}
             </div>
           )}

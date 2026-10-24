@@ -9,6 +9,7 @@ const path = require("node:path");
 const { registerImageHandlers } = require("./ipc/imageHandlers.cjs");
 const { registerHideHandlers } = require("./ipc/hideHandlers.cjs");
 const { registerRevealHandlers } = require("./ipc/revealHandlers.cjs");
+const { registerAnalysisHandlers } = require("./ipc/analysisHandlers.cjs");
 
 let mainWindow = null;
 
@@ -73,6 +74,7 @@ app.whenReady().then(() => {
   registerImageHandlers(() => mainWindow);
   registerHideHandlers();
   registerRevealHandlers();
+  registerAnalysisHandlers();
 
   createWindow();
 

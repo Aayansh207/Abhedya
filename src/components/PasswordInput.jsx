@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { EyeIcon, EyeOffIcon, LockIcon, CheckIcon, AlertCircleIcon } from "./Icons";
+import { EyeIcon, EyeOffIcon, LockIcon, CheckIcon, AlertCircleIcon, KeyIcon } from "./Icons";
 
 function calculateStrength(pwd) {
-  if (!pwd) return { score: 0, label: "Empty", color: "#6b7280" };
+  if (!pwd) return { score: 0, label: "Empty", colorClass: "bg-zinc-700", textClass: "text-zinc-500" };
   let score = 0;
   if (pwd.length >= 8) score += 1;
   if (pwd.length >= 14) score += 1;
@@ -10,9 +10,9 @@ function calculateStrength(pwd) {
   if (/[0-9]/.test(pwd)) score += 1;
   if (/[^A-Za-z0-9]/.test(pwd)) score += 1;
 
-  if (score <= 1) return { score: 1, label: "Weak", color: "#ef4444" };
-  if (score <= 3) return { score: 2, label: "Moderate", color: "#f59e0b" };
-  return { score: 3, label: "Strong", color: "#10b981" };
+  if (score <= 1) return { score: 1, label: "Weak Entropy", colorClass: "bg-rose-500", textClass: "text-rose-400" };
+  if (score <= 3) return { score: 2, label: "Moderate Entropy", colorClass: "bg-amber-500", textClass: "text-amber-400" };
+  return { score: 3, label: "Cryptographically Strong", colorClass: "bg-[#10b981]", textClass: "text-[#34d399]" };
 }
 
 export default function PasswordInput({
@@ -32,84 +32,96 @@ export default function PasswordInput({
   const passwordsMismatch = showConfirmation && confirmPassword && password !== confirmPassword;
 
   return (
-    <div className="password-input-group">
-      <div className="form-field">
-        <label htmlFor={`${idPrefix}-main`} className="field-label">
-          <LockIcon size={16} />
-          <span>{label}</span>
+    <div className="space-y-4">
+      {/* Primary Password Field */}
+      <div>
+        <label htmlFor={`${idPrefix}-main`} className="flex items-center justify-between text-xs font-mono font-medium text-zinc-300 mb-1.5">
+          <div className="flex items-center gap-1.5">
+            <KeyIcon size={14} className="text-[#c5a059]" />
+            <span>{label}</span>
+          </div>
+          {password.length > 0 && (
+            <span className={`text-[11px] font-mono tracking-tight ${strength.textClass}`}>
+              {strength.label}
+            </span>
+          )}
         </label>
-        <div className="input-with-adornment">
+
+        <div className="relative">
           <input
             id={`${idPrefix}-main`}
             type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => onPasswordChange(e.target.value)}
-            placeholder="Enter strong password (min 8 chars)..."
-            className="text-input"
+            placeholder="Enter passphrase (min 8 characters)..."
+            className="w-full h-10 px-3.5 pr-10 text-xs font-mono bg-[#090b0e] border border-white/10 rounded-lg text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]/40 transition-all"
             autoComplete="new-password"
           />
           <button
             type="button"
-            className="btn-adornment"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-200 transition-colors p-1 rounded"
             onClick={() => setShowPassword(!showPassword)}
             title={showPassword ? "Hide password" : "Show password"}
           >
-            {showPassword ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+            {showPassword ? <EyeOffIcon size={15} /> : <EyeIcon size={15} />}
           </button>
         </div>
 
+        {/* Tactical 3-Segment Strength Meter */}
         {password.length > 0 && (
-          <div className="password-strength-container">
-            <div className="strength-bars">
-              <span className={`bar ${strength.score >= 1 ? "active" : ""}`} style={{ backgroundColor: strength.score >= 1 ? strength.color : undefined }} />
-              <span className={`bar ${strength.score >= 2 ? "active" : ""}`} style={{ backgroundColor: strength.score >= 2 ? strength.color : undefined }} />
-              <span className={`bar ${strength.score >= 3 ? "active" : ""}`} style={{ backgroundColor: strength.score >= 3 ? strength.color : undefined }} />
-            </div>
-            <span className="strength-label" style={{ color: strength.color }}>
-              {strength.label}
-            </span>
+          <div className="flex items-center gap-1.5 mt-2">
+            <div className={`h-1 flex-1 rounded-full transition-all duration-300 ${strength.score >= 1 ? strength.colorClass : "bg-white/10"}`} />
+            <div className={`h-1 flex-1 rounded-full transition-all duration-300 ${strength.score >= 2 ? strength.colorClass : "bg-white/10"}`} />
+            <div className={`h-1 flex-1 rounded-full transition-all duration-300 ${strength.score >= 3 ? strength.colorClass : "bg-white/10"}`} />
           </div>
         )}
       </div>
 
+      {/* Confirmation Password Field */}
       {showConfirmation && (
-        <div className="form-field mt-3">
-          <label htmlFor={`${idPrefix}-confirm`} className="field-label">
-            <CheckIcon size={16} />
-            <span>Confirm Password</span>
+        <div>
+          <label htmlFor={`${idPrefix}-confirm`} className="flex items-center justify-between text-xs font-mono font-medium text-zinc-300 mb-1.5">
+            <div className="flex items-center gap-1.5">
+              <CheckIcon size={14} className="text-[#c5a059]" />
+              <span>Confirm Password</span>
+            </div>
+            {passwordsMatch && (
+              <span className="text-[11px] font-mono text-[#34d399] flex items-center gap-1">
+                <CheckIcon size={12} /> Matches
+              </span>
+            )}
+            {passwordsMismatch && (
+              <span className="text-[11px] font-mono text-rose-400 flex items-center gap-1">
+                <AlertCircleIcon size={12} /> Mismatch
+              </span>
+            )}
           </label>
-          <div className="input-with-adornment">
+
+          <div className="relative">
             <input
               id={`${idPrefix}-confirm`}
               type={showConfirm ? "text" : "password"}
               value={confirmPassword}
               onChange={(e) => onConfirmPasswordChange(e.target.value)}
-              placeholder="Re-enter password to confirm..."
-              className={`text-input ${passwordsMismatch ? "input-error" : passwordsMatch ? "input-success" : ""}`}
+              placeholder="Re-enter password to verify..."
+              className={`w-full h-10 px-3.5 pr-10 text-xs font-mono bg-[#090b0e] border rounded-lg text-zinc-100 placeholder:text-zinc-600 focus:outline-none transition-all ${
+                passwordsMismatch
+                  ? "border-rose-500/70 focus:border-rose-500 focus:ring-1 focus:ring-rose-500/30"
+                  : passwordsMatch
+                  ? "border-[#10b981]/70 focus:border-[#10b981] focus:ring-1 focus:ring-[#10b981]/30"
+                  : "border-white/10 focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]/40"
+              }`}
               autoComplete="new-password"
             />
             <button
               type="button"
-              className="btn-adornment"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-200 transition-colors p-1 rounded"
               onClick={() => setShowConfirm(!showConfirm)}
               title={showConfirm ? "Hide password" : "Show password"}
             >
-              {showConfirm ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+              {showConfirm ? <EyeOffIcon size={15} /> : <EyeIcon size={15} />}
             </button>
           </div>
-
-          {passwordsMatch && (
-            <div className="match-status match-success">
-              <CheckIcon size={14} />
-              <span>Passwords match</span>
-            </div>
-          )}
-          {passwordsMismatch && (
-            <div className="match-status match-error">
-              <AlertCircleIcon size={14} />
-              <span>Passwords do not match</span>
-            </div>
-          )}
         </div>
       )}
     </div>

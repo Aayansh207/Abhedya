@@ -5,14 +5,25 @@ import PasswordInput from "../components/PasswordInput";
 import CapacityMeter from "../components/CapacityMeter";
 import OperationStatus from "../components/OperationStatus";
 import { api } from "../services/api";
-import { LockIcon, ShieldIcon, AlertCircleIcon } from "../components/Icons";
+import { historyStore } from "../services/history";
+import {
+  LockIcon,
+  ShieldIcon,
+  AlertCircleIcon,
+  CrosshairIcon,
+  Terminal,
+  ActivityIcon,
+  Layers,
+  KeyIcon,
+  Sparkles
+} from "../components/Icons";
 
 export default function HideMessage() {
   const [image, setImage] = useState(null);
   const [message, setMessage] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [mode, setMode] = useState("standard"); // 'standard' | 'scattered'
+  const [mode, setMode] = useState("scattered"); // 'scattered' (default) | 'standard'
 
   const [capacity, setCapacity] = useState({
     maxPayloadBytes: 0,
@@ -36,13 +47,7 @@ export default function HideMessage() {
     setErrorMessage("");
 
     try {
-      let result;
-      if (typeof directFileOrPath === "string") {
-        result = await api.selectImage();
-      } else {
-        result = await api.selectImage();
-      }
-
+      const result = await api.selectImage();
       if (result.canceled) return;
 
       if (!result.success) {
@@ -71,11 +76,11 @@ export default function HideMessage() {
         setCapacity((prev) => ({ ...prev, isLoading: false }));
       }
     } catch (_err) {
-      setErrorMessage("Error selecting image file.");
+      setErrorMessage("Error selecting carrier image file.");
     }
   };
 
-  // Re-estimate capacity if mode changes
+  // Re-estimate capacity if mode or image changes
   useEffect(() => {
     if (image?.filePath) {
       api.estimateCapacity({
@@ -104,7 +109,7 @@ export default function HideMessage() {
     setSaveError(null);
   };
 
-  // Validation before submission
+  // Form validation
   const isFormValid =
     image &&
     message.trim().length > 0 &&
@@ -116,15 +121,14 @@ export default function HideMessage() {
     if (!isFormValid) return;
 
     setStatus("processing");
-    setStatusPhase("Deriving cryptographic keys & initializing cipher...");
+    setStatusPhase("Deriving Argon2id/Scrypt key and initializing authenticated cipher...");
     setErrorMessage("");
     setSavedPath(null);
     setSaveError(null);
 
     try {
-      // Step simulation for responsive feedback
       setTimeout(() => {
-        setStatusPhase("Embedding encrypted payload into pixel channels...");
+        setStatusPhase("Walking discrete pixel channels and embedding ciphertext...");
       }, 350);
 
       const result = await api.hideMessage({
@@ -137,9 +141,20 @@ export default function HideMessage() {
       if (result.success) {
         setHideResult(result);
         setStatus("success");
+
+        // Record in local history store
+        historyStore.addEntry({
+          type: "encode",
+          fileName: image.fileName || "carrier.png",
+          fileSize: image.fileSize,
+          dimensions: { width: image.width, height: image.height },
+          mode,
+          payloadBytes: messageBytes,
+          status: "success"
+        });
       } else {
         setStatus("error");
-        setErrorMessage(result.error || "Failed to embed message into the image.");
+        setErrorMessage(result.error || "Failed to embed message into the carrier image.");
       }
     } catch (_err) {
       setStatus("error");
@@ -154,7 +169,7 @@ export default function HideMessage() {
       const suggestedName = hideResult?.suggestedName || `abhedya_secret_${Date.now()}.png`;
       let pngDataUrl = image?.previewDataUrl;
 
-      // Ensure data is converted to genuine PNG format via canvas if available
+      // In browser fallback, convert canvas to genuine PNG
       if (image?.previewDataUrl && typeof document !== "undefined") {
         try {
           const img = new Image();
@@ -172,16 +187,15 @@ export default function HideMessage() {
           const ctx = canvas.getContext("2d");
           ctx.drawImage(img, 0, 0);
           pngDataUrl = canvas.toDataURL("image/png");
-        } catch (_canvasErr) {
-          // fallback to original preview data url
-        }
+        } catch (_canvasErr) {}
       }
 
       const saveRes = await api.saveOutput({
         suggestedName,
         fileData: pngDataUrl,
         dataUrl: pngDataUrl,
-        sourcePath: image?.filePath
+        sourcePath: image?.filePath,
+        bytes: hideResult?.pngBuffer
       });
 
       if (saveRes?.canceled) return;
@@ -207,160 +221,262 @@ export default function HideMessage() {
   };
 
   return (
-    <div className="page-container workflow-page">
-      <div className="workflow-header">
+    <div className="h-full flex flex-col gap-5 overflow-y-auto pr-1">
+      {/* Workspace Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-3">
         <div>
-          <span className="eyebrow">ENCODE WORKFLOW</span>
-          <h2 className="page-title">Hide a Secret Message</h2>
-          <p className="page-desc">
-            Encrypt confidential text and embed it into carrier image pixels.
-          </p>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-[#c5a059]">
+              WORKSPACE // 01
+            </span>
+            <span className="text-zinc-600">/</span>
+            <span className="text-[10px] font-mono uppercase text-zinc-400">
+              PAYLOAD EMBEDDING
+            </span>
+          </div>
+          <h2 className="text-lg font-bold text-white tracking-tight mt-0.5">
+            Hide Secret Message
+          </h2>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span className="px-2.5 py-1 rounded bg-[#c5a059]/10 border border-[#c5a059]/25 text-[11px] font-mono text-[#e5be6b] flex items-center gap-1.5">
+            <LockIcon size={12} />
+            <span>XChaCha20-Poly1305</span>
+          </span>
+          <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[11px] font-mono text-zinc-400">
+            LSB Bitstream
+          </span>
         </div>
       </div>
 
-      <div className="workflow-grid">
-        {/* Left Column: Image Selection & Preview */}
-        <div className="workflow-col">
-          <div className="panel-card">
-            <h3 className="panel-title">1. Carrier Image</h3>
+      {/* Main Grid: Left Primary Display, Right Controls */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        {/* LEFT COLUMN: CARRIER STAGE & CAPACITY (7 cols) */}
+        <div className="lg:col-span-7 space-y-4">
+          <div className="glass-panel p-4 bg-[#0f1118]/85 border-white/10">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-mono font-semibold uppercase text-zinc-300 flex items-center gap-2">
+                <CrosshairIcon size={14} className="text-[#c5a059]" />
+                1. Carrier Imagery
+              </span>
+              {image && (
+                <span className="text-[11px] font-mono text-[#34d399] flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
+                  LOADED
+                </span>
+              )}
+            </div>
+
             {!image ? (
               <ImageUploader
                 onSelect={handleSelectImage}
                 label="Select Carrier Image"
+                sublabel="Select an uncompressed photo or graphic to act as steganographic vessel"
               />
             ) : (
               <ImagePreview
                 image={image}
                 onClear={handleClearImage}
                 onChange={() => handleSelectImage()}
+                title="Active Carrier Vessel"
               />
             )}
           </div>
 
+          {/* Embedding Strategy Selector */}
           {image && (
-            <div className="panel-card mt-4">
-              <h3 className="panel-title">Embedding Mode</h3>
-              <div className="radio-pill-group">
-                <label className={`radio-pill ${mode === "standard" ? "active" : ""}`}>
-                  <input
-                    type="radio"
-                    name="stego-mode"
-                    value="standard"
-                    checked={mode === "standard"}
-                    onChange={(e) => setMode(e.target.value)}
-                  />
-                  <div>
-                    <strong>Standard Sequential</strong>
-                    <span className="pill-sub">Linear RGB pixel least-significant bits</span>
+            <div className="glass-panel p-4 bg-[#0f1118]/85 border-white/10 space-y-3">
+              <span className="text-xs font-mono font-semibold uppercase text-zinc-300 flex items-center gap-2">
+                <Layers size={14} className="text-[#c5a059]" />
+                Embedding Strategy
+              </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <label
+                  className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                    mode === "scattered"
+                      ? "bg-[#c5a059]/10 border-[#c5a059]/60 shadow-[0_0_15px_rgba(197,160,89,0.15)]"
+                      : "bg-black/30 border-white/10 hover:border-white/20"
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-mono font-bold text-zinc-100 flex items-center gap-1.5">
+                      <input
+                        type="radio"
+                        name="stego-mode"
+                        value="scattered"
+                        checked={mode === "scattered"}
+                        onChange={(e) => setMode(e.target.value)}
+                        className="accent-[#c5a059]"
+                      />
+                      Key-Seeded Scattering
+                    </span>
+                    <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-[#c5a059]/20 text-[#e5be6b]">
+                      RECOMMENDED
+                    </span>
                   </div>
+                  <p className="text-[11px] text-zinc-400 pl-5 leading-normal">
+                    PRNG pixel walk seeded with password hash. Disrupts linear Chi-Square detection.
+                  </p>
                 </label>
 
-                <label className={`radio-pill ${mode === "scattered" ? "active" : ""}`}>
-                  <input
-                    type="radio"
-                    name="stego-mode"
-                    value="scattered"
-                    checked={mode === "scattered"}
-                    onChange={(e) => setMode(e.target.value)}
-                  />
-                  <div>
-                    <strong>Key-Seeded Scattering</strong>
-                    <span className="pill-sub">PRNG pseudo-randomized pixel walk</span>
+                <label
+                  className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                    mode === "standard"
+                      ? "bg-[#c5a059]/10 border-[#c5a059]/60 shadow-[0_0_15px_rgba(197,160,89,0.15)]"
+                      : "bg-black/30 border-white/10 hover:border-white/20"
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-mono font-bold text-zinc-100 flex items-center gap-1.5">
+                      <input
+                        type="radio"
+                        name="stego-mode"
+                        value="standard"
+                        checked={mode === "standard"}
+                        onChange={(e) => setMode(e.target.value)}
+                        className="accent-[#c5a059]"
+                      />
+                      Standard Sequential
+                    </span>
                   </div>
+                  <p className="text-[11px] text-zinc-400 pl-5 leading-normal">
+                    Contiguous RGB channel least-significant bit sequential allocation.
+                  </p>
                 </label>
               </div>
             </div>
           )}
 
+          {/* Capacity Allocation Meter */}
           {image && (
-            <div className="panel-card mt-4">
-              <CapacityMeter
-                messageBytes={messageBytes}
-                maxPayloadBytes={capacity.maxPayloadBytes}
-                overheadBytes={capacity.overheadBytes}
-                isLoading={capacity.isLoading}
-              />
-            </div>
+            <CapacityMeter
+              messageBytes={messageBytes}
+              maxPayloadBytes={capacity.maxPayloadBytes}
+              overheadBytes={capacity.overheadBytes}
+              isLoading={capacity.isLoading}
+            />
           )}
         </div>
 
-        {/* Right Column: Message & Password */}
-        <div className="workflow-col">
-          <div className="panel-card">
-            <h3 className="panel-title">2. Secret Message</h3>
-            <div className="form-field">
-              <label htmlFor="secret-message-input" className="field-label">
-                <span>Confidential Text</span>
-                <span className="byte-count">{messageBytes.toLocaleString()} bytes</span>
-              </label>
-              <textarea
-                id="secret-message-input"
-                className="text-area"
-                rows={6}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Type or paste the secret message you want to hide..."
-              />
+        {/* RIGHT COLUMN: SECRET PAYLOAD & CREDENTIALS (5 cols) */}
+        <div className="lg:col-span-5 space-y-4">
+          {/* Secret Message Input Panel */}
+          <div className="glass-panel p-4 bg-[#0f1118]/85 border-white/10 space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-semibold uppercase text-zinc-300 flex items-center gap-2">
+                <Terminal size={14} className="text-[#c5a059]" />
+                2. Secret Payload
+              </span>
+              <span className="text-[11px] font-mono text-zinc-400">
+                {messageBytes.toLocaleString()} bytes (UTF-8)
+              </span>
+            </div>
+
+            <textarea
+              id="secret-message-input"
+              rows={5}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Enter confidential plaintext to encrypt and conceal..."
+              className="w-full p-3 text-xs font-mono bg-[#090b0e] border border-white/10 rounded-lg text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059]/40 transition-all resize-y leading-relaxed"
+            />
+
+            <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500">
+              <span>Plaintext will not touch carrier pixels</span>
+              {message.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setMessage("")}
+                  className="text-zinc-400 hover:text-zinc-200 transition-colors"
+                >
+                  Clear
+                </button>
+              )}
             </div>
           </div>
 
-          <div className="panel-card mt-4">
-            <h3 className="panel-title">3. Encryption Credentials</h3>
+          {/* Encryption Credentials */}
+          <div className="glass-panel p-4 bg-[#0f1118]/85 border-white/10 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-semibold uppercase text-zinc-300 flex items-center gap-2">
+                <KeyIcon size={14} className="text-[#c5a059]" />
+                3. Encryption Passphrase
+              </span>
+              <span className="text-[10px] font-mono text-zinc-500">ARGON2ID / SCRYPT</span>
+            </div>
+
             <PasswordInput
               password={password}
               onPasswordChange={setPassword}
               confirmPassword={confirmPassword}
               onConfirmPasswordChange={setConfirmPassword}
               showConfirmation={true}
-              label="Encryption Password"
+              label="Secret Passphrase"
               idPrefix="hide-pwd"
             />
           </div>
 
-          <div className="mt-4">
-            <OperationStatus
-              status={status}
-              phase={statusPhase}
-              error={errorMessage}
-              output={hideResult}
-              onSave={handleSaveOutput}
-              onReset={handleReset}
-              type="hide"
-              savedFilePath={savedPath}
-              saveError={saveError}
-              onShowInFolder={(path) => api.showInFolder(path)}
-            />
-          </div>
+          {/* Execution & Operation Status Component */}
+          <OperationStatus
+            status={status}
+            phase={statusPhase}
+            error={errorMessage}
+            output={hideResult}
+            onSave={handleSaveOutput}
+            onReset={handleReset}
+            type="hide"
+            savedFilePath={savedPath}
+            saveError={saveError}
+            onShowInFolder={(path) => api.showInFolder(path)}
+          />
 
+          {/* Execute Primary Trigger Button */}
           {status !== "success" && (
-            <div className="action-button-panel mt-4">
+            <div className="space-y-2 pt-1">
               <button
                 type="button"
-                className="btn btn-primary btn-large w-full"
                 disabled={!isFormValid || status === "processing"}
                 onClick={handleStartHide}
+                className={`w-full py-3 px-4 rounded-xl font-mono text-xs font-bold tracking-wider uppercase transition-all duration-200 flex items-center justify-center gap-2 shadow-2xl ${
+                  isFormValid && status !== "processing"
+                    ? "bg-[#c5a059] hover:bg-[#d8b671] text-black shadow-[0_0_20px_rgba(197,160,89,0.3)] active:scale-[0.99] cursor-pointer"
+                    : "bg-white/5 border border-white/5 text-zinc-600 cursor-not-allowed"
+                }`}
               >
-                <LockIcon size={18} />
+                <LockIcon size={16} />
                 <span>
-                  {status === "processing" ? "Embedding..." : "Encrypt & Embed Message"}
+                  {status === "processing"
+                    ? "Executing Cipher Embedding..."
+                    : "Encrypt & Embed Payload"}
                 </span>
               </button>
 
+              {/* Tactical Validation Helper Tips */}
               {!image && (
-                <p className="field-hint text-center">Please select a carrier image to begin.</p>
+                <p className="text-[11px] font-mono text-center text-zinc-500">
+                  Select a carrier image above to initialize payload buffer.
+                </p>
               )}
               {image && message.trim().length === 0 && (
-                <p className="field-hint text-center">Please enter a secret message.</p>
+                <p className="text-[11px] font-mono text-center text-zinc-500">
+                  Enter your confidential secret message.
+                </p>
               )}
               {image && message.trim().length > 0 && password.length < 8 && (
-                <p className="field-hint text-center">Password must be at least 8 characters long.</p>
+                <p className="text-[11px] font-mono text-center text-amber-500/80">
+                  Passphrase must be at least 8 characters.
+                </p>
               )}
               {image && password.length >= 8 && password !== confirmPassword && (
-                <p className="field-hint text-center text-danger">Passwords do not match.</p>
+                <p className="text-[11px] font-mono text-center text-rose-400">
+                  Passphrase confirmation does not match.
+                </p>
               )}
               {image && messageBytes > capacity.maxPayloadBytes && (
-                <p className="field-hint text-center text-danger">
-                  Message exceeds image maximum payload capacity.
+                <p className="text-[11px] font-mono text-center text-rose-400">
+                  Message exceeds maximum carrier payload capacity.
                 </p>
               )}
             </div>

@@ -174,5 +174,45 @@ export const api = {
       return window.abhedya.showInFolder(filePath);
     }
     return { success: false };
+  },
+
+  /**
+   * Runs Chi-Square and RS statistical steganalysis
+   */
+  async analyzeImage(params = {}) {
+    if (isElectron && window.abhedya.analyzeImage) {
+      return window.abhedya.analyzeImage(params);
+    }
+
+    // Web preview calculation simulation
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          success: true,
+          fileName: params.imagePath?.split("/").pop() || "preview.png",
+          dimensions: { width: 1920, height: 1080 },
+          chiSquare: {
+            test: "ChiSquare",
+            suspectedEmbedding: false,
+            averagePValue: 0.1245,
+            channels: [
+              { channel: "red", chiSquare: 112.4, degreesOfFreedom: 127, pValue: 0.118, suspected: false },
+              { channel: "green", chiSquare: 118.2, degreesOfFreedom: 127, pValue: 0.134, suspected: false },
+              { channel: "blue", chiSquare: 115.8, degreesOfFreedom: 127, pValue: 0.121, suspected: false }
+            ]
+          },
+          rsAnalysis: {
+            test: "RSAnalysis",
+            suspectedEmbedding: false,
+            averageEstimatedPayloadRatio: 0.012,
+            channels: [
+              { channel: "red", regularM: 0.582, singularM: 0.418, regularMinusM: 0.581, singularMinusM: 0.419, asymmetry: 0.002, estimatedPayloadRatio: 0.008, suspected: false },
+              { channel: "green", regularM: 0.591, singularM: 0.409, regularMinusM: 0.590, singularMinusM: 0.410, asymmetry: 0.003, estimatedPayloadRatio: 0.012, suspected: false },
+              { channel: "blue", regularM: 0.579, singularM: 0.421, regularMinusM: 0.578, singularMinusM: 0.422, asymmetry: 0.002, estimatedPayloadRatio: 0.016, suspected: false }
+            ]
+          }
+        });
+      }, 600);
+    });
   }
 };
