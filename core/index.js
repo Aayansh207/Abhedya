@@ -25,12 +25,7 @@ import {
 } from "./errors.js";
 
 export {
-  estimateCapacity,
   calculateCapacity,
-  hideMessage,
-  revealMessage,
-  hideDecoyMessages,
-  revealDecoyMessage,
   embedMultipleMessages,
   extractMultipleMessage,
   analyzeChiSquare,
@@ -175,7 +170,7 @@ export async function revealMessage({
   if (mode === "auto") {
     strategies.push("scattered", "decoy", "basic");
   } else {
-    strategies.push(mode);
+    strategies.push(mode === "standard" ? "basic" : mode);
   }
 
   for (const strategy of strategies) {

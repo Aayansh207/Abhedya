@@ -114,20 +114,22 @@ function registerImageHandlers(getMainWindow) {
     }
 
     try {
-      const rawPayload = fileData || dataUrl || bytes;
+      const rawPayload = bytes || pngBuffer || fileData || dataUrl;
       let buffer = null;
 
       if (rawPayload) {
-        if (typeof rawPayload === "string" && rawPayload.startsWith("data:")) {
+        if (Buffer.isBuffer(rawPayload)) {
+          buffer = rawPayload;
+        } else if (rawPayload instanceof Uint8Array || ArrayBuffer.isView(rawPayload)) {
+          buffer = Buffer.from(rawPayload.buffer, rawPayload.byteOffset, rawPayload.byteLength);
+        } else if (Array.isArray(rawPayload)) {
+          buffer = Buffer.from(rawPayload);
+        } else if (typeof rawPayload === "string" && rawPayload.startsWith("data:")) {
           const parts = rawPayload.split(",");
           const base64Content = parts.length > 1 ? parts[1] : parts[0];
           buffer = Buffer.from(base64Content, "base64");
         } else if (typeof rawPayload === "string") {
           buffer = Buffer.from(rawPayload, "base64");
-        } else if (Buffer.isBuffer(rawPayload) || ArrayBuffer.isView(rawPayload)) {
-          buffer = Buffer.from(rawPayload);
-        } else if (Array.isArray(rawPayload)) {
-          buffer = Buffer.from(rawPayload);
         }
       }
 

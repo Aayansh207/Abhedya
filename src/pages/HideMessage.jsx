@@ -44,8 +44,10 @@ export default function HideMessage() {
     setErrorMessage("");
 
     try {
-      const result = await api.selectImage();
-      if (result.canceled) return;
+      const result = directFileOrPath
+        ? await api.inspectImage(directFileOrPath)
+        : await api.selectImage();
+      if (!result || result.canceled) return;
 
       if (!result.success) {
         setErrorMessage(result.error || "Failed to validate image.");
@@ -164,35 +166,13 @@ export default function HideMessage() {
 
     try {
       const suggestedName = hideResult?.suggestedName || `abhedya_secret_${Date.now()}.png`;
-      let pngDataUrl = image?.previewDataUrl;
-
-      // In browser fallback, convert canvas to genuine PNG
-      if (image?.previewDataUrl && typeof document !== "undefined") {
-        try {
-          const img = new Image();
-          img.src = image.previewDataUrl;
-          await new Promise((res) => {
-            if (img.complete) res();
-            else {
-              img.onload = res;
-              img.onerror = res;
-            }
-          });
-          const canvas = document.createElement("canvas");
-          canvas.width = image.width || img.naturalWidth || 800;
-          canvas.height = image.height || img.naturalHeight || 600;
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(img, 0, 0);
-          pngDataUrl = canvas.toDataURL("image/png");
-        } catch (_canvasErr) {}
-      }
 
       const saveRes = await api.saveOutput({
         suggestedName,
-        fileData: pngDataUrl,
-        dataUrl: pngDataUrl,
-        sourcePath: image?.filePath,
-        bytes: hideResult?.pngBuffer
+        bytes: hideResult?.pngBuffer,
+        dataUrl: hideResult?.previewDataUrl,
+        fileData: hideResult?.previewDataUrl,
+        sourcePath: hideResult?.outputPath
       });
 
       if (saveRes?.canceled) return;

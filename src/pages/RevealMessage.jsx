@@ -23,14 +23,16 @@ export default function RevealMessage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [revealResult, setRevealResult] = useState(null);
 
-  const handleSelectImage = async () => {
+  const handleSelectImage = async (directFileOrPath) => {
     setStatus("idle");
     setErrorMessage("");
     setRevealResult(null);
 
     try {
-      const result = await api.selectImage({ requirePng: true });
-      if (result.canceled) return;
+      const result = directFileOrPath
+        ? await api.inspectImage(directFileOrPath, { requirePng: true })
+        : await api.selectImage({ requirePng: true });
+      if (!result || result.canceled) return;
 
       if (!result.success) {
         setErrorMessage(result.error || "Failed to inspect image file.");

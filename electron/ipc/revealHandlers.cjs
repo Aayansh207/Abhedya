@@ -36,7 +36,7 @@ async function getCoreModule() {
  */
 function registerRevealHandlers() {
   ipcMain.handle("stego:reveal", async (_event, params = {}) => {
-    const { imagePath, password, mode = "standard" } = params;
+    const { imagePath, password, mode = "auto" } = params;
 
     // Validate inputs
     if (!imagePath || typeof imagePath !== "string") {
@@ -53,6 +53,8 @@ function registerRevealHandlers() {
       return { success: false, error: validation.error };
     }
 
+    const coreMode = mode === "standard" ? "basic" : (mode || "auto");
+
     try {
       const core = await getCoreModule();
       if (core && typeof core.revealMessage === "function") {
@@ -60,14 +62,14 @@ function registerRevealHandlers() {
           const result = await core.revealMessage({
             imagePath: validation.details.filePath,
             password,
-            mode
+            mode: coreMode
           });
 
           if (result && typeof result.message === "string") {
             return {
               success: true,
               message: result.message,
-              mode: result.mode || mode
+              mode: result.mode || coreMode
             };
           }
           // If result does not contain a valid decrypted message, return generic error

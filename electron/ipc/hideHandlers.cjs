@@ -71,13 +71,18 @@ function registerHideHandlers() {
         try {
           const coreResult = await core.estimateCapacity({
             imagePath: validation.details.filePath,
-            mode,
-            dimensions: validation.details.dimensions
+            width: validation.details.dimensions?.width,
+            height: validation.details.dimensions?.height,
+            mode: mode === "standard" ? "basic" : mode
           });
-          if (coreResult && typeof coreResult.maxPayloadBytes === "number") {
+          const maxPayload = coreResult?.maxPlaintextBytes ?? coreResult?.maxPayloadBytes;
+          const overhead = coreResult?.payloadOverheadBytes ?? coreResult?.overheadBytes ?? 66;
+          if (coreResult && typeof maxPayload === "number") {
             return {
               success: true,
               ...coreResult,
+              maxPayloadBytes: maxPayload,
+              overheadBytes: overhead,
               width: validation.details.dimensions.width,
               height: validation.details.dimensions.height
             };
@@ -113,7 +118,7 @@ function registerHideHandlers() {
 
   // Hide message into image
   ipcMain.handle("stego:hide", async (_event, params = {}) => {
-    const { imagePath, message, password, mode = "standard" } = params;
+    const { imagePath, message, password, mode = "scattered" } = params;
 
     // Strict input validation
     if (!imagePath || typeof imagePath !== "string") {
@@ -133,6 +138,8 @@ function registerHideHandlers() {
       return { success: false, error: validation.error };
     }
 
+    const coreMode = (mode === "standard" || mode === "basic") ? "basic" : "scattered";
+
     // Capacity verification
     const messageSizeBytes = Buffer.byteLength(message, "utf8");
     const capacityInfo = fallbackCapacityEstimate(validation.details.dimensions);
@@ -151,18 +158,30 @@ function registerHideHandlers() {
             imagePath: validation.details.filePath,
             message,
             password,
-            mode
+            mode: coreMode
           });
-          return { success: true, ...result };
+
+          // Generate preview data URL of the encoded PNG
+          const previewDataUrl = result?.pngBuffer
+            ? `data:image/png;base64,${result.pngBuffer.toString("base64")}`
+            : null;
+
+          return {
+            success: true,
+            ...result,
+            pngBuffer: result.pngBuffer,
+            previewDataUrl,
+            suggestedName: `abhedya_secret_${Date.now()}.png`,
+            mode: coreMode
+          };
         } catch (coreErr) {
           if (coreErr.message && coreErr.message.includes("TODO")) {
-            // Milestone 2 Mock Response when Member 2 core is still a stub
             return {
               success: true,
               isMock: true,
               suggestedName: `abhedya_secret_${Date.now()}.png`,
               messageBytes: messageSizeBytes,
-              mode,
+              mode: coreMode,
               note: "Core steganography engine is pending Member 2 implementation."
             };
           }

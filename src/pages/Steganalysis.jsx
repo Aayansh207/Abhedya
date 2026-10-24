@@ -20,13 +20,15 @@ export default function Steganalysis() {
   const [analysisReport, setAnalysisReport] = useState(null);
   const [error, setError] = useState("");
 
-  const handleSelectImage = async () => {
+  const handleSelectImage = async (directFileOrPath) => {
     setError("");
     setAnalysisReport(null);
 
     try {
-      const result = await api.selectImage();
-      if (result.canceled) return;
+      const result = directFileOrPath
+        ? await api.inspectImage(directFileOrPath)
+        : await api.selectImage();
+      if (!result || result.canceled) return;
 
       if (!result.success) {
         setError(result.error || "Failed to select image.");

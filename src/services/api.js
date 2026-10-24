@@ -80,6 +80,58 @@ export const api = {
   },
 
   /**
+   * Inspects image from file path or File object (e.g. drag & drop)
+   * @param {string | File} filePathOrFile
+   * @param {Object} options
+   */
+  async inspectImage(filePathOrFile, options = {}) {
+    if (typeof filePathOrFile === "string" && isElectron && window.abhedya.inspectImage) {
+      return window.abhedya.inspectImage(filePathOrFile, options);
+    }
+
+    if (filePathOrFile && (filePathOrFile instanceof File || filePathOrFile.name)) {
+      const file = filePathOrFile;
+      if (options.requirePng && !file.type?.includes("png") && !file.name?.toLowerCase().endsWith(".png")) {
+        return {
+          success: false,
+          error: "The target image must be a lossless PNG file."
+        };
+      }
+
+      if (file.path && isElectron && window.abhedya.inspectImage) {
+        return window.abhedya.inspectImage(file.path, options);
+      }
+
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const img = new Image();
+          img.onload = () => {
+            resolve({
+              success: true,
+              filePath: file.path || file.name,
+              fileName: file.name,
+              fileSize: file.size,
+              format: file.name.split(".").pop()?.toLowerCase() || "png",
+              width: img.naturalWidth,
+              height: img.naturalHeight,
+              previewDataUrl: event.target.result
+            });
+          };
+          img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    if (typeof filePathOrFile === "string" && isElectron && window.abhedya.inspectImage) {
+      return window.abhedya.inspectImage(filePathOrFile, options);
+    }
+
+    return { success: false, error: "Unable to inspect selected image." };
+  },
+
+  /**
    * Calculates steganographic capacity of selected image
    */
   async estimateCapacity(params = {}) {
