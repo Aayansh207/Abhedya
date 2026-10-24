@@ -1,5 +1,8 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("node:path");
+const { registerImageHandlers } = require("./ipc/imageHandlers.cjs");
+const { registerHideHandlers } = require("./ipc/hideHandlers.cjs");
+const { registerRevealHandlers } = require("./ipc/revealHandlers.cjs");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -23,6 +26,11 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  // Register secure IPC handlers connecting core engine to renderer
+  registerImageHandlers(ipcMain);
+  registerHideHandlers(ipcMain);
+  registerRevealHandlers(ipcMain);
+
   createWindow();
 
   app.on("activate", () => {
