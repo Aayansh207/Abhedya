@@ -32,85 +32,83 @@
 
 @layer base {
   :root, .dark {
-    /* Rich Cyber Navy-Obsidian Backgrounds (No longer sickly all-green!) */
-    --bg-app: #070c14;
-    --bg-sidebar: #09101b;
-    --bg-header: rgba(9, 16, 27, 0.92);
-    --bg-surface: #0e1726;
-    --bg-surface-elevated: #132034;
-    --bg-surface-hover: #192a45;
-    --bg-surface-active: #203557;
-    --bg-inset: #05080e;
-    --bg-panel: rgba(14, 23, 38, 0.88);
+    /* Pure Dark Charcoal / Black (#0d0d0d) Foundation */
+    --bg-app: #0d0d0d;
+    --bg-sidebar: #121212;
+    --bg-header: rgba(13, 13, 13, 0.95);
+    --bg-surface: #141414;
+    --bg-surface-elevated: #1a1a1a;
+    --bg-surface-hover: #222222;
+    --bg-surface-active: #2c2c2c;
+    --bg-inset: #080808;
+    --bg-panel: rgba(18, 18, 18, 0.92);
 
-    /* Clean Borders & Dividers */
-    --border-subtle: rgba(56, 189, 248, 0.14);
-    --border-medium: rgba(0, 240, 255, 0.28);
-    --border-strong: rgba(0, 240, 255, 0.45);
-    --border-accent: rgba(0, 240, 255, 0.85);
+    /* Clean Crisp Borders in Charcoal & Vibrant Red */
+    --border-subtle: rgba(255, 255, 255, 0.12);
+    --border-medium: rgba(255, 59, 48, 0.35);
+    --border-strong: rgba(255, 59, 48, 0.65);
+    --border-accent: #ff3b30;
 
-    /* Professional Cyber Typography */
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
-    --text-dim: #334155;
+    /* Pure White (#ffffff) & High-Contrast Typography */
+    --text-primary: #ffffff;
+    --text-secondary: #d1d5db;
+    --text-muted: #888888;
+    --text-dim: #555555;
 
-    /* Primary Interactive Electric Blue / Cyan Glow (Requested by user) */
-    --accent-cyan: #00f0ff;
-    --accent-cyan-hover: #38bdf8;
-    --accent-cyan-bg: rgba(0, 240, 255, 0.12);
-    --accent-cyan-border: rgba(0, 240, 255, 0.45);
-    --accent-cyan-text: #00f0ff;
+    /* Vibrant Red (#ff3b30) as Primary Interactive Accent */
+    --accent-cyan: #ff3b30;
+    --accent-cyan-hover: #ff554a;
+    --accent-cyan-bg: rgba(255, 59, 48, 0.12);
+    --accent-cyan-border: rgba(255, 59, 48, 0.5);
+    --accent-cyan-text: #ff3b30;
 
-    /* Matrix Green (Integrity & Encoding) */
-    --accent-brass: #00ff88;
-    --accent-brass-hover: #26ff9d;
-    --accent-brass-bg: rgba(0, 255, 136, 0.1);
-    --accent-brass-border: rgba(0, 255, 136, 0.4);
-    --accent-brass-text: #00ff88;
+    /* Pure White (#ffffff) Secondary Accent */
+    --accent-brass: #ffffff;
+    --accent-brass-hover: #f3f4f6;
+    --accent-brass-bg: rgba(255, 255, 255, 0.1);
+    --accent-brass-border: rgba(255, 255, 255, 0.3);
+    --accent-brass-text: #ffffff;
 
-    --accent-jade: #00ff88;
-    --accent-jade-hover: #26ff9d;
-    --accent-jade-bg: rgba(0, 255, 136, 0.1);
-    --accent-jade-border: rgba(0, 255, 136, 0.4);
-    --accent-jade-text: #00ff88;
+    --accent-jade: #ff3b30;
+    --accent-jade-hover: #ff554a;
+    --accent-jade-bg: rgba(255, 59, 48, 0.12);
+    --accent-jade-border: rgba(255, 59, 48, 0.5);
+    --accent-jade-text: #ff3b30;
 
-    /* Hazard Red / Crimson (Fold, Errors, Anomalies) */
-    --accent-crimson: #ff2a55;
-    --accent-crimson-hover: #ff476d;
-    --accent-crimson-bg: rgba(255, 42, 85, 0.12);
-    --accent-crimson-border: rgba(255, 42, 85, 0.45);
-    --accent-crimson-text: #ff5779;
+    /* Vibrant Red Alert & Emphasis */
+    --accent-crimson: #ff3b30;
+    --accent-crimson-hover: #ff554a;
+    --accent-crimson-bg: rgba(255, 59, 48, 0.15);
+    --accent-crimson-border: rgba(255, 59, 48, 0.6);
+    --accent-crimson-text: #ff3b30;
 
-    /* Cyber Gold / Amber (Warnings, Trophies) */
-    --accent-amber: #ffb703;
-    --accent-amber-hover: #ffc42e;
-    --accent-amber-bg: rgba(255, 183, 3, 0.12);
-    --accent-amber-border: rgba(255, 183, 3, 0.45);
-    --accent-amber-text: #ffc233;
+    --accent-amber: #ff3b30;
+    --accent-amber-hover: #ff554a;
+    --accent-amber-bg: rgba(255, 59, 48, 0.12);
+    --accent-amber-border: rgba(255, 59, 48, 0.5);
+    --accent-amber-text: #ff3b30;
 
-    /* Cyber Violet / Indigo (Deep Cryptography) */
-    --accent-purple: #8b5cf6;
-    --accent-purple-bg: rgba(139, 92, 246, 0.12);
-    --accent-purple-border: rgba(139, 92, 246, 0.45);
-    --accent-purple-text: #a78bfa;
+    --accent-purple: #ffffff;
+    --accent-purple-bg: rgba(255, 255, 255, 0.08);
+    --accent-purple-border: rgba(255, 255, 255, 0.25);
+    --accent-purple-text: #ffffff;
 
-    /* Shadows & Cyber Glows */
-    --shadow-card: 0 8px 30px -4px rgba(0, 0, 0, 0.75), 0 0 15px rgba(0, 240, 255, 0.05);
-    --shadow-elevated: 0 16px 40px -8px rgba(0, 0, 0, 0.88), 0 0 20px rgba(0, 240, 255, 0.1);
-    --shadow-neon-blue: 0 0 18px rgba(0, 240, 255, 0.4), inset 0 0 10px rgba(0, 240, 255, 0.12);
-    --shadow-neon-green: 0 0 18px rgba(0, 255, 136, 0.35);
-    --shadow-neon-red: 0 0 18px rgba(255, 42, 85, 0.4);
+    /* Shadows & Vibrant Red Neon Glows */
+    --shadow-card: 0 8px 30px -4px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 59, 48, 0.08);
+    --shadow-elevated: 0 16px 40px -8px rgba(0, 0, 0, 0.95), 0 0 20px rgba(255, 59, 48, 0.15);
+    --shadow-neon-blue: 0 0 18px rgba(255, 59, 48, 0.45), inset 0 0 10px rgba(255, 59, 48, 0.15);
+    --shadow-neon-green: 0 0 18px rgba(255, 255, 255, 0.35);
+    --shadow-neon-red: 0 0 22px rgba(255, 59, 48, 0.6);
     --glass-blur: 16px;
 
-    /* Scrollbars */
-    --scrollbar-thumb: rgba(0, 240, 255, 0.25);
-    --scrollbar-thumb-hover: #00f0ff;
-    --scrollbar-track: rgba(5, 10, 18, 0.7);
+    /* Scrollbars in Red */
+    --scrollbar-thumb: rgba(255, 59, 48, 0.35);
+    --scrollbar-thumb-hover: #ff3b30;
+    --scrollbar-track: rgba(13, 13, 13, 0.9);
 
-    /* Ambient Subtle Grid */
-    --canvas-grid-color: rgba(0, 240, 255, 0.04);
-    --ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(0, 240, 255, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+    /* Ambient Subtle Grid & Radial Glow */
+    --canvas-grid-color: rgba(255, 59, 48, 0.04);
+    --ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(255, 59, 48, 0.12) 0%, rgba(13, 13, 13, 0) 70%);
   }
 
   .light {
@@ -320,56 +318,80 @@
   text-shadow: 0 0 10px rgba(255, 42, 85, 0.65), 0 0 20px rgba(255, 42, 85, 0.3);
 }
 
-/* Universal Electric Blue Hover Glow Effect */
+/* Universal Vibrant Red Hover Glow Effect */
 .cyber-hover-blue {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cyber-hover-blue:hover {
-  border-color: #00f0ff !important;
-  box-shadow: 0 0 18px rgba(0, 240, 255, 0.35), inset 0 0 10px rgba(0, 240, 255, 0.1) !important;
-  color: #f8fafc;
+  border-color: #ff3b30 !important;
+  box-shadow: 0 0 20px rgba(255, 59, 48, 0.45), inset 0 0 10px rgba(255, 59, 48, 0.15) !important;
+  color: #ffffff;
 }
 
 /* ========================================================
    FUTURISTIC INFOGRAPHIC CAPSULE & ORB UTILITIES
-   (Reference: Luxury Infographic Template color-coded to Blue & Green)
+   (Palette: Dark Charcoal #0d0d0d, Pure White #ffffff, Vibrant Red #ff3b30)
    ======================================================== */
 
 .infographic-capsule {
-  background: linear-gradient(180deg, rgba(14, 23, 38, 0.94) 0%, rgba(7, 12, 20, 0.98) 100%);
-  border: 1.5px solid rgba(0, 240, 255, 0.35);
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0.96) 0%, rgba(13, 13, 13, 0.99) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
   border-radius: 9999px;
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.8), 0 0 14px rgba(0, 240, 255, 0.08);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.9), 0 0 12px rgba(255, 59, 48, 0.08);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
 }
 
 .infographic-capsule:hover {
-  border-color: #00f0ff;
-  box-shadow: 0 0 24px rgba(0, 240, 255, 0.45), 0 0 12px rgba(0, 255, 136, 0.25), inset 0 0 14px rgba(0, 240, 255, 0.15);
+  border-color: #ff3b30;
+  box-shadow: 0 0 24px rgba(255, 59, 48, 0.45), inset 0 0 14px rgba(255, 59, 48, 0.15);
   transform: translateY(-2px);
 }
 
 .infographic-node-disc {
-  background: linear-gradient(135deg, #00f0ff 0%, #00ff88 100%);
-  box-shadow: 0 0 18px rgba(0, 240, 255, 0.65), 0 0 8px rgba(0, 255, 136, 0.45), inset 0 0 4px rgba(255, 255, 255, 0.6);
+  background: #ff3b30;
+  box-shadow: 0 0 18px rgba(255, 59, 48, 0.7), inset 0 0 4px rgba(255, 255, 255, 0.6);
 }
 
 .infographic-orb-outer {
-  background: radial-gradient(circle, rgba(14, 23, 38, 0.95) 0%, rgba(7, 12, 20, 0.98) 100%);
-  border: 3px solid #00f0ff;
+  background: radial-gradient(circle, rgba(28, 10, 10, 0.98) 0%, #0d0d0d 100%);
+  border: 3.5px solid #ff3b30;
   box-shadow: 
-    0 0 50px rgba(0, 240, 255, 0.35),
-    0 0 25px rgba(0, 255, 136, 0.25),
-    inset 0 0 35px rgba(0, 240, 255, 0.2);
+    0 0 50px rgba(255, 59, 48, 0.45),
+    0 0 25px rgba(255, 59, 48, 0.35),
+    inset 0 0 35px rgba(255, 59, 48, 0.25);
+}
+
+/* User requested: Central circle in glowing crimson Red */
+.infographic-orb-red {
+  background: radial-gradient(circle, rgba(28, 10, 10, 0.98) 0%, #0d0d0d 100%);
+  border: 3.5px solid #ff3b30;
+  box-shadow: 
+    0 0 55px rgba(255, 59, 48, 0.5),
+    0 0 25px rgba(255, 59, 48, 0.35),
+    inset 0 0 35px rgba(255, 59, 48, 0.3);
+}
+
+.cyber-pixel-title,
+.cyber-pixel-title-red {
+  font-family: 'Press Start 2P', monospace;
+  letter-spacing: 0.12em;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+  text-shadow: 
+    2px 2px 0px rgba(0, 0, 0, 0.95),
+    -1px -1px 0px rgba(255, 59, 48, 0.5),
+    0 0 16px rgba(255, 59, 48, 0.75);
 }
 
 .carbon-mesh-bg {
+  background-color: #0d0d0d;
   background-image: 
-    radial-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 0),
-    radial-gradient(rgba(0, 255, 136, 0.04) 1px, transparent 0);
+    radial-gradient(rgba(255, 59, 48, 0.08) 1px, transparent 0),
+    radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
   background-size: 20px 20px, 40px 40px;
   background-position: 0 0, 10px 10px;
 }
