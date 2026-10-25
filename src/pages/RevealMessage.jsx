@@ -192,7 +192,7 @@ export default function RevealMessage() {
                 className={`p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
                   mode === "auto"
                     ? "bg-[var(--accent-brass-bg)] border-[var(--accent-brass)] text-[var(--text-primary)] font-bold shadow-[0_0_10px_rgba(0,255,136,0.15)]"
-                    : "bg-[var(--bg-inset)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-medium)]"
+                    : "bg-[var(--bg-inset)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--accent-cyan)] hover:border-[var(--accent-cyan)] hover:shadow-[0_0_12px_rgba(0,240,255,0.25)]"
                 }`}
               >
                 <div className="text-xs font-hud font-bold uppercase">Auto-Detect</div>
@@ -205,7 +205,7 @@ export default function RevealMessage() {
                 className={`p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
                   mode === "scattered"
                     ? "bg-[var(--accent-brass-bg)] border-[var(--accent-brass)] text-[var(--text-primary)] font-bold shadow-[0_0_10px_rgba(0,255,136,0.15)]"
-                    : "bg-[var(--bg-inset)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-medium)]"
+                    : "bg-[var(--bg-inset)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--accent-cyan)] hover:border-[var(--accent-cyan)] hover:shadow-[0_0_12px_rgba(0,240,255,0.25)]"
                 }`}
               >
                 <div className="text-xs font-hud font-bold uppercase">Key-Seeded</div>
@@ -218,7 +218,7 @@ export default function RevealMessage() {
                 className={`p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
                   mode === "basic"
                     ? "bg-[var(--accent-brass-bg)] border-[var(--accent-brass)] text-[var(--text-primary)] font-bold shadow-[0_0_10px_rgba(0,255,136,0.15)]"
-                    : "bg-[var(--bg-inset)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-medium)]"
+                    : "bg-[var(--bg-inset)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--accent-cyan)] hover:border-[var(--accent-cyan)] hover:shadow-[0_0_12px_rgba(0,240,255,0.25)]"
                 }`}
               >
                 <div className="text-xs font-hud font-bold uppercase">Sequential</div>

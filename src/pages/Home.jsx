@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
+import AbhedyaLogo from "../components/AbhedyaLogo";
 import {
   LockIcon,
   UnlockIcon,
   ActivityIcon,
   HistoryIcon,
   ShieldCheck,
-  ChevronRight,
-  ShieldIcon
+  ChevronRight
 } from "../components/Icons";
 import { api } from "../services/api";
 
@@ -18,32 +18,30 @@ export default function Home({ onNavigate }) {
   }, []);
 
   return (
-    <div className="h-full flex flex-col justify-center max-w-5xl mx-auto px-4 py-6 overflow-y-auto min-h-0 min-w-0">
-      {/* Sleek, Clean Cyber Hero (No fake cluttered stats) */}
-      <div className="text-center space-y-3 mb-8 shrink-0">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--bg-inset)] border border-[var(--border-subtle)] shadow-sm">
+    <div className="h-full flex flex-col justify-center max-w-5xl mx-auto px-4 py-4 sm:py-6 overflow-y-auto min-h-0 min-w-0">
+      {/* Sleek, Pixel-Art Cyber Hero */}
+      <div className="text-center space-y-3.5 mb-7 shrink-0">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--bg-inset)] border border-[var(--border-medium)] shadow-sm">
           <span className="w-2 h-2 rounded-full bg-[var(--accent-brass)] indicator-pulse" />
-          <span className="text-xs font-mono-technical font-medium text-[var(--accent-brass)]">
+          <span className="text-xs font-mono-technical font-medium text-[var(--accent-cyan)] tracking-wider">
             AIRGAPPED & LOCAL · v{appInfo.version}
           </span>
         </div>
 
-        <div className="flex items-center justify-center gap-3">
-          <div className="w-10 h-10 cyber-hex bg-[var(--bg-inset)] border border-[var(--accent-brass)] flex items-center justify-center text-[var(--accent-brass)] shadow-[0_0_12px_rgba(0,255,136,0.3)]">
-            <ShieldIcon size={20} />
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold tracking-widest text-[var(--text-primary)] uppercase cyber-text-glow">
+        {/* Central Logo & Pixelated Heading */}
+        <div className="flex flex-col items-center justify-center gap-3">
+          <AbhedyaLogo size={56} />
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-pixel cyber-pixel-title text-[var(--accent-cyan)] uppercase select-none">
             ABHEDYA
           </h1>
         </div>
 
-        <p className="text-xs sm:text-sm font-hud text-[var(--text-secondary)] max-w-lg mx-auto leading-relaxed">
-          Authenticated symmetric cryptography meets spatial image steganography.
-          Conceal and recover confidential payloads with zero cloud exposure.
+        <p className="text-sm sm:text-base font-terminal text-[var(--text-secondary)] max-w-xl mx-auto tracking-wide leading-relaxed">
+          THE VISHANTI CIPHER // AUTHENTICATED SYMMETRIC CRYPTOGRAPHY MEETS SPATIAL IMAGE STEGANOGRAPHY.
         </p>
       </div>
 
-      {/* Primary Workspaces: Hide & Extract (Matching Reference Game Cards) */}
+      {/* Primary Workspaces: Hide & Extract (With Electric Blue Hover Glow Effect) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
         {/* HIDE A MESSAGE */}
         <div
@@ -51,9 +49,8 @@ export default function Home({ onNavigate }) {
           role="button"
           tabIndex={0}
           onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onNavigate("hide")}
-          className="group relative p-6 sm:p-7 rounded-xl glass-panel border border-[var(--border-medium)] hover:border-[var(--accent-brass)] bg-gradient-to-b from-[var(--bg-surface-elevated)] to-[var(--bg-surface)] transition-all duration-200 cursor-pointer shadow-lg hover:shadow-[0_0_24px_rgba(0,255,136,0.2)] flex flex-col justify-between"
+          className="group relative p-6 sm:p-7 rounded-xl glass-panel border border-[var(--border-medium)] cyber-hover-blue bg-gradient-to-b from-[var(--bg-surface-elevated)] to-[var(--bg-surface)] cursor-pointer shadow-lg flex flex-col justify-between"
         >
-          {/* Subtle Corner Markers */}
           <div className="corner-bracket-tl" />
           <div className="corner-bracket-tr" />
           <div className="corner-bracket-bl" />
@@ -61,27 +58,27 @@ export default function Home({ onNavigate }) {
 
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <div className="w-12 h-12 cyber-hex bg-[var(--bg-inset)] border border-[var(--accent-brass)] flex items-center justify-center text-[var(--accent-brass)] group-hover:scale-105 transition-transform duration-200 shadow-[0_0_12px_rgba(0,255,136,0.25)]">
+              <div className="w-12 h-12 cyber-hex bg-[var(--bg-inset)] border border-[var(--accent-brass)] flex items-center justify-center text-[var(--accent-brass)] group-hover:border-[var(--accent-cyan)] group-hover:text-[var(--accent-cyan)] group-hover:scale-105 transition-all duration-200 shadow-[0_0_12px_rgba(0,255,136,0.2)] group-hover:shadow-[0_0_15px_rgba(0,240,255,0.4)]">
                 <LockIcon size={22} />
               </div>
 
-              <span className="text-[10px] font-mono-technical font-bold px-2 py-0.5 rounded bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] border border-[var(--accent-brass-border)] uppercase tracking-wider">
-                WORKSPACE // 01
+              <span className="text-[9px] font-pixel px-2 py-1 rounded bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] border border-[var(--accent-brass-border)] uppercase tracking-wider group-hover:bg-[var(--accent-cyan-bg)] group-hover:text-[var(--accent-cyan)] group-hover:border-[var(--accent-cyan-border)] transition-colors">
+                WS // 01
               </span>
             </div>
 
             <div className="space-y-1.5">
-              <h2 className="text-base sm:text-lg font-display font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-brass)] transition-colors uppercase tracking-wider">
-                Hide a Message
+              <h2 className="text-sm sm:text-base font-pixel font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors uppercase tracking-wider">
+                Hide Message
               </h2>
-              <p className="text-xs font-hud text-[var(--text-secondary)] leading-relaxed">
-                Encrypt sensitive text using authenticated ciphers and embed it imperceptibly inside any carrier image with key-seeded pixel scattering.
+              <p className="text-xs font-mono-technical text-[var(--text-secondary)] leading-relaxed">
+                Encrypt confidential plaintext with authenticated ciphers and conceal it imperceptibly inside lossless carrier pixels using key-seeded PRNG scattering.
               </p>
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs font-mono-technical font-bold text-[var(--accent-brass)] uppercase tracking-wider">
-            <span>OPEN ENCODER</span>
+          <div className="mt-6 pt-4 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs font-mono-technical font-bold text-[var(--accent-brass)] group-hover:text-[var(--accent-cyan)] uppercase tracking-wider transition-colors">
+            <span>[ INITIATE ENCODER ]</span>
             <span className="group-hover:translate-x-1.5 transition-transform duration-200">→</span>
           </div>
         </div>
@@ -92,9 +89,8 @@ export default function Home({ onNavigate }) {
           role="button"
           tabIndex={0}
           onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onNavigate("reveal")}
-          className="group relative p-6 sm:p-7 rounded-xl glass-panel border border-[var(--border-medium)] hover:border-[var(--accent-brass)] bg-gradient-to-b from-[var(--bg-surface-elevated)] to-[var(--bg-surface)] transition-all duration-200 cursor-pointer shadow-lg hover:shadow-[0_0_24px_rgba(0,255,136,0.2)] flex flex-col justify-between"
+          className="group relative p-6 sm:p-7 rounded-xl glass-panel border border-[var(--border-medium)] cyber-hover-blue bg-gradient-to-b from-[var(--bg-surface-elevated)] to-[var(--bg-surface)] cursor-pointer shadow-lg flex flex-col justify-between"
         >
-          {/* Subtle Corner Markers */}
           <div className="corner-bracket-tl" />
           <div className="corner-bracket-tr" />
           <div className="corner-bracket-bl" />
@@ -102,57 +98,63 @@ export default function Home({ onNavigate }) {
 
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <div className="w-12 h-12 cyber-hex bg-[var(--bg-inset)] border border-[var(--accent-brass)] flex items-center justify-center text-[var(--accent-brass)] group-hover:scale-105 transition-transform duration-200 shadow-[0_0_12px_rgba(0,255,136,0.25)]">
+              <div className="w-12 h-12 cyber-hex bg-[var(--bg-inset)] border border-[var(--accent-cyan)] flex items-center justify-center text-[var(--accent-cyan)] group-hover:scale-105 transition-all duration-200 shadow-[0_0_12px_rgba(0,240,255,0.25)] group-hover:shadow-[0_0_18px_rgba(0,240,255,0.45)]">
                 <UnlockIcon size={22} />
               </div>
 
-              <span className="text-[10px] font-mono-technical font-bold px-2 py-0.5 rounded bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] border border-[var(--accent-brass-border)] uppercase tracking-wider">
-                WORKSPACE // 02
+              <span className="text-[9px] font-pixel px-2 py-1 rounded bg-[var(--accent-cyan-bg)] text-[var(--accent-cyan)] border border-[var(--accent-cyan-border)] uppercase tracking-wider">
+                WS // 02
               </span>
             </div>
 
             <div className="space-y-1.5">
-              <h2 className="text-base sm:text-lg font-display font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-brass)] transition-colors uppercase tracking-wider">
-                Extract a Message
+              <h2 className="text-sm sm:text-base font-pixel font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors uppercase tracking-wider">
+                Extract Message
               </h2>
-              <p className="text-xs font-hud text-[var(--text-secondary)] leading-relaxed">
-                Provide an encoded PNG image along with your passphrase to authenticate the ciphertext and recover your original message.
+              <p className="text-xs font-mono-technical text-[var(--text-secondary)] leading-relaxed">
+                Provide an encoded PNG image along with your passphrase to authenticate the Poly1305 MAC tag and recover the original plaintext.
               </p>
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs font-mono-technical font-bold text-[var(--accent-brass)] uppercase tracking-wider">
-            <span>OPEN DECODER</span>
+          <div className="mt-6 pt-4 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs font-mono-technical font-bold text-[var(--accent-cyan)] uppercase tracking-wider">
+            <span>[ INITIATE DECODER ]</span>
             <span className="group-hover:translate-x-1.5 transition-transform duration-200">→</span>
           </div>
         </div>
       </div>
 
-      {/* Secondary Features: Steganalysis, History, Security */}
+      {/* Secondary Features: Steganalysis (Heart), History, Security */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-        {/* Steganalysis */}
+        {/* Steganalysis - HIGHLIGHTED AS CORE */}
         <div
           onClick={() => onNavigate("stego")}
           role="button"
           tabIndex={0}
           onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onNavigate("stego")}
-          className="group p-4 rounded-xl glass-panel border border-[var(--border-subtle)] hover:border-[var(--accent-brass)] hover:bg-[var(--bg-surface-hover)] transition-all duration-200 cursor-pointer shadow-sm flex flex-col justify-between"
+          className="group p-4 rounded-xl glass-panel border border-[var(--accent-amber-border)] cyber-hover-blue cursor-pointer shadow-sm flex flex-col justify-between"
         >
           <div className="space-y-2.5">
-            <div className="w-8 h-8 cyber-hex bg-[var(--bg-inset)] border border-[var(--border-medium)] flex items-center justify-center text-[var(--text-secondary)] group-hover:text-[var(--accent-brass)] group-hover:border-[var(--accent-brass)] transition-colors">
-              <ActivityIcon size={16} />
+            <div className="flex items-center justify-between">
+              <div className="w-8 h-8 cyber-hex bg-[var(--bg-inset)] border border-[var(--accent-amber)] flex items-center justify-center text-[var(--accent-amber)] group-hover:text-[var(--accent-cyan)] group-hover:border-[var(--accent-cyan)] transition-colors">
+                <ActivityIcon size={16} />
+              </div>
+              <span className="text-[8px] font-pixel px-1.5 py-0.5 rounded bg-[var(--accent-amber-bg)] text-[var(--accent-amber-text)] border border-[var(--accent-amber-border)]">
+                CORE
+              </span>
             </div>
+
             <div>
-              <h3 className="text-xs font-display font-bold uppercase text-[var(--text-primary)] group-hover:text-[var(--accent-brass)] transition-colors tracking-wider">
+              <h3 className="text-xs font-pixel font-bold uppercase text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors tracking-wide">
                 Steganalysis
               </h3>
-              <p className="text-xs font-hud text-[var(--text-secondary)] mt-1 leading-relaxed">
-                Test images for statistical anomalies using Chi-Square and RS detection.
+              <p className="text-xs font-mono-technical text-[var(--text-secondary)] mt-1 leading-relaxed">
+                Chi-Square PoV equalization & RS dual-mask statistical forensic scanner.
               </p>
             </div>
           </div>
-          <div className="mt-4 flex items-center gap-1 text-[11px] font-mono-technical font-semibold text-[var(--text-muted)] group-hover:text-[var(--accent-brass)] transition-colors">
-            <span>INSPECT</span>
+          <div className="mt-3.5 flex items-center justify-between text-[11px] font-mono-technical font-bold text-[var(--accent-amber)] group-hover:text-[var(--accent-cyan)] transition-colors">
+            <span>OPEN LAB</span>
             <ChevronRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
           </div>
         </div>
@@ -163,23 +165,23 @@ export default function Home({ onNavigate }) {
           role="button"
           tabIndex={0}
           onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onNavigate("history")}
-          className="group p-4 rounded-xl glass-panel border border-[var(--border-subtle)] hover:border-[var(--accent-brass)] hover:bg-[var(--bg-surface-hover)] transition-all duration-200 cursor-pointer shadow-sm flex flex-col justify-between"
+          className="group p-4 rounded-xl glass-panel border border-[var(--border-subtle)] cyber-hover-blue cursor-pointer shadow-sm flex flex-col justify-between"
         >
           <div className="space-y-2.5">
-            <div className="w-8 h-8 cyber-hex bg-[var(--bg-inset)] border border-[var(--border-medium)] flex items-center justify-center text-[var(--text-secondary)] group-hover:text-[var(--accent-brass)] group-hover:border-[var(--accent-brass)] transition-colors">
+            <div className="w-8 h-8 cyber-hex bg-[var(--bg-inset)] border border-[var(--accent-purple-border)] flex items-center justify-center text-[var(--accent-purple-text)] group-hover:text-[var(--accent-cyan)] group-hover:border-[var(--accent-cyan)] transition-colors">
               <HistoryIcon size={16} />
             </div>
             <div>
-              <h3 className="text-xs font-display font-bold uppercase text-[var(--text-primary)] group-hover:text-[var(--accent-brass)] transition-colors tracking-wider">
+              <h3 className="text-xs font-pixel font-bold uppercase text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors tracking-wide">
                 Audit History
               </h3>
-              <p className="text-xs font-hud text-[var(--text-secondary)] mt-1 leading-relaxed">
-                Inspect local operation logs from your current application session.
+              <p className="text-xs font-mono-technical text-[var(--text-secondary)] mt-1 leading-relaxed">
+                Inspect local operation logs and cryptographic execution history.
               </p>
             </div>
           </div>
-          <div className="mt-4 flex items-center gap-1 text-[11px] font-mono-technical font-semibold text-[var(--text-muted)] group-hover:text-[var(--accent-brass)] transition-colors">
-            <span>VIEW LOG</span>
+          <div className="mt-3.5 flex items-center justify-between text-[11px] font-mono-technical font-semibold text-[var(--text-muted)] group-hover:text-[var(--accent-cyan)] transition-colors">
+            <span>VIEW LOGS</span>
             <ChevronRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
           </div>
         </div>
@@ -190,22 +192,22 @@ export default function Home({ onNavigate }) {
           role="button"
           tabIndex={0}
           onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onNavigate("tech")}
-          className="group p-4 rounded-xl glass-panel border border-[var(--border-subtle)] hover:border-[var(--accent-brass)] hover:bg-[var(--bg-surface-hover)] transition-all duration-200 cursor-pointer shadow-sm flex flex-col justify-between"
+          className="group p-4 rounded-xl glass-panel border border-[var(--border-subtle)] cyber-hover-blue cursor-pointer shadow-sm flex flex-col justify-between"
         >
           <div className="space-y-2.5">
-            <div className="w-8 h-8 cyber-hex bg-[var(--bg-inset)] border border-[var(--border-medium)] flex items-center justify-center text-[var(--text-secondary)] group-hover:text-[var(--accent-brass)] group-hover:border-[var(--accent-brass)] transition-colors">
+            <div className="w-8 h-8 cyber-hex bg-[var(--bg-inset)] border border-[var(--border-medium)] flex items-center justify-center text-[var(--accent-cyan)] group-hover:text-[var(--accent-cyan)] group-hover:border-[var(--accent-cyan)] transition-colors">
               <ShieldCheck size={16} />
             </div>
             <div>
-              <h3 className="text-xs font-display font-bold uppercase text-[var(--text-primary)] group-hover:text-[var(--accent-brass)] transition-colors tracking-wider">
+              <h3 className="text-xs font-pixel font-bold uppercase text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors tracking-wide">
                 Security Guide
               </h3>
-              <p className="text-xs font-hud text-[var(--text-secondary)] mt-1 leading-relaxed">
-                Explore the technical architecture, AEAD ciphers, and security proofs.
+              <p className="text-xs font-mono-technical text-[var(--text-secondary)] mt-1 leading-relaxed">
+                Explore AEAD architecture, Argon2id KDF, and cryptographic proofs.
               </p>
             </div>
           </div>
-          <div className="mt-4 flex items-center gap-1 text-[11px] font-mono-technical font-semibold text-[var(--text-muted)] group-hover:text-[var(--accent-brass)] transition-colors">
+          <div className="mt-3.5 flex items-center justify-between text-[11px] font-mono-technical font-semibold text-[var(--text-muted)] group-hover:text-[var(--accent-cyan)] transition-colors">
             <span>EXPLORE</span>
             <ChevronRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
           </div>

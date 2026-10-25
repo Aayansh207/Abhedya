@@ -263,7 +263,7 @@ export default function HideMessage() {
                   className={`p-3 rounded-lg border cursor-pointer transition-all ${
                     mode === "scattered"
                       ? "bg-[var(--accent-brass-bg)] border-[var(--accent-brass)] shadow-[0_0_10px_rgba(0,255,136,0.15)]"
-                      : "bg-[var(--bg-inset)] border-[var(--border-subtle)] hover:border-[var(--border-medium)]"
+                      : "bg-[var(--bg-inset)] border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[0_0_12px_rgba(0,240,255,0.25)]"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">
@@ -291,7 +291,7 @@ export default function HideMessage() {
                   className={`p-3 rounded-lg border cursor-pointer transition-all ${
                     mode === "standard"
                       ? "bg-[var(--accent-brass-bg)] border-[var(--accent-brass)] shadow-[0_0_10px_rgba(0,255,136,0.15)]"
-                      : "bg-[var(--bg-inset)] border-[var(--border-subtle)] hover:border-[var(--border-medium)]"
+                      : "bg-[var(--bg-inset)] border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[0_0_12px_rgba(0,240,255,0.25)]"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">

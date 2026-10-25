@@ -1,114 +1,157 @@
 @import "tailwindcss";
 
+/* ========================================================
+   LOCAL OFFLINE / AIR-GAPPED FONT BUNDLE
+   ======================================================== */
+@font-face {
+  font-family: 'Press Start 2P';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/Press_Start_2P.woff2') format('woff2'),
+       url('https://fonts.gstatic.com/s/pressstart2p/v16/e3t4euO8T-267oIAQAu6jDQyK3nVivM.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'VT323';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/VT323.woff2') format('woff2'),
+       url('https://fonts.gstatic.com/s/vt323/v18/pxiKyp0ihIEF2isfFJU.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Share Tech Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/Share_Tech_Mono.woff2') format('woff2'),
+       url('https://fonts.gstatic.com/s/sharetechmono/v16/J7aHnp1uDWRBEqV98dVQztYldFcLowEF.woff2') format('woff2');
+}
+
 @layer base {
   :root, .dark {
-    /* Cyber Matrix Obsidian Backgrounds */
-    --bg-app: #040906;
-    --bg-sidebar: #06110a;
-    --bg-header: rgba(6, 17, 10, 0.92);
-    --bg-surface: #0a1b11;
-    --bg-surface-elevated: #0f281a;
-    --bg-surface-hover: #143523;
-    --bg-surface-active: #1a422d;
-    --bg-inset: #030805;
-    --bg-panel: rgba(10, 27, 17, 0.85);
+    /* Rich Cyber Navy-Obsidian Backgrounds (No longer sickly all-green!) */
+    --bg-app: #070c14;
+    --bg-sidebar: #09101b;
+    --bg-header: rgba(9, 16, 27, 0.92);
+    --bg-surface: #0e1726;
+    --bg-surface-elevated: #132034;
+    --bg-surface-hover: #192a45;
+    --bg-surface-active: #203557;
+    --bg-inset: #05080e;
+    --bg-panel: rgba(14, 23, 38, 0.88);
 
-    /* Cyber Neon Green Borders & Dividers */
-    --border-subtle: rgba(0, 255, 136, 0.15);
-    --border-medium: rgba(0, 255, 136, 0.28);
-    --border-strong: rgba(0, 255, 136, 0.5);
-    --border-accent: rgba(0, 255, 136, 0.85);
+    /* Clean Borders & Dividers */
+    --border-subtle: rgba(56, 189, 248, 0.14);
+    --border-medium: rgba(0, 240, 255, 0.28);
+    --border-strong: rgba(0, 240, 255, 0.45);
+    --border-accent: rgba(0, 240, 255, 0.85);
 
-    /* Cyber Typography */
-    --text-primary: #ecfdf5;
-    --text-secondary: #86bfa0;
-    --text-muted: #49795e;
-    --text-dim: #2a4c39;
+    /* Professional Cyber Typography */
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --text-dim: #334155;
 
-    /* Primary Brand: Intense Cyber Neon Emerald */
+    /* Primary Interactive Electric Blue / Cyan Glow (Requested by user) */
+    --accent-cyan: #00f0ff;
+    --accent-cyan-hover: #38bdf8;
+    --accent-cyan-bg: rgba(0, 240, 255, 0.12);
+    --accent-cyan-border: rgba(0, 240, 255, 0.45);
+    --accent-cyan-text: #00f0ff;
+
+    /* Matrix Green (Integrity & Encoding) */
     --accent-brass: #00ff88;
     --accent-brass-hover: #26ff9d;
     --accent-brass-bg: rgba(0, 255, 136, 0.1);
-    --accent-brass-border: rgba(0, 255, 136, 0.45);
+    --accent-brass-border: rgba(0, 255, 136, 0.4);
     --accent-brass-text: #00ff88;
 
-    /* Jade / Verification: Vibrant Matrix Green */
     --accent-jade: #00ff88;
     --accent-jade-hover: #26ff9d;
     --accent-jade-bg: rgba(0, 255, 136, 0.1);
-    --accent-jade-border: rgba(0, 255, 136, 0.45);
+    --accent-jade-border: rgba(0, 255, 136, 0.4);
     --accent-jade-text: #00ff88;
 
-    /* Crimson / Fold / Danger */
+    /* Hazard Red / Crimson (Fold, Errors, Anomalies) */
     --accent-crimson: #ff2a55;
     --accent-crimson-hover: #ff476d;
     --accent-crimson-bg: rgba(255, 42, 85, 0.12);
     --accent-crimson-border: rgba(255, 42, 85, 0.45);
     --accent-crimson-text: #ff5779;
 
-    /* Amber / Cyber Gold */
+    /* Cyber Gold / Amber (Warnings, Trophies) */
     --accent-amber: #ffb703;
     --accent-amber-hover: #ffc42e;
     --accent-amber-bg: rgba(255, 183, 3, 0.12);
     --accent-amber-border: rgba(255, 183, 3, 0.45);
     --accent-amber-text: #ffc233;
 
-    /* Cyber Cyan */
-    --accent-cyan: #00f0ff;
-    --accent-cyan-bg: rgba(0, 240, 255, 0.1);
-    --accent-cyan-border: rgba(0, 240, 255, 0.4);
-    --accent-cyan-text: #00f0ff;
+    /* Cyber Violet / Indigo (Deep Cryptography) */
+    --accent-purple: #8b5cf6;
+    --accent-purple-bg: rgba(139, 92, 246, 0.12);
+    --accent-purple-border: rgba(139, 92, 246, 0.45);
+    --accent-purple-text: #a78bfa;
 
-    /* Cyber Glows & Shadows */
-    --shadow-card: 0 8px 30px -4px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 255, 136, 0.05);
-    --shadow-elevated: 0 16px 40px -8px rgba(0, 0, 0, 0.85), 0 0 20px rgba(0, 255, 136, 0.12);
-    --shadow-neon-green: 0 0 16px rgba(0, 255, 136, 0.35);
-    --shadow-neon-red: 0 0 16px rgba(255, 42, 85, 0.4);
+    /* Shadows & Cyber Glows */
+    --shadow-card: 0 8px 30px -4px rgba(0, 0, 0, 0.75), 0 0 15px rgba(0, 240, 255, 0.05);
+    --shadow-elevated: 0 16px 40px -8px rgba(0, 0, 0, 0.88), 0 0 20px rgba(0, 240, 255, 0.1);
+    --shadow-neon-blue: 0 0 18px rgba(0, 240, 255, 0.4), inset 0 0 10px rgba(0, 240, 255, 0.12);
+    --shadow-neon-green: 0 0 18px rgba(0, 255, 136, 0.35);
+    --shadow-neon-red: 0 0 18px rgba(255, 42, 85, 0.4);
     --glass-blur: 16px;
 
-    /* Cyber Scrollbars */
-    --scrollbar-thumb: rgba(0, 255, 136, 0.25);
-    --scrollbar-thumb-hover: #00ff88;
-    --scrollbar-track: rgba(0, 10, 6, 0.5);
+    /* Scrollbars */
+    --scrollbar-thumb: rgba(0, 240, 255, 0.25);
+    --scrollbar-thumb-hover: #00f0ff;
+    --scrollbar-track: rgba(5, 10, 18, 0.7);
 
-    /* Canvas Grid */
-    --canvas-grid-color: rgba(0, 255, 136, 0.05);
-    --ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(0, 255, 136, 0.09) 0%, rgba(0, 0, 0, 0) 70%);
+    /* Ambient Subtle Grid */
+    --canvas-grid-color: rgba(0, 240, 255, 0.04);
+    --ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(0, 240, 255, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
   }
 
   .light {
-    /* Sleek Clean-Room White HUD */
-    --bg-app: #f2f8f4;
-    --bg-sidebar: #e5f1ea;
-    --bg-header: rgba(242, 248, 244, 0.94);
+    /* Clean-Room Cyber White HUD */
+    --bg-app: #f1f5f9;
+    --bg-sidebar: #e2e8f0;
+    --bg-header: rgba(241, 245, 249, 0.94);
     --bg-surface: #ffffff;
-    --bg-surface-elevated: #f4faf6;
-    --bg-surface-hover: #ebf5ee;
-    --bg-surface-active: #dfefe4;
-    --bg-inset: #ebf3ee;
+    --bg-surface-elevated: #f8fafc;
+    --bg-surface-hover: #e2e8f0;
+    --bg-surface-active: #cbd5e1;
+    --bg-inset: #e2e8f0;
     --bg-panel: rgba(255, 255, 255, 0.92);
 
-    --border-subtle: rgba(0, 168, 89, 0.16);
-    --border-medium: rgba(0, 168, 89, 0.28);
-    --border-strong: rgba(0, 168, 89, 0.5);
-    --border-accent: rgba(0, 168, 89, 0.8);
+    --border-subtle: rgba(14, 165, 233, 0.18);
+    --border-medium: rgba(14, 165, 233, 0.32);
+    --border-strong: rgba(14, 165, 233, 0.55);
+    --border-accent: rgba(14, 165, 233, 0.85);
 
-    --text-primary: #04190e;
-    --text-secondary: #22513a;
-    --text-muted: #4c7762;
-    --text-dim: #7d9e8d;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --text-dim: #94a3b8;
 
-    --accent-brass: #00a859;
-    --accent-brass-hover: #008f4c;
-    --accent-brass-bg: rgba(0, 168, 89, 0.1);
-    --accent-brass-border: rgba(0, 168, 89, 0.4);
-    --accent-brass-text: #007a3e;
+    --accent-cyan: #0284c7;
+    --accent-cyan-hover: #0369a1;
+    --accent-cyan-bg: rgba(2, 132, 199, 0.1);
+    --accent-cyan-border: rgba(2, 132, 199, 0.35);
+    --accent-cyan-text: #0369a1;
 
-    --accent-jade: #00a859;
-    --accent-jade-hover: #008f4c;
-    --accent-jade-bg: rgba(0, 168, 89, 0.1);
-    --accent-jade-border: rgba(0, 168, 89, 0.4);
-    --accent-jade-text: #007a3e;
+    --accent-brass: #059669;
+    --accent-brass-hover: #047857;
+    --accent-brass-bg: rgba(5, 150, 105, 0.1);
+    --accent-brass-border: rgba(5, 150, 105, 0.35);
+    --accent-brass-text: #047857;
+
+    --accent-jade: #059669;
+    --accent-jade-hover: #047857;
+    --accent-jade-bg: rgba(5, 150, 105, 0.1);
+    --accent-jade-border: rgba(5, 150, 105, 0.35);
+    --accent-jade-text: #047857;
 
     --accent-crimson: #dc2626;
     --accent-crimson-hover: #b91c1c;
@@ -122,23 +165,24 @@
     --accent-amber-border: rgba(217, 119, 6, 0.35);
     --accent-amber-text: #b45309;
 
-    --accent-cyan: #0284c7;
-    --accent-cyan-bg: rgba(2, 132, 199, 0.08);
-    --accent-cyan-border: rgba(2, 132, 199, 0.35);
-    --accent-cyan-text: #0369a1;
+    --accent-purple: #7c3aed;
+    --accent-purple-bg: rgba(124, 58, 237, 0.08);
+    --accent-purple-border: rgba(124, 58, 237, 0.35);
+    --accent-purple-text: #7c3aed;
 
-    --shadow-card: 0 4px 20px -2px rgba(0, 40, 20, 0.08);
-    --shadow-elevated: 0 12px 30px -4px rgba(0, 40, 20, 0.12);
-    --shadow-neon-green: 0 0 10px rgba(0, 168, 89, 0.2);
-    --shadow-neon-red: 0 0 10px rgba(220, 38, 38, 0.2);
+    --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+    --shadow-elevated: 0 12px 30px -4px rgba(15, 23, 42, 0.12);
+    --shadow-neon-blue: 0 0 12px rgba(14, 165, 233, 0.25);
+    --shadow-neon-green: 0 0 12px rgba(5, 150, 105, 0.25);
+    --shadow-neon-red: 0 0 12px rgba(220, 38, 38, 0.25);
     --glass-blur: 16px;
 
-    --scrollbar-thumb: rgba(0, 168, 89, 0.3);
-    --scrollbar-thumb-hover: #00a859;
-    --scrollbar-track: rgba(235, 243, 238, 0.8);
+    --scrollbar-thumb: rgba(14, 165, 233, 0.3);
+    --scrollbar-thumb-hover: #0284c7;
+    --scrollbar-track: rgba(226, 232, 240, 0.8);
 
-    --canvas-grid-color: rgba(0, 168, 89, 0.05);
-    --ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(0, 168, 89, 0.06) 0%, rgba(0, 0, 0, 0) 70%);
+    --canvas-grid-color: rgba(14, 165, 233, 0.05);
+    --ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(14, 165, 233, 0.06) 0%, rgba(0, 0, 0, 0) 70%);
   }
 
   * {
@@ -160,7 +204,7 @@
     background-image: var(--ambient-glow);
     background-attachment: fixed;
     color: var(--text-primary);
-    font-family: 'Chakra Petch', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Share Tech Mono', 'Chakra Petch', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -186,21 +230,56 @@
   }
   ::-webkit-scrollbar-thumb:hover {
     background: var(--scrollbar-thumb-hover);
+    box-shadow: 0 0 8px var(--accent-cyan);
   }
 }
 
-/* Typography tokens */
-.font-display {
-  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+/* ========================================================
+   FONTS DEFINITIONS (User requested: Press Start 2P, VT323, Share Tech Mono)
+   ======================================================== */
+
+/* 8-bit Pixelated Font for Titles and Badges */
+.font-pixel {
+  font-family: 'Press Start 2P', monospace, system-ui;
   letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+  font-smooth: never;
+}
+
+/* Authentic Arcade Pixel Glow Effect for Title */
+.cyber-pixel-title {
+  font-family: 'Press Start 2P', monospace;
+  letter-spacing: 0.12em;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+  text-shadow: 
+    2px 2px 0px rgba(0, 0, 0, 0.9),
+    -1px -1px 0px rgba(0, 240, 255, 0.4),
+    0 0 14px rgba(0, 240, 255, 0.65);
+}
+
+/* Retro Terminal Font for Matrix / Logs / Code readouts */
+.font-terminal {
+  font-family: 'VT323', monospace;
+  font-size: 1.15em;
+  letter-spacing: 0.08em;
+}
+
+/* Technical Panels & Navigation */
+.font-mono-technical {
+  font-family: 'Share Tech Mono', monospace;
 }
 
 .font-hud {
   font-family: 'Chakra Petch', sans-serif;
 }
 
-.font-mono-technical {
-  font-family: 'Share Tech Mono', "SF Mono", Consolas, monospace;
+.font-display {
+  font-family: 'Press Start 2P', 'Orbitron', monospace;
 }
 
 /* Hexagonal Badges */
@@ -208,16 +287,47 @@
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 
-/* Neon Text Glow */
-.cyber-text-glow {
-  text-shadow: 0 0 10px rgba(0, 255, 136, 0.55);
+/* ========================================================
+   NEON GLOW & ELECTRIC BLUE HOVER UTILITIES
+   (User requested: Blue glow on hover on options)
+   ======================================================== */
+
+/* Blue / Cyan Glow Utility */
+.cyber-glow-blue {
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.4), inset 0 0 10px rgba(0, 240, 255, 0.1);
+}
+
+.cyber-glow-green {
+  box-shadow: 0 0 16px rgba(0, 255, 136, 0.35), inset 0 0 10px rgba(0, 255, 136, 0.08);
+}
+
+.cyber-text-glow-blue {
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.35);
+}
+
+.cyber-text-glow-green {
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.65), 0 0 20px rgba(0, 255, 136, 0.3);
 }
 
 .cyber-text-glow-red {
-  text-shadow: 0 0 10px rgba(255, 42, 85, 0.55);
+  text-shadow: 0 0 10px rgba(255, 42, 85, 0.65), 0 0 20px rgba(255, 42, 85, 0.3);
 }
 
-/* Clean Cyber Glass Panels (no glitchy clip-path on containers!) */
+/* Universal Electric Blue Hover Glow Effect */
+.cyber-hover-blue {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-hover-blue:hover {
+  border-color: #00f0ff !important;
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.35), inset 0 0 10px rgba(0, 240, 255, 0.1) !important;
+  color: #f8fafc;
+}
+
+/* ========================================================
+   CYBER GLASS PANELS
+   ======================================================== */
+
 .glass-panel {
   background: var(--bg-panel);
   backdrop-filter: blur(var(--glass-blur));
@@ -230,7 +340,8 @@
 }
 
 .glass-panel:hover {
-  border-color: var(--border-strong);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.18), var(--shadow-card);
 }
 
 .glass-panel-elevated {
@@ -239,20 +350,20 @@
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-strong);
   border-radius: 12px;
-  box-shadow: var(--shadow-elevated), 0 0 16px rgba(0, 255, 136, 0.08);
+  box-shadow: var(--shadow-elevated), 0 0 16px rgba(0, 240, 255, 0.08);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   position: relative;
 }
 
-/* Tactical Corner Brackets for Clean HUD Framing */
+/* Corner HUD Brackets */
 .corner-bracket-tl {
   position: absolute;
   top: -1px;
   left: -1px;
   width: 7px;
   height: 7px;
-  border-top: 2px solid var(--accent-brass);
-  border-left: 2px solid var(--accent-brass);
+  border-top: 2px solid var(--accent-cyan);
+  border-left: 2px solid var(--accent-cyan);
   pointer-events: none;
   border-top-left-radius: 2px;
 }
@@ -263,8 +374,8 @@
   right: -1px;
   width: 7px;
   height: 7px;
-  border-top: 2px solid var(--accent-brass);
-  border-right: 2px solid var(--accent-brass);
+  border-top: 2px solid var(--accent-cyan);
+  border-right: 2px solid var(--accent-cyan);
   pointer-events: none;
   border-top-right-radius: 2px;
 }
@@ -275,8 +386,8 @@
   left: -1px;
   width: 7px;
   height: 7px;
-  border-bottom: 2px solid var(--accent-brass);
-  border-left: 2px solid var(--accent-brass);
+  border-bottom: 2px solid var(--accent-cyan);
+  border-left: 2px solid var(--accent-cyan);
   pointer-events: none;
   border-bottom-left-radius: 2px;
 }
@@ -287,8 +398,8 @@
   right: -1px;
   width: 7px;
   height: 7px;
-  border-bottom: 2px solid var(--accent-brass);
-  border-right: 2px solid var(--accent-brass);
+  border-bottom: 2px solid var(--accent-cyan);
+  border-right: 2px solid var(--accent-cyan);
   pointer-events: none;
   border-bottom-right-radius: 2px;
 }
@@ -301,39 +412,59 @@
     linear-gradient(to bottom, var(--canvas-grid-color) 1px, transparent 1px);
 }
 
-/* Cyber Action Buttons (Inspired by reference "CALL", "RAISE", "FOLD") */
+/* ========================================================
+   CYBER BUTTONS (Neon Cyan and Emerald)
+   ======================================================== */
+
+.cyber-btn-cyan {
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0.22) 0%, rgba(0, 240, 255, 0.06) 100%);
+  border: 1.5px solid var(--accent-cyan);
+  border-radius: 8px;
+  color: #00f0ff;
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.28), inset 0 0 10px rgba(0, 240, 255, 0.08);
+  transition: all 0.15s ease;
+}
+
+.cyber-btn-cyan:hover:not(:disabled) {
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0.4) 0%, rgba(0, 240, 255, 0.18) 100%);
+  box-shadow: 0 0 22px rgba(0, 240, 255, 0.55), inset 0 0 14px rgba(0, 240, 255, 0.2);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
 .cyber-btn-primary {
-  background: linear-gradient(180deg, rgba(0, 255, 136, 0.22) 0%, rgba(0, 255, 136, 0.08) 100%);
+  background: linear-gradient(180deg, rgba(0, 255, 136, 0.22) 0%, rgba(0, 255, 136, 0.06) 100%);
   border: 1.5px solid var(--accent-brass);
   border-radius: 8px;
   color: #00ff88;
-  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+  font-family: 'Share Tech Mono', monospace;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   box-shadow: 0 0 12px rgba(0, 255, 136, 0.25), inset 0 0 10px rgba(0, 255, 136, 0.08);
   transition: all 0.15s ease;
 }
 
 .cyber-btn-primary:hover:not(:disabled) {
-  background: linear-gradient(180deg, rgba(0, 255, 136, 0.38) 0%, rgba(0, 255, 136, 0.18) 100%);
-  box-shadow: 0 0 20px rgba(0, 255, 136, 0.45), inset 0 0 12px rgba(0, 255, 136, 0.2);
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0.35) 0%, rgba(0, 240, 255, 0.15) 100%);
+  border-color: #00f0ff;
+  box-shadow: 0 0 22px rgba(0, 240, 255, 0.5), inset 0 0 12px rgba(0, 240, 255, 0.2);
   color: #ffffff;
   transform: translateY(-1px);
 }
 
-.cyber-btn-primary:active:not(:disabled) {
-  transform: translateY(0);
-}
-
 .cyber-btn-danger {
-  background: linear-gradient(180deg, rgba(255, 42, 85, 0.22) 0%, rgba(255, 42, 85, 0.08) 100%);
+  background: linear-gradient(180deg, rgba(255, 42, 85, 0.22) 0%, rgba(255, 42, 85, 0.06) 100%);
   border: 1.5px solid var(--accent-crimson);
   border-radius: 8px;
   color: #ff5779;
-  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+  font-family: 'Share Tech Mono', monospace;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   box-shadow: 0 0 12px rgba(255, 42, 85, 0.25), inset 0 0 10px rgba(255, 42, 85, 0.08);
   transition: all 0.15s ease;
@@ -346,7 +477,7 @@
   transform: translateY(-1px);
 }
 
-/* Pulsing radar animation */
+/* Radar pulse animation */
 @keyframes radar-pulse {
   0% { transform: scale(0.92); opacity: 0.7; }
   50% { transform: scale(1.15); opacity: 1; }
@@ -355,6 +486,17 @@
 
 .indicator-pulse {
   animation: radar-pulse 2s infinite ease-in-out;
+}
+
+/* Pulsing scan bar */
+@keyframes stego-scan {
+  0% { top: 0%; opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { top: 98%; opacity: 0.8; }
+}
+
+.animate-stego-scan {
+  animation: stego-scan 2.8s ease-in-out infinite alternate;
 }
 
 /* Respect reduced motion */

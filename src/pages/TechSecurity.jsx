@@ -60,7 +60,7 @@ export default function TechSecurity() {
             className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-all cursor-pointer font-medium ${
               activeSection === sec.id
                 ? "bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] font-bold border border-[var(--accent-brass)] shadow-[0_0_8px_rgba(0,255,136,0.2)]"
-                : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-inset)] hover:bg-[var(--bg-surface-hover)] border border-[var(--border-subtle)]"
+                : "text-[var(--text-secondary)] hover:text-[var(--accent-cyan)] bg-[var(--bg-inset)] hover:bg-[var(--bg-surface-hover)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[0_0_10px_rgba(0,240,255,0.25)]"
             }`}
           >
             {sec.label}

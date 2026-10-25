@@ -95,7 +95,7 @@ export default function History() {
                 className={`px-2.5 py-1 rounded capitalize font-medium transition-all cursor-pointer ${
                   filter === cat
                     ? "bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] border border-[var(--accent-brass)] shadow-[0_0_8px_rgba(0,255,136,0.2)]"
-                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-inset)] hover:bg-[var(--bg-surface-hover)] border border-[var(--border-subtle)]"
+                    : "text-[var(--text-secondary)] hover:text-[var(--accent-cyan)] bg-[var(--bg-inset)] hover:bg-[var(--bg-surface-hover)] border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[0_0_10px_rgba(0,240,255,0.25)]"
                 }`}
               >
                 {cat === "all" ? "All" : cat}
@@ -123,7 +123,7 @@ export default function History() {
           filteredItems.map((item) => (
             <div
               key={item.id}
-              className="p-3.5 sm:p-4 rounded-xl glass-panel border border-[var(--border-medium)] hover:border-[var(--accent-brass)] transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+              className="p-3.5 sm:p-4 rounded-xl glass-panel border border-[var(--border-medium)] hover:border-[var(--accent-cyan)] hover:shadow-[0_0_16px_rgba(0,240,255,0.22)] transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
             >
               <div className="flex items-center gap-3.5 min-w-0">
                 <div className={`w-8 h-8 cyber-hex flex items-center justify-center shrink-0 border ${
