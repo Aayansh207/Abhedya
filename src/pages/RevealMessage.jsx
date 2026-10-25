@@ -119,31 +119,31 @@ export default function RevealMessage() {
   };
 
   return (
-    <div className="h-full flex flex-col gap-5 overflow-y-auto pr-1 pb-4 min-h-0 min-w-0">
+    <div className="h-full flex flex-col gap-4 sm:gap-5 overflow-y-auto pr-1 pb-4 min-h-0 min-w-0">
       {/* Workspace Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--border-subtle)] pb-3 shrink-0">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--border-medium)] pb-3 shrink-0">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--accent-jade)]">
+            <span className="text-[10px] font-display font-bold uppercase tracking-widest text-[var(--accent-brass)]">
               WORKSPACE // 02
             </span>
             <span className="text-[var(--border-strong)]">/</span>
-            <span className="text-[10px] font-mono uppercase text-[var(--text-secondary)]">
+            <span className="text-[10px] font-mono-technical uppercase text-[var(--text-secondary)]">
               PAYLOAD EXTRACTION
             </span>
           </div>
-          <h2 className="text-lg font-bold text-[var(--text-primary)] tracking-tight mt-0.5">
+          <h2 className="text-base sm:text-lg font-display font-bold text-[var(--text-primary)] tracking-wider uppercase mt-0.5 cyber-text-glow">
             Extract Hidden Message
           </h2>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="px-2.5 py-1 rounded bg-[var(--accent-jade-bg)] border border-[var(--accent-jade-border)] text-[11px] font-mono text-[var(--accent-jade-text)] flex items-center gap-1.5 font-semibold">
+          <span className="px-3 py-1 cyber-cut-corner-sm bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] text-[10px] font-mono-technical text-[var(--accent-brass-text)] flex items-center gap-1.5 font-bold uppercase">
             <UnlockIcon size={12} />
-            <span>Lossless PNG Decoder</span>
+            <span>LOSSLESS PNG DECODER</span>
           </span>
-          <span className="px-2.5 py-1 rounded bg-[var(--bg-inset)] border border-[var(--border-subtle)] text-[11px] font-mono text-[var(--text-secondary)]">
-            Strict MAC Tag Verify
+          <span className="px-3 py-1 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] text-[10px] font-mono-technical text-[var(--text-secondary)] uppercase">
+            STRICT MAC TAG VERIFY
           </span>
         </div>
       </div>
@@ -152,15 +152,20 @@ export default function RevealMessage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         {/* Left Column: Image Stage (7 cols) */}
         <div className="lg:col-span-7 space-y-4 min-w-0">
-          <div className="glass-panel p-4 border-[var(--border-subtle)]">
+          <div className="glass-panel cyber-cut-corner p-4 border-[var(--border-strong)] relative">
+            <div className="corner-bracket-tl" />
+            <div className="corner-bracket-tr" />
+            <div className="corner-bracket-bl" />
+            <div className="corner-bracket-br" />
+
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
-                <CrosshairIcon size={14} className="text-[var(--accent-jade)]" />
-                1. Encoded PNG Vessel
+              <span className="text-xs font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
+                <CrosshairIcon size={14} className="text-[var(--accent-brass)]" />
+                1. ENCODED PNG VESSEL
               </span>
               {image && (
-                <span className="text-[11px] font-mono text-[var(--accent-jade-text)] flex items-center gap-1 font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-jade)]" />
+                <span className="text-[10px] font-mono-technical text-[var(--accent-brass-text)] flex items-center gap-1.5 font-bold uppercase cyber-glow-green-sm px-2 py-0.5 cyber-cut-corner-sm bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-brass)] indicator-pulse" />
                   PNG VERIFIED
                 </span>
               )}
@@ -184,69 +189,74 @@ export default function RevealMessage() {
           </div>
 
           {/* Extraction Strategy Selector */}
-          <div className="glass-panel p-4 border-[var(--border-subtle)] space-y-2.5">
-            <span className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
-              <Layers size={14} className="text-[var(--accent-jade)]" />
-              Extraction Mode
+          <div className="glass-panel cyber-cut-corner p-4 border-[var(--border-strong)] space-y-2.5 relative">
+            <span className="text-xs font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
+              <Layers size={14} className="text-[var(--accent-brass)]" />
+              EXTRACTION MODE
             </span>
 
             <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 onClick={() => setMode("auto")}
-                className={`p-2.5 rounded-lg border text-left transition-all ${
+                className={`p-2.5 cyber-cut-corner-sm border text-left transition-all ${
                   mode === "auto"
-                    ? "bg-[var(--accent-jade-bg)] border-[var(--accent-jade)] text-[var(--text-primary)] font-semibold shadow-sm"
-                    : "bg-[var(--bg-inset)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-medium)]"
+                    ? "bg-[var(--accent-brass-bg)] border-[var(--accent-brass)] text-[var(--text-primary)] font-bold cyber-glow-green-sm"
+                    : "bg-[var(--bg-inset)] border-[var(--border-medium)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-brass)]"
                 }`}
               >
-                <div className="text-xs font-mono font-bold">Auto-Detect</div>
-                <div className="text-[10px] text-[var(--text-muted)] mt-0.5 truncate">Scattered + Sequential</div>
+                <div className="text-xs font-hud font-bold uppercase">Auto-Detect</div>
+                <div className="text-[10px] font-mono-technical text-[var(--text-muted)] mt-0.5 truncate">Scattered + Sequential</div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setMode("scattered")}
-                className={`p-2.5 rounded-lg border text-left transition-all ${
+                className={`p-2.5 cyber-cut-corner-sm border text-left transition-all ${
                   mode === "scattered"
-                    ? "bg-[var(--accent-jade-bg)] border-[var(--accent-jade)] text-[var(--text-primary)] font-semibold shadow-sm"
-                    : "bg-[var(--bg-inset)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-medium)]"
+                    ? "bg-[var(--accent-brass-bg)] border-[var(--accent-brass)] text-[var(--text-primary)] font-bold cyber-glow-green-sm"
+                    : "bg-[var(--bg-inset)] border-[var(--border-medium)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-brass)]"
                 }`}
               >
-                <div className="text-xs font-mono font-bold">Key-Seeded</div>
-                <div className="text-[10px] text-[var(--text-muted)] mt-0.5 truncate">PRNG Pixel Walk</div>
+                <div className="text-xs font-hud font-bold uppercase">Key-Seeded</div>
+                <div className="text-[10px] font-mono-technical text-[var(--text-muted)] mt-0.5 truncate">PRNG Pixel Walk</div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setMode("basic")}
-                className={`p-2.5 rounded-lg border text-left transition-all ${
+                className={`p-2.5 cyber-cut-corner-sm border text-left transition-all ${
                   mode === "basic"
-                    ? "bg-[var(--accent-jade-bg)] border-[var(--accent-jade)] text-[var(--text-primary)] font-semibold shadow-sm"
-                    : "bg-[var(--bg-inset)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-medium)]"
+                    ? "bg-[var(--accent-brass-bg)] border-[var(--accent-brass)] text-[var(--text-primary)] font-bold cyber-glow-green-sm"
+                    : "bg-[var(--bg-inset)] border-[var(--border-medium)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-brass)]"
                 }`}
               >
-                <div className="text-xs font-mono font-bold">Sequential</div>
-                <div className="text-[10px] text-[var(--text-muted)] mt-0.5 truncate">Contiguous LSB</div>
+                <div className="text-xs font-hud font-bold uppercase">Sequential</div>
+                <div className="text-[10px] font-mono-technical text-[var(--text-muted)] mt-0.5 truncate">Contiguous LSB</div>
               </button>
             </div>
           </div>
 
           {/* Zero-Leakage Assurance Notice */}
-          <div className="p-3.5 rounded-xl bg-[var(--accent-jade-bg)] border border-[var(--accent-jade-border)] flex items-start gap-3">
-            <ShieldIcon size={16} className="text-[var(--accent-jade)] shrink-0 mt-0.5" />
-            <div className="text-xs text-[var(--text-primary)] leading-relaxed">
-              <strong className="font-semibold">Zero-Leakage Guarantee:</strong> Plaintext data is never written to disk or surfaced in memory unless the Poly1305 MAC tag matches the ciphertext perfectly. Wrong passwords produce no output.
+          <div className="p-3.5 cyber-cut-corner-sm bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] flex items-start gap-3">
+            <ShieldIcon size={16} className="text-[var(--accent-brass)] shrink-0 mt-0.5" />
+            <div className="text-xs font-hud text-[var(--text-primary)] leading-relaxed">
+              <strong className="font-bold text-[var(--accent-brass)]">ZERO-LEAKAGE GUARANTEE:</strong> Plaintext data is never written to disk or surfaced in memory unless the Poly1305 MAC tag matches the ciphertext perfectly. Incorrect passwords yield zero plaintext remnants.
             </div>
           </div>
         </div>
 
         {/* Right Column: Passphrase & Actions (5 cols) */}
         <div className="lg:col-span-5 space-y-4 min-w-0">
-          <div className="glass-panel p-4 border-[var(--border-subtle)] space-y-3">
-            <span className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
-              <KeyIcon size={14} className="text-[var(--accent-jade)]" />
-              2. Decryption Passphrase
+          <div className="glass-panel cyber-cut-corner p-4 border-[var(--border-strong)] space-y-3 relative">
+            <div className="corner-bracket-tl" />
+            <div className="corner-bracket-tr" />
+            <div className="corner-bracket-bl" />
+            <div className="corner-bracket-br" />
+
+            <span className="text-xs font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
+              <KeyIcon size={14} className="text-[var(--accent-brass)]" />
+              2. DECRYPTION PASSPHRASE
             </span>
 
             <PasswordInput
@@ -268,35 +278,35 @@ export default function RevealMessage() {
             type="reveal"
           />
 
-          {/* Primary Action Button */}
+          {/* Primary Action Button (Styled like "CALL" in reference) */}
           {status !== "success" && (
             <div className="space-y-2 pt-1">
               <button
                 type="button"
                 disabled={!isFormValid || status === "processing"}
                 onClick={handleStartReveal}
-                className={`w-full py-3 px-4 rounded-xl font-mono text-xs font-bold tracking-wider uppercase transition-all duration-200 flex items-center justify-center gap-2 shadow-sm ${
+                className={`w-full py-3.5 px-4 font-display text-xs font-bold tracking-widest uppercase transition-all duration-200 flex items-center justify-center gap-2 ${
                   isFormValid && status !== "processing"
-                    ? "bg-[var(--accent-jade)] hover:bg-[var(--accent-jade-hover)] text-white dark:text-black shadow-md active:scale-[0.99] cursor-pointer"
-                    : "bg-[var(--bg-inset)] border border-[var(--border-subtle)] text-[var(--text-muted)] cursor-not-allowed"
+                    ? "cyber-btn-primary cursor-pointer active:scale-[0.99]"
+                    : "bg-[var(--bg-inset)] border border-[var(--border-subtle)] cyber-cut-corner-sm text-[var(--text-muted)] cursor-not-allowed opacity-60"
                 }`}
               >
-                <UnlockIcon size={15} />
+                <UnlockIcon size={16} />
                 <span>
                   {status === "processing"
-                    ? "Decrypting Payload..."
-                    : "Extract & Decrypt Message"}
+                    ? "DECRYPTING PAYLOAD..."
+                    : "EXTRACT & DECRYPT MESSAGE"}
                 </span>
               </button>
 
               {!image && (
-                <p className="text-[11px] font-mono text-center text-[var(--text-muted)]">
-                  Select an encoded PNG image to begin extraction.
+                <p className="text-[10px] font-mono-technical text-center text-[var(--text-muted)] uppercase">
+                  [ STEP 1 ]: Select an encoded PNG image to begin extraction.
                 </p>
               )}
               {image && password.length === 0 && (
-                <p className="text-[11px] font-mono text-center text-[var(--text-muted)]">
-                  Enter the passphrase used during message embedding.
+                <p className="text-[10px] font-mono-technical text-center text-[var(--text-muted)] uppercase">
+                  [ STEP 2 ]: Enter the passphrase used during message embedding.
                 </p>
               )}
             </div>

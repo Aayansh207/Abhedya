@@ -12,7 +12,8 @@ import {
   CrosshairIcon,
   Terminal,
   Layers,
-  KeyIcon
+  KeyIcon,
+  CpuIcon
 } from "../components/Icons";
 
 export default function HideMessage() {
@@ -198,31 +199,31 @@ export default function HideMessage() {
   };
 
   return (
-    <div className="h-full flex flex-col gap-5 overflow-y-auto pr-1 pb-4 min-h-0 min-w-0">
+    <div className="h-full flex flex-col gap-4 sm:gap-5 overflow-y-auto pr-1 pb-4 min-h-0 min-w-0">
       {/* Workspace Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--border-subtle)] pb-3 shrink-0">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--border-medium)] pb-3 shrink-0">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--accent-brass)]">
+            <span className="text-[10px] font-display font-bold uppercase tracking-widest text-[var(--accent-brass)]">
               WORKSPACE // 01
             </span>
             <span className="text-[var(--border-strong)]">/</span>
-            <span className="text-[10px] font-mono uppercase text-[var(--text-secondary)]">
+            <span className="text-[10px] font-mono-technical uppercase text-[var(--text-secondary)]">
               PAYLOAD EMBEDDING
             </span>
           </div>
-          <h2 className="text-lg font-bold text-[var(--text-primary)] tracking-tight mt-0.5">
+          <h2 className="text-base sm:text-lg font-display font-bold text-[var(--text-primary)] tracking-wider uppercase mt-0.5 cyber-text-glow">
             Hide Secret Message
           </h2>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="px-2.5 py-1 rounded bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] text-[11px] font-mono text-[var(--accent-brass-text)] flex items-center gap-1.5 font-semibold">
+          <span className="px-3 py-1 cyber-cut-corner-sm bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] text-[10px] font-mono-technical text-[var(--accent-brass-text)] flex items-center gap-1.5 font-bold uppercase">
             <LockIcon size={12} />
-            <span>XChaCha20-Poly1305</span>
+            <span>XCHACHA20-POLY1305</span>
           </span>
-          <span className="px-2.5 py-1 rounded bg-[var(--bg-inset)] border border-[var(--border-subtle)] text-[11px] font-mono text-[var(--text-secondary)]">
-            LSB Bitstream
+          <span className="px-3 py-1 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] text-[10px] font-mono-technical text-[var(--text-secondary)] uppercase">
+            LSB BITSTREAM
           </span>
         </div>
       </div>
@@ -231,16 +232,21 @@ export default function HideMessage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         {/* LEFT COLUMN: CARRIER STAGE & CAPACITY (7 cols) */}
         <div className="lg:col-span-7 space-y-4 min-w-0">
-          <div className="glass-panel p-4 border-[var(--border-subtle)]">
+          <div className="glass-panel cyber-cut-corner p-4 border-[var(--border-strong)] relative">
+            <div className="corner-bracket-tl" />
+            <div className="corner-bracket-tr" />
+            <div className="corner-bracket-bl" />
+            <div className="corner-bracket-br" />
+
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
+              <span className="text-xs font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
                 <CrosshairIcon size={14} className="text-[var(--accent-brass)]" />
-                1. Carrier Imagery
+                1. CARRIER IMAGERY
               </span>
               {image && (
-                <span className="text-[11px] font-mono text-[var(--accent-jade-text)] flex items-center gap-1 font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-jade)]" />
-                  LOADED
+                <span className="text-[10px] font-mono-technical text-[var(--accent-brass-text)] flex items-center gap-1.5 font-bold uppercase cyber-glow-green-sm px-2 py-0.5 cyber-cut-corner-sm bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-brass)] indicator-pulse" />
+                  VESSEL READY
                 </span>
               )}
             </div>
@@ -263,22 +269,22 @@ export default function HideMessage() {
 
           {/* Embedding Strategy Selector */}
           {image && (
-            <div className="glass-panel p-4 border-[var(--border-subtle)] space-y-3">
-              <span className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
+            <div className="glass-panel cyber-cut-corner p-4 border-[var(--border-strong)] space-y-3 relative">
+              <span className="text-xs font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
                 <Layers size={14} className="text-[var(--accent-brass)]" />
-                Embedding Strategy
+                EMBEDDING STRATEGY
               </span>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <label
-                  className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                  className={`p-3 cyber-cut-corner-sm border cursor-pointer transition-all ${
                     mode === "scattered"
-                      ? "bg-[var(--accent-brass-bg)] border-[var(--accent-brass)] shadow-sm"
-                      : "bg-[var(--bg-inset)] border-[var(--border-subtle)] hover:border-[var(--border-medium)]"
+                      ? "bg-[var(--accent-brass-bg)] border-[var(--accent-brass)] cyber-glow-green-sm"
+                      : "bg-[var(--bg-inset)] border-[var(--border-medium)] hover:border-[var(--accent-brass)]"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-mono font-bold text-[var(--text-primary)] flex items-center gap-1.5">
+                    <span className="text-xs font-hud font-bold text-[var(--text-primary)] flex items-center gap-2">
                       <input
                         type="radio"
                         name="stego-mode"
@@ -289,24 +295,24 @@ export default function HideMessage() {
                       />
                       Key-Seeded Scattering
                     </span>
-                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] font-semibold border border-[var(--accent-brass-border)]">
-                      RECOMMENDED
+                    <span className="text-[9px] font-mono-technical px-1.5 py-0.5 cyber-cut-corner-sm bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] font-bold border border-[var(--accent-brass-border)] uppercase">
+                      STEALTH
                     </span>
                   </div>
-                  <p className="text-[11px] text-[var(--text-secondary)] pl-5 leading-normal">
+                  <p className="text-[11px] font-hud text-[var(--text-secondary)] pl-6 leading-normal">
                     PRNG pixel walk seeded with password hash. Disrupts linear Chi-Square detection.
                   </p>
                 </label>
 
                 <label
-                  className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                  className={`p-3 cyber-cut-corner-sm border cursor-pointer transition-all ${
                     mode === "standard"
-                      ? "bg-[var(--accent-brass-bg)] border-[var(--accent-brass)] shadow-sm"
-                      : "bg-[var(--bg-inset)] border-[var(--border-subtle)] hover:border-[var(--border-medium)]"
+                      ? "bg-[var(--accent-brass-bg)] border-[var(--accent-brass)] cyber-glow-green-sm"
+                      : "bg-[var(--bg-inset)] border-[var(--border-medium)] hover:border-[var(--accent-brass)]"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-mono font-bold text-[var(--text-primary)] flex items-center gap-1.5">
+                    <span className="text-xs font-hud font-bold text-[var(--text-primary)] flex items-center gap-2">
                       <input
                         type="radio"
                         name="stego-mode"
@@ -318,7 +324,7 @@ export default function HideMessage() {
                       Standard Sequential
                     </span>
                   </div>
-                  <p className="text-[11px] text-[var(--text-secondary)] pl-5 leading-normal">
+                  <p className="text-[11px] font-hud text-[var(--text-secondary)] pl-6 leading-normal">
                     Contiguous RGB channel least-significant bit sequential allocation.
                   </p>
                 </label>
@@ -340,14 +346,19 @@ export default function HideMessage() {
         {/* RIGHT COLUMN: SECRET PAYLOAD & CREDENTIALS (5 cols) */}
         <div className="lg:col-span-5 space-y-4 min-w-0">
           {/* Secret Message Input Panel */}
-          <div className="glass-panel p-4 border-[var(--border-subtle)] space-y-2.5">
+          <div className="glass-panel cyber-cut-corner p-4 border-[var(--border-strong)] space-y-2.5 relative">
+            <div className="corner-bracket-tl" />
+            <div className="corner-bracket-tr" />
+            <div className="corner-bracket-bl" />
+            <div className="corner-bracket-br" />
+
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
+              <span className="text-xs font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
                 <Terminal size={14} className="text-[var(--accent-brass)]" />
-                2. Secret Payload
+                2. SECRET PAYLOAD
               </span>
-              <span className="text-[11px] font-mono text-[var(--text-secondary)]">
-                {messageBytes.toLocaleString()} bytes (UTF-8)
+              <span className="text-[10px] font-mono-technical text-[var(--accent-brass)]">
+                {messageBytes.toLocaleString()} BYTES (UTF-8)
               </span>
             </div>
 
@@ -357,31 +368,33 @@ export default function HideMessage() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Enter confidential plaintext to encrypt and conceal..."
-              className="w-full p-3 text-xs font-mono bg-[var(--bg-inset)] border border-[var(--border-medium)] rounded-lg text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-brass)] focus:ring-1 focus:ring-[var(--accent-brass-border)] transition-all resize-y leading-relaxed"
+              className="w-full p-3 text-xs font-mono-technical bg-[var(--bg-inset)] border border-[var(--border-medium)] cyber-cut-corner-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-brass)] focus:ring-1 focus:ring-[var(--accent-brass)] focus:shadow-[0_0_12px_rgba(0,255,136,0.25)] transition-all resize-y leading-relaxed"
             />
 
-            <div className="flex items-center justify-between text-[11px] font-mono text-[var(--text-muted)]">
-              <span>Plaintext will not touch carrier pixels</span>
+            <div className="flex items-center justify-between text-[10px] font-mono-technical text-[var(--text-muted)]">
+              <span>PLAINTEXT NEVER EMBEDDED DIRECTLY</span>
               {message.length > 0 && (
                 <button
                   type="button"
                   onClick={() => setMessage("")}
-                  className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                  className="text-[var(--accent-crimson-text)] hover:underline uppercase transition-colors"
                 >
-                  Clear
+                  Clear Buffer
                 </button>
               )}
             </div>
           </div>
 
           {/* Encryption Credentials */}
-          <div className="glass-panel p-4 border-[var(--border-subtle)] space-y-3">
+          <div className="glass-panel cyber-cut-corner p-4 border-[var(--border-strong)] space-y-3 relative">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono font-semibold uppercase text-[var(--text-primary)] flex items-center gap-2">
+              <span className="text-xs font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
                 <KeyIcon size={14} className="text-[var(--accent-brass)]" />
-                3. Encryption Passphrase
+                3. ENCRYPTION PASSPHRASE
               </span>
-              <span className="text-[10px] font-mono text-[var(--text-muted)]">ARGON2ID / SCRYPT</span>
+              <span className="text-[9px] font-mono-technical px-1.5 py-0.5 cyber-cut-corner-sm bg-[var(--bg-inset)] text-[var(--accent-brass)] border border-[var(--border-subtle)] uppercase">
+                ARGON2ID
+              </span>
             </div>
 
             <PasswordInput
@@ -409,51 +422,51 @@ export default function HideMessage() {
             onShowInFolder={(path) => api.showInFolder(path)}
           />
 
-          {/* Execute Primary Trigger Button */}
+          {/* Execute Primary Trigger Button (Styled like "RAISE" in reference) */}
           {status !== "success" && (
             <div className="space-y-2 pt-1">
               <button
                 type="button"
                 disabled={!isFormValid || status === "processing"}
                 onClick={handleStartHide}
-                className={`w-full py-3 px-4 rounded-xl font-mono text-xs font-bold tracking-wider uppercase transition-all duration-200 flex items-center justify-center gap-2 shadow-sm ${
+                className={`w-full py-3.5 px-4 font-display text-xs font-bold tracking-widest uppercase transition-all duration-200 flex items-center justify-center gap-2 ${
                   isFormValid && status !== "processing"
-                    ? "bg-[var(--accent-brass)] hover:bg-[var(--accent-brass-hover)] text-white dark:text-black shadow-md active:scale-[0.99] cursor-pointer"
-                    : "bg-[var(--bg-inset)] border border-[var(--border-subtle)] text-[var(--text-muted)] cursor-not-allowed"
+                    ? "cyber-btn-primary cursor-pointer active:scale-[0.99]"
+                    : "bg-[var(--bg-inset)] border border-[var(--border-subtle)] cyber-cut-corner-sm text-[var(--text-muted)] cursor-not-allowed opacity-60"
                 }`}
               >
-                <LockIcon size={15} />
+                <LockIcon size={16} />
                 <span>
                   {status === "processing"
-                    ? "Executing Cipher Embedding..."
-                    : "Encrypt & Embed Payload"}
+                    ? "EXECUTING CIPHER EMBEDDING..."
+                    : "ENCRYPT & EMBED PAYLOAD"}
                 </span>
               </button>
 
-              {/* Validation Helper Tips */}
+              {/* Validation Helper Tips in Cyber Badges */}
               {!image && (
-                <p className="text-[11px] font-mono text-center text-[var(--text-muted)]">
-                  Select a carrier image above to initialize payload buffer.
+                <p className="text-[10px] font-mono-technical text-center text-[var(--text-muted)] uppercase">
+                  [ STEP 1 ]: Select a carrier image above to initialize payload buffer.
                 </p>
               )}
               {image && message.trim().length === 0 && (
-                <p className="text-[11px] font-mono text-center text-[var(--text-muted)]">
-                  Enter your confidential secret message.
+                <p className="text-[10px] font-mono-technical text-center text-[var(--text-muted)] uppercase">
+                  [ STEP 2 ]: Enter your confidential secret message.
                 </p>
               )}
               {image && message.trim().length > 0 && password.length < 8 && (
-                <p className="text-[11px] font-mono text-center text-[var(--accent-amber-text)]">
-                  Passphrase must be at least 8 characters.
+                <p className="text-[10px] font-mono-technical text-center text-[var(--accent-amber-text)] uppercase">
+                  [ SECURITY ]: Passphrase must be at least 8 characters.
                 </p>
               )}
               {image && password.length >= 8 && password !== confirmPassword && (
-                <p className="text-[11px] font-mono text-center text-[var(--accent-crimson-text)]">
-                  Passphrase confirmation does not match.
+                <p className="text-[10px] font-mono-technical text-center text-[var(--accent-crimson-text)] uppercase">
+                  [ ERROR ]: Passphrase confirmation does not match.
                 </p>
               )}
               {image && messageBytes > capacity.maxPayloadBytes && (
-                <p className="text-[11px] font-mono text-center text-[var(--accent-crimson-text)]">
-                  Message exceeds maximum carrier payload capacity.
+                <p className="text-[10px] font-mono-technical text-center text-[var(--accent-crimson-text)] uppercase">
+                  [ OVERFLOW ]: Message exceeds maximum carrier payload capacity.
                 </p>
               )}
             </div>

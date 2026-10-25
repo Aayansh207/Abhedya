@@ -16,15 +16,15 @@ export default function ImagePreview({ image, onClear, onChange, title = "Carrie
   const totalPixels = width && height ? width * height : null;
 
   return (
-    <div className="w-full glass-panel overflow-hidden border border-[var(--border-subtle)] rounded-xl shadow-md">
+    <div className="w-full glass-panel cyber-cut-corner overflow-hidden border border-[var(--border-strong)] shadow-md relative">
       {/* HUD Header Bar */}
-      <div className="px-4 py-2.5 bg-[var(--bg-inset)] border-b border-[var(--border-subtle)] flex items-center justify-between">
+      <div className="px-3.5 py-2.5 bg-[var(--bg-inset)] border-b border-[var(--border-medium)] flex items-center justify-between">
         <div className="flex items-center gap-2 min-w-0">
-          <CrosshairIcon size={14} className="text-[var(--accent-brass)] shrink-0" />
-          <span className="text-xs font-mono font-medium tracking-wider text-[var(--text-primary)] uppercase truncate">
+          <CrosshairIcon size={14} className="text-[var(--accent-brass)] shrink-0 animate-spin-slow" />
+          <span className="text-xs font-display font-bold tracking-wider text-[var(--text-primary)] uppercase truncate cyber-text-glow">
             {title}
           </span>
-          <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] border border-[var(--accent-brass-border)] uppercase shrink-0">
+          <span className="px-2 py-0.5 cyber-cut-corner-sm text-[9px] font-mono-technical font-bold bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] border border-[var(--accent-brass-border)] uppercase shrink-0">
             {format || "IMG"}
           </span>
         </div>
@@ -34,7 +34,7 @@ export default function ImagePreview({ image, onClear, onChange, title = "Carrie
             <button
               type="button"
               onClick={onChange}
-              className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--bg-surface-hover)] rounded-md border border-[var(--border-subtle)] transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono-technical text-[var(--text-secondary)] hover:text-[var(--accent-brass)] bg-[var(--bg-surface)] hover:bg-[var(--bg-surface-hover)] cyber-cut-corner-sm border border-[var(--border-medium)] hover:border-[var(--accent-brass)] transition-colors"
               title="Replace image"
             >
               <RefreshIcon size={11} />
@@ -45,7 +45,7 @@ export default function ImagePreview({ image, onClear, onChange, title = "Carrie
             <button
               type="button"
               onClick={onClear}
-              className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono text-[var(--accent-crimson-text)] bg-[var(--accent-crimson-bg)] hover:bg-[var(--accent-crimson-bg)] rounded-md border border-[var(--accent-crimson-border)] transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono-technical text-[var(--accent-crimson-text)] bg-[var(--accent-crimson-bg)] hover:bg-[var(--accent-crimson-bg)] cyber-cut-corner-sm border border-[var(--accent-crimson-border)] transition-colors cyber-glow-red"
               title="Remove image"
             >
               <TrashIcon size={11} />
@@ -56,60 +56,61 @@ export default function ImagePreview({ image, onClear, onChange, title = "Carrie
       </div>
 
       {/* Main Image Stage with Tactical HUD Reticle */}
-      <div className="relative bg-[var(--bg-inset)] min-h-[180px] max-h-[300px] flex items-center justify-center p-3.5 overflow-hidden tactical-grid-overlay">
-        {/* Corner HUD Markers */}
-        <div className="absolute top-2.5 left-2.5 w-3 h-3 border-t-2 border-l-2 border-[var(--accent-brass-border)] pointer-events-none" />
-        <div className="absolute top-2.5 right-2.5 w-3 h-3 border-t-2 border-r-2 border-[var(--accent-brass-border)] pointer-events-none" />
-        <div className="absolute bottom-2.5 left-2.5 w-3 h-3 border-b-2 border-l-2 border-[var(--accent-brass-border)] pointer-events-none" />
-        <div className="absolute bottom-2.5 right-2.5 w-3 h-3 border-b-2 border-r-2 border-[var(--accent-brass-border)] pointer-events-none" />
+      <div className="relative bg-[var(--bg-inset)] min-h-[190px] max-h-[300px] flex items-center justify-center p-4 overflow-hidden tactical-grid-overlay">
+        {/* Corner HUD Glowing Brackets */}
+        <div className="corner-bracket-tl" />
+        <div className="corner-bracket-tr" />
+        <div className="corner-bracket-bl" />
+        <div className="corner-bracket-br" />
 
         {previewDataUrl ? (
           <img
             src={previewDataUrl}
             alt={fileName || "Selected preview"}
-            className="max-h-[260px] w-auto max-w-full object-contain rounded-lg shadow-sm border border-[var(--border-subtle)]"
+            className="max-h-[250px] w-auto max-w-full object-contain rounded cyber-cut-corner-sm shadow-md border border-[var(--border-medium)]"
           />
         ) : (
           <div className="flex flex-col items-center justify-center text-[var(--text-muted)] gap-2 py-8">
-            <ImageIcon size={40} />
-            <span className="text-xs font-mono">NO RENDER PREVIEW</span>
+            <ImageIcon size={40} className="text-[var(--text-dim)]" />
+            <span className="text-xs font-mono-technical">NO RENDER PREVIEW</span>
           </div>
         )}
 
-        {/* Live HUD Floating Tag */}
+        {/* Live HUD Floating Dimension Tag */}
         {width && height && (
-          <div className="absolute bottom-2.5 right-2.5 px-2 py-0.5 bg-[var(--bg-surface)]/90 backdrop-blur-md border border-[var(--border-subtle)] rounded text-[10px] font-mono text-[var(--text-secondary)]">
-            {width} × {height}
+          <div className="absolute bottom-2.5 right-2.5 px-2.5 py-1 bg-[var(--bg-inset)]/95 backdrop-blur-md border border-[var(--border-strong)] cyber-cut-corner-sm text-[10px] font-mono-technical text-[var(--accent-brass)] shadow-lg flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-brass)]" />
+            <span>{width} × {height} PX</span>
           </div>
         )}
       </div>
 
-      {/* Technical Metadata Matrix */}
-      <div className="grid grid-cols-3 divide-x divide-[var(--border-subtle)] bg-[var(--bg-surface)] border-t border-[var(--border-subtle)] text-xs">
+      {/* Technical Metadata Matrix (Inspired by Reference Statistics Panels) */}
+      <div className="grid grid-cols-3 divide-x divide-[var(--border-medium)] bg-[var(--bg-surface)] border-t border-[var(--border-medium)] text-xs">
         <div className="p-2.5 sm:p-3 min-w-0">
-          <span className="block text-[9px] font-mono uppercase text-[var(--text-muted)] mb-0.5 truncate">
-            Dimensions
+          <span className="block text-[9px] font-mono-technical uppercase text-[var(--text-muted)] mb-0.5 truncate tracking-wider">
+            DIMENSIONS
           </span>
-          <span className="font-mono font-medium text-[var(--text-primary)] text-xs truncate block">
-            {width && height ? `${width} × ${height} px` : "Inspecting..."}
+          <span className="font-mono-technical font-bold text-[var(--text-primary)] text-xs truncate block">
+            {width && height ? `${width} × ${height}` : "Inspecting..."}
           </span>
         </div>
 
         <div className="p-2.5 sm:p-3 min-w-0">
-          <span className="block text-[9px] font-mono uppercase text-[var(--text-muted)] mb-0.5 truncate">
-            File Size
+          <span className="block text-[9px] font-mono-technical uppercase text-[var(--text-muted)] mb-0.5 truncate tracking-wider">
+            FILE SIZE
           </span>
-          <span className="font-mono font-medium text-[var(--text-primary)] text-xs truncate block">
+          <span className="font-mono-technical font-bold text-[var(--text-primary)] text-xs truncate block">
             {formatBytes(fileSize)}
           </span>
         </div>
 
         <div className="p-2.5 sm:p-3 min-w-0">
-          <span className="block text-[9px] font-mono uppercase text-[var(--text-muted)] mb-0.5 truncate">
-            Discrete Pixels
+          <span className="block text-[9px] font-mono-technical uppercase text-[var(--text-muted)] mb-0.5 truncate tracking-wider">
+            PIXEL MATRIX
           </span>
-          <span className="font-mono font-medium text-[var(--text-primary)] text-xs truncate block">
-            {totalPixels ? `${totalPixels.toLocaleString()} px` : "—"}
+          <span className="font-mono-technical font-bold text-[var(--accent-brass)] text-xs truncate block">
+            {totalPixels ? `${totalPixels.toLocaleString()} PX` : "—"}
           </span>
         </div>
       </div>

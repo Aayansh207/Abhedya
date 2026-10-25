@@ -2,133 +2,145 @@
 
 @layer base {
   :root, .dark {
-    /* Canvas & Backgrounds - Deep Graphite & Warm Charcoal */
-    --bg-app: #08090c;
-    --bg-sidebar: #0d0f14;
-    --bg-header: rgba(13, 15, 20, 0.92);
-    --bg-surface: #12141c;
-    --bg-surface-elevated: #181b26;
-    --bg-surface-hover: #1f2332;
-    --bg-surface-active: #272c3f;
-    --bg-inset: #090a0f;
-    --bg-panel: rgba(18, 20, 28, 0.85);
+    /* Cyber Matrix Obsidian Backgrounds */
+    --bg-app: #030805;
+    --bg-sidebar: #050e09;
+    --bg-header: rgba(5, 14, 9, 0.95);
+    --bg-surface: #07170f;
+    --bg-surface-elevated: #0b2217;
+    --bg-surface-hover: #102e1f;
+    --bg-surface-active: #153b27;
+    --bg-inset: #020604;
+    --bg-panel: rgba(7, 23, 15, 0.9);
 
-    /* Borders & Dividers */
-    --border-subtle: rgba(255, 255, 255, 0.07);
-    --border-medium: rgba(255, 255, 255, 0.12);
-    --border-strong: rgba(255, 255, 255, 0.18);
-    --border-accent: rgba(197, 160, 89, 0.35);
+    /* Cyber Neon Green Borders & Dividers */
+    --border-subtle: rgba(0, 255, 136, 0.16);
+    --border-medium: rgba(0, 255, 136, 0.32);
+    --border-strong: rgba(0, 255, 136, 0.55);
+    --border-accent: rgba(0, 255, 136, 0.85);
 
-    /* Typography */
-    --text-primary: #f3f3f0;
-    --text-secondary: #9ea09b;
-    --text-muted: #656763;
-    --text-dim: #444642;
+    /* Cyber Typography */
+    --text-primary: #e6fff2;
+    --text-secondary: #82b89a;
+    --text-muted: #447257;
+    --text-dim: #254432;
 
-    /* Brand Brass / Champagne Accent */
-    --accent-brass: #c5a059;
-    --accent-brass-hover: #d8b671;
-    --accent-brass-bg: rgba(197, 160, 89, 0.12);
-    --accent-brass-border: rgba(197, 160, 89, 0.3);
-    --accent-brass-text: #e5be6b;
+    /* Primary Brand: Intense Cyber Neon Emerald */
+    --accent-brass: #00ff88;
+    --accent-brass-hover: #26ff9d;
+    --accent-brass-bg: rgba(0, 255, 136, 0.12);
+    --accent-brass-border: rgba(0, 255, 136, 0.5);
+    --accent-brass-text: #00ff88;
 
-    /* Jade / Sage (Success & Verification) */
-    --accent-jade: #10b981;
-    --accent-jade-hover: #34d399;
-    --accent-jade-bg: rgba(16, 185, 129, 0.12);
-    --accent-jade-border: rgba(16, 185, 129, 0.3);
-    --accent-jade-text: #34d399;
+    /* Jade / Verification: Vibrant Matrix Green */
+    --accent-jade: #00ff88;
+    --accent-jade-hover: #26ff9d;
+    --accent-jade-bg: rgba(0, 255, 136, 0.14);
+    --accent-jade-border: rgba(0, 255, 136, 0.5);
+    --accent-jade-text: #00ff88;
 
-    /* Crimson / Error */
-    --accent-crimson: #ef4444;
-    --accent-crimson-bg: rgba(239, 68, 68, 0.12);
-    --accent-crimson-border: rgba(239, 68, 68, 0.3);
-    --accent-crimson-text: #f87171;
+    /* Crimson / Fold / Danger */
+    --accent-crimson: #ff2a55;
+    --accent-crimson-hover: #ff476d;
+    --accent-crimson-bg: rgba(255, 42, 85, 0.14);
+    --accent-crimson-border: rgba(255, 42, 85, 0.5);
+    --accent-crimson-text: #ff5779;
 
-    /* Amber / Warning */
-    --accent-amber: #f59e0b;
-    --accent-amber-bg: rgba(245, 158, 11, 0.12);
-    --accent-amber-border: rgba(245, 158, 11, 0.3);
-    --accent-amber-text: #fbbf24;
+    /* Amber / Cyber Gold (Rank & Trophies) */
+    --accent-amber: #ffb703;
+    --accent-amber-hover: #ffc42e;
+    --accent-amber-bg: rgba(255, 183, 3, 0.14);
+    --accent-amber-border: rgba(255, 183, 3, 0.5);
+    --accent-amber-text: #ffc233;
 
-    /* Shadows & Glass */
-    --shadow-card: 0 8px 32px -4px rgba(0, 0, 0, 0.6);
-    --shadow-elevated: 0 16px 40px -8px rgba(0, 0, 0, 0.75);
+    /* Cyber Cyan */
+    --accent-cyan: #00f0ff;
+    --accent-cyan-bg: rgba(0, 240, 255, 0.12);
+    --accent-cyan-border: rgba(0, 240, 255, 0.45);
+    --accent-cyan-text: #00f0ff;
+
+    /* Cyber Glows & Shadows */
+    --shadow-card: 0 8px 32px -4px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 255, 136, 0.08);
+    --shadow-elevated: 0 16px 40px -8px rgba(0, 0, 0, 0.95), 0 0 24px rgba(0, 255, 136, 0.18);
+    --shadow-neon-green: 0 0 18px rgba(0, 255, 136, 0.4), inset 0 0 12px rgba(0, 255, 136, 0.15);
+    --shadow-neon-red: 0 0 18px rgba(255, 42, 85, 0.45), inset 0 0 12px rgba(255, 42, 85, 0.15);
     --glass-blur: 16px;
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(0, 255, 136, 0.22);
 
-    /* Scrollbars */
-    --scrollbar-thumb: rgba(255, 255, 255, 0.16);
-    --scrollbar-thumb-hover: rgba(197, 160, 89, 0.45);
-    --scrollbar-track: rgba(0, 0, 0, 0.25);
+    /* Cyber Scrollbars */
+    --scrollbar-thumb: rgba(0, 255, 136, 0.28);
+    --scrollbar-thumb-hover: #00ff88;
+    --scrollbar-track: rgba(0, 10, 5, 0.7);
 
     /* Canvas Grid */
-    --canvas-grid-color: rgba(255, 255, 255, 0.03);
+    --canvas-grid-color: rgba(0, 255, 136, 0.07);
+    --ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(0, 255, 136, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
   }
 
   .light {
-    /* Canvas & Backgrounds - Warm Off-White / Soft Architectural Neutral */
-    --bg-app: #f4f3ef;
-    --bg-sidebar: #eae8e1;
-    --bg-header: rgba(244, 243, 239, 0.94);
+    /* Sleek Clean-Room / Cyber Lab White Theme */
+    --bg-app: #f0f7f3;
+    --bg-sidebar: #e4efe9;
+    --bg-header: rgba(240, 247, 243, 0.95);
     --bg-surface: #ffffff;
-    --bg-surface-elevated: #ffffff;
-    --bg-surface-hover: #f0eee7;
-    --bg-surface-active: #e6e3da;
-    --bg-inset: #edebe4;
-    --bg-panel: rgba(255, 255, 255, 0.92);
+    --bg-surface-elevated: #f4faf6;
+    --bg-surface-hover: #eaf5ee;
+    --bg-surface-active: #def0e4;
+    --bg-inset: #eaf1ed;
+    --bg-panel: rgba(255, 255, 255, 0.94);
 
-    /* Borders & Dividers */
-    --border-subtle: rgba(0, 0, 0, 0.08);
-    --border-medium: rgba(0, 0, 0, 0.14);
-    --border-strong: rgba(0, 0, 0, 0.22);
-    --border-accent: rgba(166, 131, 56, 0.45);
+    --border-subtle: rgba(0, 168, 89, 0.18);
+    --border-medium: rgba(0, 168, 89, 0.32);
+    --border-strong: rgba(0, 168, 89, 0.55);
+    --border-accent: rgba(0, 168, 89, 0.85);
 
-    /* Typography */
-    --text-primary: #18191c;
-    --text-secondary: #525459;
-    --text-muted: #797c83;
-    --text-dim: #a4a7ae;
+    --text-primary: #041a0f;
+    --text-secondary: #24523c;
+    --text-muted: #4e7864;
+    --text-dim: #7f9f8f;
 
-    /* Brand Brass / Champagne Accent - deeper contrast on light */
-    --accent-brass: #9b792e;
-    --accent-brass-hover: #b48e39;
-    --accent-brass-bg: rgba(155, 121, 46, 0.1);
-    --accent-brass-border: rgba(155, 121, 46, 0.35);
-    --accent-brass-text: #7f621e;
+    --accent-brass: #00a859;
+    --accent-brass-hover: #008f4c;
+    --accent-brass-bg: rgba(0, 168, 89, 0.12);
+    --accent-brass-border: rgba(0, 168, 89, 0.45);
+    --accent-brass-text: #007a3e;
 
-    /* Jade / Sage (Success & Verification) */
-    --accent-jade: #059669;
-    --accent-jade-hover: #10b981;
-    --accent-jade-bg: rgba(5, 150, 105, 0.1);
-    --accent-jade-border: rgba(5, 150, 105, 0.28);
-    --accent-jade-text: #047857;
+    --accent-jade: #00a859;
+    --accent-jade-hover: #008f4c;
+    --accent-jade-bg: rgba(0, 168, 89, 0.12);
+    --accent-jade-border: rgba(0, 168, 89, 0.45);
+    --accent-jade-text: #007a3e;
 
-    /* Crimson / Error */
     --accent-crimson: #dc2626;
-    --accent-crimson-bg: rgba(220, 38, 38, 0.08);
-    --accent-crimson-border: rgba(220, 38, 38, 0.25);
+    --accent-crimson-hover: #b91c1c;
+    --accent-crimson-bg: rgba(220, 38, 38, 0.1);
+    --accent-crimson-border: rgba(220, 38, 38, 0.35);
     --accent-crimson-text: #b91c1c;
 
-    /* Amber / Warning */
     --accent-amber: #d97706;
-    --accent-amber-bg: rgba(217, 119, 6, 0.08);
-    --accent-amber-border: rgba(217, 119, 6, 0.25);
+    --accent-amber-hover: #b45309;
+    --accent-amber-bg: rgba(217, 119, 6, 0.1);
+    --accent-amber-border: rgba(217, 119, 6, 0.35);
     --accent-amber-text: #b45309;
 
-    /* Shadows & Glass */
-    --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.08), 0 1px 3px 0 rgba(0, 0, 0, 0.04);
-    --shadow-elevated: 0 12px 30px -4px rgba(0, 0, 0, 0.12), 0 2px 6px 0 rgba(0, 0, 0, 0.04);
+    --accent-cyan: #0284c7;
+    --accent-cyan-bg: rgba(2, 132, 199, 0.1);
+    --accent-cyan-border: rgba(2, 132, 199, 0.35);
+    --accent-cyan-text: #0369a1;
+
+    --shadow-card: 0 4px 20px -2px rgba(0, 50, 25, 0.1), 0 0 10px rgba(0, 168, 89, 0.05);
+    --shadow-elevated: 0 12px 30px -4px rgba(0, 50, 25, 0.15), 0 0 18px rgba(0, 168, 89, 0.1);
+    --shadow-neon-green: 0 0 12px rgba(0, 168, 89, 0.25);
+    --shadow-neon-red: 0 0 12px rgba(220, 38, 38, 0.25);
     --glass-blur: 16px;
-    --glass-border: rgba(0, 0, 0, 0.08);
+    --glass-border: rgba(0, 168, 89, 0.2);
 
-    /* Scrollbars */
-    --scrollbar-thumb: rgba(0, 0, 0, 0.18);
-    --scrollbar-thumb-hover: rgba(155, 121, 46, 0.5);
-    --scrollbar-track: rgba(0, 0, 0, 0.04);
+    --scrollbar-thumb: rgba(0, 168, 89, 0.35);
+    --scrollbar-thumb-hover: #00a859;
+    --scrollbar-track: rgba(234, 241, 237, 0.8);
 
-    /* Canvas Grid */
-    --canvas-grid-color: rgba(0, 0, 0, 0.04);
+    --canvas-grid-color: rgba(0, 168, 89, 0.06);
+    --ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(0, 168, 89, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
   }
 
   * {
@@ -147,11 +159,13 @@
 
   body {
     background-color: var(--bg-app);
+    background-image: var(--ambient-glow);
+    background-attachment: fixed;
     color: var(--text-primary);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Chakra Petch', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   /* Desktop Dragging Regions */
@@ -172,73 +186,254 @@
   }
   ::-webkit-scrollbar-thumb {
     background: var(--scrollbar-thumb);
-    border-radius: 3px;
+    border-radius: 2px;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: var(--scrollbar-thumb-hover);
+    box-shadow: 0 0 8px var(--accent-brass);
   }
 }
 
-/* Reusable Theme-Aware Glass Panels */
+/* ========================================================
+   CYBER HUD GEOMETRY & STYLES (Based on reference UI)
+   ======================================================== */
+
+.font-display {
+  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+  letter-spacing: 0.1em;
+}
+
+.font-hud {
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+.font-mono-technical {
+  font-family: 'Share Tech Mono', "SF Mono", Consolas, monospace;
+  font-feature-settings: "tnum" 1, "zero" 1;
+}
+
+/* Cyber Chamfered / Cut Corners */
+.cyber-cut-corner-sm {
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+.cyber-cut-corner {
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
+}
+
+.cyber-cut-corner-lg {
+  clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 16px), 0 16px);
+}
+
+.cyber-hex {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.cyber-notch-tl-br {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+/* Neon Glow Utilities */
+.cyber-glow-green {
+  box-shadow: 0 0 16px rgba(0, 255, 136, 0.4), inset 0 0 10px rgba(0, 255, 136, 0.12);
+}
+
+.cyber-glow-green-sm {
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.35);
+}
+
+.cyber-glow-red {
+  box-shadow: 0 0 16px rgba(255, 42, 85, 0.45), inset 0 0 10px rgba(255, 42, 85, 0.15);
+}
+
+.cyber-glow-amber {
+  box-shadow: 0 0 16px rgba(255, 183, 3, 0.4), inset 0 0 10px rgba(255, 183, 3, 0.12);
+}
+
+.cyber-text-glow {
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.65), 0 0 18px rgba(0, 255, 136, 0.3);
+}
+
+.cyber-text-glow-red {
+  text-shadow: 0 0 8px rgba(255, 42, 85, 0.65), 0 0 18px rgba(255, 42, 85, 0.3);
+}
+
+/* Cyber Panels */
 .glass-panel {
   background: var(--bg-panel);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
+  border: 1px solid var(--border-medium);
   box-shadow: var(--shadow-card);
   transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.glass-panel:hover {
+  border-color: var(--border-strong);
 }
 
 .glass-panel-elevated {
   background: var(--bg-surface-elevated);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-medium);
-  border-radius: 12px;
-  box-shadow: var(--shadow-elevated);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-elevated), 0 0 20px rgba(0, 255, 136, 0.1);
   transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
 }
 
+/* Cyber Outer Frame (with tech notches and glow outline) */
+.cyber-outer-frame {
+  border: 2px solid var(--border-medium);
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.12), inset 0 0 24px rgba(0, 255, 136, 0.05);
+  position: relative;
+}
+
+/* Corner HUD Brackets */
+.corner-bracket-tl {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid var(--accent-brass);
+  border-left: 2px solid var(--accent-brass);
+  pointer-events: none;
+}
+
+.corner-bracket-tr {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid var(--accent-brass);
+  border-right: 2px solid var(--accent-brass);
+  pointer-events: none;
+}
+
+.corner-bracket-bl {
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  width: 8px;
+  height: 8px;
+  border-bottom: 2px solid var(--accent-brass);
+  border-left: 2px solid var(--accent-brass);
+  pointer-events: none;
+}
+
+.corner-bracket-br {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  border-bottom: 2px solid var(--accent-brass);
+  border-right: 2px solid var(--accent-brass);
+  pointer-events: none;
+}
+
+/* Tactical inputs */
 .glass-input {
   background: var(--bg-inset);
   border: 1px solid var(--border-medium);
   color: var(--text-primary);
-  border-radius: 8px;
+  font-family: 'Share Tech Mono', monospace;
   transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
 }
 .glass-input:focus {
   outline: none;
   border-color: var(--accent-brass);
-  box-shadow: 0 0 0 1px var(--accent-brass-border);
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.35);
 }
 
-/* Tactical reticle grid for image canvas */
+/* Tactical scanlines */
+.cyber-scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Reticle grid for image canvas */
 .tactical-grid-overlay {
-  background-size: 24px 24px;
+  background-size: 20px 20px;
   background-image: 
     linear-gradient(to right, var(--canvas-grid-color) 1px, transparent 1px),
     linear-gradient(to bottom, var(--canvas-grid-color) 1px, transparent 1px);
 }
 
-/* Monospace telemetry */
-.font-mono-technical {
-  font-family: "SF Mono", "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
-  font-feature-settings: "tnum" 1, "zero" 1;
+/* Cyber action buttons (matching sample: CALL, RAISE, FOLD) */
+.cyber-btn-primary {
+  background: linear-gradient(180deg, rgba(0, 255, 136, 0.25) 0%, rgba(0, 255, 136, 0.08) 100%);
+  border: 1.5px solid var(--accent-brass);
+  color: #00ff88;
+  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.25), inset 0 0 10px rgba(0, 255, 136, 0.1);
+  transition: all 0.2s ease;
 }
 
-/* Pulse animation for active security indicators */
+.cyber-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(180deg, rgba(0, 255, 136, 0.4) 0%, rgba(0, 255, 136, 0.2) 100%);
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.55), inset 0 0 15px rgba(0, 255, 136, 0.3);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.cyber-btn-danger {
+  background: linear-gradient(180deg, rgba(255, 42, 85, 0.25) 0%, rgba(255, 42, 85, 0.08) 100%);
+  border: 1.5px solid var(--accent-crimson);
+  color: #ff5779;
+  font-family: 'Orbitron', 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+  box-shadow: 0 0 15px rgba(255, 42, 85, 0.25), inset 0 0 10px rgba(255, 42, 85, 0.1);
+  transition: all 0.2s ease;
+}
+
+.cyber-btn-danger:hover:not(:disabled) {
+  background: linear-gradient(180deg, rgba(255, 42, 85, 0.4) 0%, rgba(255, 42, 85, 0.2) 100%);
+  box-shadow: 0 0 25px rgba(255, 42, 85, 0.55), inset 0 0 15px rgba(255, 42, 85, 0.3);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Radar & Pulse animations */
 @keyframes radar-pulse {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  50% { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(0.95); opacity: 0.8; }
+  0% { transform: scale(0.92); opacity: 0.7; box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+  50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 10px 4px rgba(0, 255, 136, 0.4); }
+  100% { transform: scale(0.92); opacity: 0.7; box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
 }
 
 .indicator-pulse {
-  animation: radar-pulse 2.4s infinite ease-in-out;
+  animation: radar-pulse 2s infinite ease-in-out;
 }
 
-/* Respect reduced motion */
+@keyframes cyber-scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.animate-scan-line {
+  animation: cyber-scan 3.5s linear infinite;
+}
+
+/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;
