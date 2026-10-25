@@ -25,43 +25,42 @@ export default function TechSecurity() {
   ];
 
   return (
-    <div className="h-full flex flex-col gap-4 sm:gap-5 overflow-y-auto pr-1 pb-4 min-h-0 min-w-0">
-      {/* Module Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--border-medium)] pb-3 shrink-0">
+    <div className="h-full flex flex-col gap-4 overflow-y-auto pr-1 pb-4 min-h-0 min-w-0">
+      {/* Module Header - Clean & Focused */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[var(--border-subtle)] pb-3 shrink-0">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-display font-bold uppercase tracking-widest text-[var(--accent-brass)]">
-              WORKSPACE // 05
+            <span className="text-[10px] font-mono-technical uppercase tracking-wider text-[var(--accent-brass)] font-bold">
+              WORKSPACE 05
             </span>
             <span className="text-[var(--border-strong)]">/</span>
             <span className="text-[10px] font-mono-technical uppercase text-[var(--text-secondary)]">
-              SPECIFICATION & SECURITY AUDIT
+              SECURITY AUDIT
             </span>
           </div>
-          <h2 className="text-base sm:text-lg font-display font-bold text-[var(--text-primary)] tracking-wider uppercase mt-0.5 cyber-text-glow">
-            Technology & Security Architecture
+          <h2 className="text-base sm:text-lg font-display font-bold text-[var(--text-primary)] tracking-wide uppercase mt-0.5 cyber-text-glow">
+            Security Architecture & Specs
           </h2>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="px-3 py-1 cyber-cut-corner-sm bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] text-[10px] font-mono-technical text-[var(--accent-brass-text)] flex items-center gap-1.5 font-bold uppercase">
-            <ShieldIcon size={12} />
-            <span>CRYPTOGRAPHIC REFERENCE MANUAL</span>
+          <span className="px-2.5 py-1 rounded bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] text-[10px] font-mono-technical text-[var(--accent-brass-text)] font-semibold uppercase">
+            Cryptographic Reference
           </span>
         </div>
       </div>
 
       {/* Navigation Sub-Tabs */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 border-b border-[var(--border-medium)] text-xs font-mono-technical shrink-0">
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 border-b border-[var(--border-subtle)] text-xs font-mono-technical shrink-0">
         {sections.map((sec) => (
           <button
             key={sec.id}
             type="button"
             onClick={() => setActiveSection(sec.id)}
-            className={`px-3 py-1.5 cyber-cut-corner-sm uppercase font-bold whitespace-nowrap transition-all ${
+            className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-all cursor-pointer font-medium ${
               activeSection === sec.id
-                ? "bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] border border-[var(--accent-brass)] cyber-glow-green-sm"
-                : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-inset)] hover:bg-[var(--bg-surface-hover)] border border-[var(--border-subtle)] hover:border-[var(--border-medium)]"
+                ? "bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] font-bold border border-[var(--accent-brass)] shadow-[0_0_8px_rgba(0,255,136,0.2)]"
+                : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-inset)] hover:bg-[var(--bg-surface-hover)] border border-[var(--border-subtle)]"
             }`}
           >
             {sec.label}
@@ -72,31 +71,26 @@ export default function TechSecurity() {
       {/* SECTION 1: TECHNOLOGY OVERVIEW */}
       {activeSection === "overview" && (
         <div className="space-y-4">
-          <div className="glass-panel cyber-cut-corner p-5 border border-[var(--border-strong)] space-y-4 relative">
-            <div className="corner-bracket-tl" />
-            <div className="corner-bracket-tr" />
-            <div className="corner-bracket-bl" />
-            <div className="corner-bracket-br" />
-
-            <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2 cyber-text-glow">
+          <div className="glass-panel p-5 border border-[var(--border-medium)] space-y-3.5">
+            <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
               <CpuIcon size={16} className="text-[var(--accent-brass)]" />
               Core Technologies & Engine Mechanisms
             </h3>
             <p className="text-xs font-hud text-[var(--text-secondary)] leading-relaxed">
-              Abhedya operates as an air-gapped, zero-cloud desktop application combining state-of-the-art authenticated symmetric cryptography with discrete spatial pixel steganography.
+              Abhedya operates as an air-gapped, zero-cloud desktop application combining authenticated symmetric cryptography with discrete spatial pixel steganography.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1">
                 <span className="text-xs font-mono-technical font-bold text-[var(--accent-brass)] uppercase">
                   Desktop Application Shell
                 </span>
                 <p className="text-[11px] font-hud text-[var(--text-secondary)] leading-relaxed">
-                  <strong>Electron + React 19:</strong> Hardened Electron runtime with strict context isolation, disabled Node integration in the renderer, and restrictive Content Security Policy (CSP) blocking external telemetry.
+                  <strong>Electron + React 19:</strong> Hardened Electron runtime with strict context isolation, disabled Node integration in the renderer, and restrictive Content Security Policy (CSP) blocking external network calls.
                 </p>
               </div>
 
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1">
                 <span className="text-xs font-mono-technical font-bold text-[var(--accent-brass)] uppercase">
                   Core Processing Engine
                 </span>
@@ -105,7 +99,7 @@ export default function TechSecurity() {
                 </p>
               </div>
 
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1">
                 <span className="text-xs font-mono-technical font-bold text-[var(--accent-brass)] uppercase">
                   Cryptographic Encryption
                 </span>
@@ -114,7 +108,7 @@ export default function TechSecurity() {
                 </p>
               </div>
 
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1">
                 <span className="text-xs font-mono-technical font-bold text-[var(--accent-brass)] uppercase">
                   Key Derivation Function (KDF)
                 </span>
@@ -123,7 +117,7 @@ export default function TechSecurity() {
                 </p>
               </div>
 
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1">
                 <span className="text-xs font-mono-technical font-bold text-[var(--text-primary)] uppercase">
                   Image Steganography
                 </span>
@@ -132,12 +126,12 @@ export default function TechSecurity() {
                 </p>
               </div>
 
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1">
                 <span className="text-xs font-mono-technical font-bold text-[var(--text-primary)] uppercase">
                   Lossless PNG Preservation
                 </span>
                 <p className="text-[11px] font-hud text-[var(--text-secondary)] leading-relaxed">
-                  <strong>Discrete Pixel Integrity:</strong> All encoded output is strictly produced in Portable Network Graphics (PNG) format using Deflate lossless compression to prevent lossy DCT frequency quantization from destroying hidden bits.
+                  <strong>Discrete Pixel Integrity:</strong> All encoded output is strictly produced in Portable Network Graphics (PNG) format using Deflate lossless compression to prevent lossy quantization from destroying hidden bits.
                 </p>
               </div>
             </div>
@@ -148,24 +142,19 @@ export default function TechSecurity() {
       {/* SECTION 2: HOW A MESSAGE IS SECURED */}
       {activeSection === "secure-flow" && (
         <div className="space-y-4">
-          <div className="glass-panel cyber-cut-corner p-5 border border-[var(--border-strong)] space-y-4 relative">
-            <div className="corner-bracket-tl" />
-            <div className="corner-bracket-tr" />
-            <div className="corner-bracket-bl" />
-            <div className="corner-bracket-br" />
-
+          <div className="glass-panel p-5 border border-[var(--border-medium)] space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2 cyber-text-glow">
+              <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
                 <LockIcon size={16} className="text-[var(--accent-brass)]" />
                 How a Message Is Secured (6-Stage Pipeline)
               </h3>
-              <span className="text-[10px] font-mono-technical text-[var(--accent-brass-text)] bg-[var(--accent-brass-bg)] px-2.5 py-0.5 cyber-cut-corner-sm border border-[var(--accent-brass-border)] font-bold uppercase">
-                ENCRYPTION + STEGANOGRAPHY
+              <span className="text-[10px] font-mono-technical text-[var(--accent-brass-text)] bg-[var(--accent-brass-bg)] px-2 py-0.5 rounded border border-[var(--accent-brass-border)] font-semibold uppercase">
+                Encryption + Steganography
               </span>
             </div>
 
-            <div className="p-3.5 cyber-cut-corner-sm bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] text-xs font-hud text-[var(--text-primary)] leading-relaxed">
-              <strong className="text-[var(--accent-brass)] font-bold">FUNDAMENTAL DISTINCTION:</strong> <em>Encryption</em> protects the <strong>contents</strong> of a message by converting plaintext into ciphertext that is indecipherable without the key. <em>Steganography</em> conceals the <strong>existence</strong> of the communication by embedding ciphertext into an innocuous carrier. Abhedya unites both disciplines in a multi-layered defense. Plaintext is <strong>never</strong> embedded directly.
+            <div className="p-3.5 rounded-lg bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] text-xs font-hud text-[var(--text-primary)] leading-relaxed">
+              <strong className="text-[var(--accent-brass)] font-bold">Fundamental Distinction:</strong> <em>Encryption</em> protects the <strong>contents</strong> of a message by converting plaintext into ciphertext that is indecipherable without the key. <em>Steganography</em> conceals the <strong>existence</strong> of the communication by embedding ciphertext into an innocuous carrier. Abhedya unites both disciplines in a multi-layered defense. Plaintext is <strong>never</strong> embedded directly.
             </div>
 
             <div className="space-y-2.5 pt-1">
@@ -201,8 +190,8 @@ export default function TechSecurity() {
                   desc: "The altered pixel buffer is compressed into a lossless PNG file. Visual changes are mathematically bounded to ±1 color unit per channel, remaining imperceptible to the human eye."
                 }
               ].map((s) => (
-                <div key={s.step} className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] flex items-start gap-3.5">
-                  <span className="px-2 py-1 cyber-cut-corner-sm bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] text-[10px] font-mono-technical font-bold text-[var(--accent-brass-text)] shrink-0">
+                <div key={s.step} className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] flex items-start gap-3.5">
+                  <span className="px-2 py-1 rounded bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] text-[10px] font-mono-technical font-bold text-[var(--accent-brass-text)] shrink-0">
                     {s.step}
                   </span>
                   <div className="space-y-0.5 min-w-0">
@@ -219,19 +208,14 @@ export default function TechSecurity() {
       {/* SECTION 3: HOW MESSAGE RECOVERY WORKS */}
       {activeSection === "recovery-flow" && (
         <div className="space-y-4">
-          <div className="glass-panel cyber-cut-corner p-5 border border-[var(--border-strong)] space-y-4 relative">
-            <div className="corner-bracket-tl" />
-            <div className="corner-bracket-tr" />
-            <div className="corner-bracket-bl" />
-            <div className="corner-bracket-br" />
-
+          <div className="glass-panel p-5 border border-[var(--border-medium)] space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2 cyber-text-glow">
+              <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
                 <UnlockIcon size={16} className="text-[var(--accent-brass)]" />
                 How Message Recovery Works (Reverse Verification Pipeline)
               </h3>
-              <span className="text-[10px] font-mono-technical text-[var(--accent-brass-text)] bg-[var(--accent-brass-bg)] px-2.5 py-0.5 cyber-cut-corner-sm border border-[var(--accent-brass-border)] font-bold uppercase">
-                AUTHENTICATED DECRYPTION
+              <span className="text-[10px] font-mono-technical text-[var(--accent-brass-text)] bg-[var(--accent-brass-bg)] px-2 py-0.5 rounded border border-[var(--accent-brass-border)] font-semibold uppercase">
+                Authenticated Decryption
               </span>
             </div>
 
@@ -268,8 +252,8 @@ export default function TechSecurity() {
                   desc: "Upon authentication failure, the application outputs a uniform generic error message. Detailed cryptographic stack traces and partial plaintexts are suppressed to eliminate side-channel leakage."
                 }
               ].map((p) => (
-                <div key={p.step} className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] flex items-start gap-3.5">
-                  <span className="px-2 py-1 cyber-cut-corner-sm bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] text-[10px] font-mono-technical font-bold text-[var(--accent-brass-text)] shrink-0">
+                <div key={p.step} className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] flex items-start gap-3.5">
+                  <span className="px-2 py-1 rounded bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] text-[10px] font-mono-technical font-bold text-[var(--accent-brass-text)] shrink-0">
                     {p.step}
                   </span>
                   <div className="space-y-0.5 min-w-0">
@@ -286,19 +270,14 @@ export default function TechSecurity() {
       {/* SECTION 4: DATA PROTECTION AND PRIVACY */}
       {activeSection === "data-privacy" && (
         <div className="space-y-4">
-          <div className="glass-panel cyber-cut-corner p-5 border border-[var(--border-strong)] space-y-4 relative">
-            <div className="corner-bracket-tl" />
-            <div className="corner-bracket-tr" />
-            <div className="corner-bracket-bl" />
-            <div className="corner-bracket-br" />
-
-            <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2 cyber-text-glow">
+          <div className="glass-panel p-5 border border-[var(--border-medium)] space-y-4">
+            <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
               <ShieldIcon size={16} className="text-[var(--accent-brass)]" />
               Data Protection, Threat Model & Privacy Guarantees
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1.5">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1.5">
                 <span className="font-mono-technical font-bold text-[var(--text-primary)] flex items-center gap-1.5 uppercase">
                   <CheckIcon size={14} className="text-[var(--accent-brass)]" />
                   Local Execution & Zero Outbound Telemetry
@@ -308,7 +287,7 @@ export default function TechSecurity() {
                 </p>
               </div>
 
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1.5">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1.5">
                 <span className="font-mono-technical font-bold text-[var(--text-primary)] flex items-center gap-1.5 uppercase">
                   <CheckIcon size={14} className="text-[var(--accent-brass)]" />
                   Ephemeral In-Memory Credential Handling
@@ -318,7 +297,7 @@ export default function TechSecurity() {
                 </p>
               </div>
 
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1.5">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1.5">
                 <span className="font-mono-technical font-bold text-[var(--text-primary)] flex items-center gap-1.5 uppercase">
                   <CheckIcon size={14} className="text-[var(--accent-brass)]" />
                   Tampering & Bit-Rot Detection
@@ -328,7 +307,7 @@ export default function TechSecurity() {
                 </p>
               </div>
 
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1.5">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1.5">
                 <span className="font-mono-technical font-bold text-[var(--text-primary)] flex items-center gap-1.5 uppercase">
                   <CheckIcon size={14} className="text-[var(--accent-brass)]" />
                   Magic Byte & Path Validation
@@ -340,12 +319,12 @@ export default function TechSecurity() {
             </div>
 
             {/* Disclosures of Limitations */}
-            <div className="p-4 cyber-cut-corner-sm bg-[var(--accent-brass-bg)] border border-[var(--accent-brass-border)] space-y-2 text-xs">
+            <div className="p-4 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-2 text-xs">
               <span className="font-mono-technical font-bold text-[var(--accent-brass)] flex items-center gap-1.5 uppercase">
                 <AlertCircleIcon size={14} />
-                Technical Truthfulness & Implementation Boundaries
+                Technical Truthfulness & Boundaries
               </span>
-              <ul className="list-disc list-inside space-y-1 font-hud text-[var(--text-primary)] text-[11px] leading-relaxed">
+              <ul className="list-disc list-inside space-y-1 font-hud text-[var(--text-secondary)] text-[11px] leading-relaxed">
                 <li>Operating system virtual memory paging (swap files) is managed by the host OS kernel and cannot be unconditionally prevented by user-space runtimes.</li>
                 <li>Temporary file cleanup depends on standard Node.js garbage collection and process lifecycle.</li>
                 <li>Steganography does not protect an image against lossy re-encoding; transmitting an encoded PNG through image-compressing social media platforms will permanently erase the embedded secret.</li>
@@ -358,19 +337,14 @@ export default function TechSecurity() {
       {/* SECTION 5: TECHNICAL ARCHITECTURE */}
       {activeSection === "architecture" && (
         <div className="space-y-4">
-          <div className="glass-panel cyber-cut-corner p-5 border border-[var(--border-strong)] space-y-4 relative">
-            <div className="corner-bracket-tl" />
-            <div className="corner-bracket-tr" />
-            <div className="corner-bracket-bl" />
-            <div className="corner-bracket-br" />
-
-            <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2 cyber-text-glow">
+          <div className="glass-panel p-5 border border-[var(--border-medium)] space-y-4">
+            <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
               <Layers size={16} className="text-[var(--accent-brass)]" />
               System Architecture & Component Data Flow
             </h3>
 
             {/* Visual Data Flow Pipeline */}
-            <div className="p-4 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] font-mono-technical text-xs overflow-x-auto space-y-3">
+            <div className="p-4 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] font-mono-technical text-xs overflow-x-auto space-y-3">
               <div className="text-[var(--accent-brass)] font-bold text-[11px] uppercase tracking-wider">
                 CONCEALMENT DATA FLOW:
               </div>
@@ -405,28 +379,28 @@ export default function TechSecurity() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1">
                 <span className="font-mono-technical font-bold text-[var(--accent-brass)] uppercase">1. Renderer Layer (React 19)</span>
                 <p className="text-[11px] font-hud text-[var(--text-secondary)] leading-relaxed">
                   Responsible for UI presentation, password strength computation, byte calculation, user interaction feedback, and local session auditing. Completely isolated from Node runtime.
                 </p>
               </div>
 
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1">
                 <span className="font-mono-technical font-bold text-[var(--accent-brass)] uppercase">2. Preload Security Bridge</span>
                 <p className="text-[11px] font-hud text-[var(--text-secondary)] leading-relaxed">
                   Exposes a strictly vetted, frozen API via Electron's contextBridge. Disallows arbitrary IPC messaging, Node modules, or unrestricted filesystem access.
                 </p>
               </div>
 
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1">
                 <span className="font-mono-technical font-bold text-[var(--accent-brass)] uppercase">3. Main Process IPC Layer</span>
                 <p className="text-[11px] font-hud text-[var(--text-secondary)] leading-relaxed">
                   Validates file sizes, inspects magic byte signatures, coordinates native open/save dialogs, and delegates heavy steganographic computations to the core engine.
                 </p>
               </div>
 
-              <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1">
+              <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1">
                 <span className="font-mono-technical font-bold text-[var(--accent-brass)] uppercase">4. Core Cryptographic Engine</span>
                 <p className="text-[11px] font-hud text-[var(--text-secondary)] leading-relaxed">
                   Contains mathematical implementations for key derivation, authenticated symmetric ciphers, PRNG pixel traversal walk, and statistical Chi-square / RS steganalysis algorithms.
@@ -440,13 +414,8 @@ export default function TechSecurity() {
       {/* SECTION 6: STEGANALYSIS AND LIMITATIONS */}
       {activeSection === "steganalysis-limits" && (
         <div className="space-y-4">
-          <div className="glass-panel cyber-cut-corner p-5 border border-[var(--border-strong)] space-y-4 relative">
-            <div className="corner-bracket-tl" />
-            <div className="corner-bracket-tr" />
-            <div className="corner-bracket-bl" />
-            <div className="corner-bracket-br" />
-
-            <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2 cyber-text-glow">
+          <div className="glass-panel p-5 border border-[var(--border-medium)] space-y-4">
+            <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
               <ActivityIcon size={16} className="text-[var(--accent-brass)]" />
               Steganalysis Principles & Honest Limitations
             </h3>
@@ -457,7 +426,7 @@ export default function TechSecurity() {
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-                <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1.5">
+                <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1.5">
                   <span className="font-mono-technical font-bold text-[var(--accent-brass)] block uppercase">
                     Chi-Square PoV Analysis
                   </span>
@@ -466,7 +435,7 @@ export default function TechSecurity() {
                   </p>
                 </div>
 
-                <div className="p-3.5 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1.5">
+                <div className="p-3.5 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1.5">
                   <span className="font-mono-technical font-bold text-[var(--accent-brass)] block uppercase">
                     RS Steganalysis (Fridrich et al.)
                   </span>
@@ -477,7 +446,7 @@ export default function TechSecurity() {
               </div>
 
               {/* Caveats */}
-              <div className="p-4 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-2 text-[11px]">
+              <div className="p-4 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-2 text-[11px]">
                 <span className="font-mono-technical font-bold text-[var(--text-primary)] uppercase tracking-wider flex items-center gap-2">
                   <AlertCircleIcon size={14} className="text-[var(--accent-brass)]" />
                   What Statistical Analysis Can & Cannot Establish
@@ -497,13 +466,8 @@ export default function TechSecurity() {
       {/* SECTION 7: ADVANCED SECURITY FEATURES */}
       {activeSection === "advanced-features" && (
         <div className="space-y-4">
-          <div className="glass-panel cyber-cut-corner p-5 border border-[var(--border-strong)] space-y-4 relative">
-            <div className="corner-bracket-tl" />
-            <div className="corner-bracket-tr" />
-            <div className="corner-bracket-bl" />
-            <div className="corner-bracket-br" />
-
-            <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2 cyber-text-glow">
+          <div className="glass-panel p-5 border border-[var(--border-medium)] space-y-4">
+            <h3 className="text-sm font-display font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
               <CrosshairIcon size={16} className="text-[var(--accent-brass)]" />
               Advanced Cryptography & Plausible Deniability Capabilities
             </h3>
@@ -535,10 +499,10 @@ export default function TechSecurity() {
                   desc: "Future expansion to embed payloads within discrete cosine transform (DCT) coefficients to provide resistance against minor lossy compression and image rescaling."
                 }
               ].map((feat) => (
-                <div key={feat.title} className="p-3.5 sm:p-4 cyber-cut-corner-sm bg-[var(--bg-inset)] border border-[var(--border-medium)] space-y-1">
+                <div key={feat.title} className="p-3.5 sm:p-4 rounded-lg bg-[var(--bg-inset)] border border-[var(--border-subtle)] space-y-1">
                   <div className="flex items-center justify-between gap-2">
                     <span className="text-xs font-mono-technical font-bold text-[var(--text-primary)] uppercase truncate">{feat.title}</span>
-                    <span className={`px-2 py-0.5 cyber-cut-corner-sm text-[9px] font-mono-technical font-bold border shrink-0 ${feat.statusClass}`}>
+                    <span className={`px-2 py-0.5 rounded text-[9px] font-mono-technical font-bold border shrink-0 ${feat.statusClass}`}>
                       {feat.status}
                     </span>
                   </div>
