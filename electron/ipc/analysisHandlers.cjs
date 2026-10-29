@@ -16,7 +16,8 @@ async function getCoreModule() {
     try {
       const corePath = path.resolve(__dirname, "../../core/index.js");
       coreModule = await import(pathToFileURL(corePath).href);
-    } catch (_err) {
+    } catch (err) {
+      console.error("[AnalysisHandler] Failed to import core engine module:", err);
       coreModule = null;
     }
   }

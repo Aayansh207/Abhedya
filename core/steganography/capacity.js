@@ -24,14 +24,17 @@ export const TOTAL_OVERHEAD_BYTES = HEADER_SIZE_BYTES + AUTH_TAG_SIZE_BYTES; // 
 export const ELIGIBLE_CHANNELS_PER_PIXEL = 3;
 
 /**
- * Calculates capacity figures given width, height, and mode.
+ * Calculates capacity figures given width, height, mode, and optional partition options.
  *
  * @param {number} width
  * @param {number} height
- * @param {"basic" | "scattered" | "decoy"} [mode="basic"]
+ * @param {"basic" | "scattered" | "decoy" | "multi"} [mode="basic"]
+ * @param {object} [options]
+ * @param {number} [options.partitions] - Explicit number of partitions (e.g. 2 to 4)
+ * @param {number} [options.entriesCount] - Number of payload entries
  * @returns {object}
  */
-export function calculateCapacity(width, height, mode = "basic") {
+export function calculateCapacity(width, height, mode = "basic", options = {}) {
   if (!width || !height || width <= 0 || height <= 0) {
     throw new ImageValidationError(`Invalid image dimensions: ${width}x${height}`);
   }
@@ -40,9 +43,15 @@ export function calculateCapacity(width, height, mode = "basic") {
   const rawBitCapacity = totalPixels * ELIGIBLE_CHANNELS_PER_PIXEL;
   const rawByteCapacity = Math.floor(rawBitCapacity / 8);
 
+  const partitions =
+    options?.partitions ||
+    (mode === "decoy" ? 2 : mode === "multi" ? Math.max(2, options?.entriesCount || 2) : 1);
+
   const isDecoy = mode === "decoy";
-  // In decoy mode, the pixel channel capacity is split across two independent payloads
-  const usableRawBytes = isDecoy ? Math.floor(rawByteCapacity / 2) : rawByteCapacity;
+  const isMulti = mode === "multi" || partitions > 1;
+
+  // In partitioned modes (decoy or multi), channel capacity is partitioned across independent payloads
+  const usableRawBytes = partitions > 1 ? Math.floor(rawByteCapacity / partitions) : rawByteCapacity;
   const maxCiphertextBytes = Math.max(0, usableRawBytes - HEADER_SIZE_BYTES);
   const maxPlaintextBytes = Math.max(0, usableRawBytes - TOTAL_OVERHEAD_BYTES);
 
@@ -50,6 +59,7 @@ export function calculateCapacity(width, height, mode = "basic") {
     width,
     height,
     mode,
+    partitions,
     totalPixels,
     eligibleChannelsPerPixel: ELIGIBLE_CHANNELS_PER_PIXEL,
     rawBitCapacity,
@@ -60,10 +70,13 @@ export function calculateCapacity(width, height, mode = "basic") {
     maxCiphertextBytes,
     maxPlaintextBytes,
     isDecoy,
-    ...(isDecoy
+    isMulti,
+    ...(isDecoy || isMulti
       ? {
           decoyUsableRawBytes: usableRawBytes,
-          decoyMaxPlaintextBytes: maxPlaintextBytes
+          decoyMaxPlaintextBytes: maxPlaintextBytes,
+          partitionUsableRawBytes: usableRawBytes,
+          partitionMaxPlaintextBytes: maxPlaintextBytes
         }
       : {})
   };
@@ -77,14 +90,16 @@ export function calculateCapacity(width, height, mode = "basic") {
  * @param {Buffer | Uint8Array} [options.imageBuffer]
  * @param {number} [options.width]
  * @param {number} [options.height]
- * @param {"basic" | "scattered" | "decoy"} [options.mode="basic"]
+ * @param {"basic" | "scattered" | "decoy" | "multi"} [options.mode="basic"]
+ * @param {number} [options.partitions]
+ * @param {number} [options.entriesCount]
  * @returns {Promise<object>}
  */
 export async function estimateCapacity(options = {}) {
-  const { imagePath, imageBuffer, width, height, mode = "basic" } = options;
+  const { imagePath, imageBuffer, width, height, mode = "basic", partitions, entriesCount } = options;
 
   if (width && height) {
-    return calculateCapacity(width, height, mode);
+    return calculateCapacity(width, height, mode, { partitions, entriesCount });
   }
 
   const input = imagePath || imageBuffer;
@@ -95,5 +110,5 @@ export async function estimateCapacity(options = {}) {
   }
 
   const { metadata } = await validateImageInput(input);
-  return calculateCapacity(metadata.width, metadata.height, mode);
+  return calculateCapacity(metadata.width, metadata.height, mode, { partitions, entriesCount });
 }

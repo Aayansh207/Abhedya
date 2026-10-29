@@ -5,6 +5,7 @@ directories:
 files:
   - dist/**/*
   - electron/**/*
+  - core/**/*
   - package.json
 mac:
   target: dmg

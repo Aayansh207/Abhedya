@@ -122,4 +122,79 @@ describe("Electron IPC & Core Engine Integration", () => {
       fs.unlinkSync(outputPath);
     } catch (_e) {}
   });
+
+  it("should perform complete Decoy mode hide -> save -> reveal round trip", async () => {
+    const tmpDir = os.tmpdir();
+    const carrierPath = path.join(tmpDir, `abhedya_test_carrier_decoy_${Date.now()}.png`);
+    const outputPath = path.join(tmpDir, `abhedya_test_output_decoy_${Date.now()}.png`);
+
+    await sharp({
+      create: {
+        width: 160,
+        height: 160,
+        channels: 4,
+        background: { r: 120, g: 60, b: 200, alpha: 1 }
+      }
+    })
+      .png()
+      .toFile(carrierPath);
+
+    const primaryPass = "PrimaryClassifiedSecretKey#2026";
+    const primaryMsg = "Sanctum defense grid frequencies calibrated to 432.8 MHz.";
+    const decoyPass = "DecoyPlausibleCoverKey#2026";
+    const decoyMsg = "Meeting agenda: Discuss quarter 3 budget allocations.";
+
+    const hideResult = await coreModule.hideDecoyMessages({
+      imagePath: carrierPath,
+      primary: { message: primaryMsg, password: primaryPass },
+      decoy: { message: decoyMsg, password: decoyPass }
+    });
+
+    expect(hideResult.success).toBe(true);
+    fs.writeFileSync(outputPath, hideResult.pngBuffer);
+
+    // Reveal with primary password
+    const primaryRev = await coreModule.revealMessage({
+      imagePath: outputPath,
+      password: primaryPass,
+      mode: "auto"
+    });
+    expect(primaryRev.message).toBe(primaryMsg);
+
+    // Reveal with decoy password
+    const decoyRev = await coreModule.revealMessage({
+      imagePath: outputPath,
+      password: decoyPass,
+      mode: "auto"
+    });
+    expect(decoyRev.message).toBe(decoyMsg);
+
+    // Reveal with attacker wrong password fails safely
+    let wrongPassErr = null;
+    try {
+      await coreModule.revealMessage({
+        imagePath: outputPath,
+        password: "AttackerWrongPassword#999",
+        mode: "auto"
+      });
+    } catch (_err) {
+      wrongPassErr = GENERIC_REVEAL_ERROR;
+    }
+    expect(wrongPassErr).toBe(GENERIC_REVEAL_ERROR);
+
+    // Cleanup
+    try {
+      fs.unlinkSync(carrierPath);
+      fs.unlinkSync(outputPath);
+    } catch (_e) {}
+  });
+
+  it("should verify electron-builder configuration packages core engine directory", () => {
+    const builderConfigPath = path.resolve(__dirname, "../../electron-builder.yml");
+    expect(fs.existsSync(builderConfigPath)).toBe(true);
+    const content = fs.readFileSync(builderConfigPath, "utf8");
+    expect(content).toContain("core/**/*");
+    expect(content).toContain("electron/**/*");
+    expect(content).toContain("dist/**/*");
+  });
 });

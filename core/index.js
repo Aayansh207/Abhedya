@@ -168,7 +168,7 @@ export async function revealMessage({
   // Strategy list based on requested mode
   const strategies = [];
   if (mode === "auto") {
-    strategies.push("scattered", "decoy", "basic");
+    strategies.push("scattered", "decoy", "multi", "basic");
   } else {
     strategies.push(mode === "standard" ? "basic" : mode);
   }
@@ -226,6 +226,13 @@ export async function revealMessage({
           message: result.plaintext,
           mode: `decoy (${result.carrierType})`
         };
+      } else if (strategy === "multi") {
+        const result = await extractMultipleMessage({ pixelBuffer, width, height, password });
+        return {
+          success: true,
+          message: result.plaintext,
+          mode: `multi (partition ${result.partitionIndex + 1})`
+        };
       }
     } catch (_err) {
       // Safe fallback: try next strategy
@@ -272,6 +279,46 @@ export async function hideDecoyMessages({
 }
 
 /**
+ * Multi-carrier embedding helper: embeds 2 to 4 independent messages
+ * under distinct passwords into separate non-overlapping channel partitions.
+ */
+export async function hideMultipleMessages({
+  imagePath,
+  imageBuffer,
+  outputPath,
+  entries,
+  options = {}
+}) {
+  if (!entries || !Array.isArray(entries) || entries.length < 2) {
+    throw new AuthenticationError("At least 2 message and password entries are required");
+  }
+
+  const input = imagePath || imageBuffer;
+  const { data: pixelBuffer, width, height } = await decodeImage(input);
+
+  const modifiedBuffer = await embedMultipleMessages({
+    pixelBuffer,
+    width,
+    height,
+    entries
+  });
+
+  const { pngBuffer } = await encodePng(modifiedBuffer, width, height, {
+    outputPath,
+    compressionLevel: options.compressionLevel ?? 9
+  });
+
+  return {
+    success: true,
+    pngBuffer,
+    outputPath,
+    width,
+    height,
+    entriesCount: entries.length
+  };
+}
+
+/**
  * Decoy reveal helper.
  */
 export async function revealDecoyMessage({ imagePath, imageBuffer, password }) {
@@ -284,4 +331,29 @@ export async function revealDecoyMessage({ imagePath, imageBuffer, password }) {
     message: result.plaintext,
     carrierType: result.carrierType
   };
+}
+
+/**
+ * Steganalysis runner evaluating Chi-Square and/or RS Steganalysis.
+ *
+ * @param {object} params
+ * @param {string} [params.imagePath]
+ * @param {Buffer | Uint8Array} [params.imageBuffer]
+ * @param {string[]} [params.tests=["chiSquare", "rsAnalysis"]]
+ * @returns {Promise<{ chiSquare?: object, rsAnalysis?: object }>}
+ */
+export async function runSteganalysis({
+  imagePath,
+  imageBuffer,
+  tests = ["chiSquare", "rsAnalysis"]
+} = {}) {
+  const input = imagePath || imageBuffer;
+  const results = {};
+  if (tests.includes("chiSquare")) {
+    results.chiSquare = await analyzeChiSquare(input);
+  }
+  if (tests.includes("rsAnalysis")) {
+    results.rsAnalysis = await analyzeRS(input);
+  }
+  return results;
 }

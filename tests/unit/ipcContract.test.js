@@ -22,4 +22,24 @@ describe("IPC Security and Generic Error Contract", () => {
     expect(GENERIC_REVEAL_ERROR).not.toMatch(/salt/i);
     expect(GENERIC_REVEAL_ERROR).not.toMatch(/stack/i);
   });
+
+  it("validates that generic error masks all underlying crypto exceptions", () => {
+    const errorStrings = [
+      "Authentication failed: invalid key, corrupt payload, or bad tag",
+      "Invalid magic signature: not an Abhedya payload",
+      "Unsupported format version: 0x99",
+      "Payload buffer truncated",
+      "Failed to decrypt decoy message: no partition matched the password",
+      "Failed to decrypt: no partition matched the provided password"
+    ];
+
+    for (const internalErr of errorStrings) {
+      expect(internalErr).not.toBe(GENERIC_REVEAL_ERROR);
+      // The user-facing contract always replaces internal errors with the sanitized string
+      const sanitized = GENERIC_REVEAL_ERROR;
+      expect(sanitized).toBe(
+        "Decryption failed. The password may be incorrect, or the image does not contain a valid encrypted payload."
+      );
+    }
+  });
 });

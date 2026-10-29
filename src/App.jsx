@@ -5,7 +5,6 @@ import RevealMessage from "./pages/RevealMessage";
 import Steganalysis from "./pages/Steganalysis";
 import History from "./pages/History";
 import TechSecurity from "./pages/TechSecurity";
-import ThemeSwitcher from "./components/ThemeSwitcher";
 import WindowControls from "./components/WindowControls";
 import AbhedyaLogo from "./components/AbhedyaLogo";
 import {
@@ -29,7 +28,7 @@ export default function App() {
   });
 
   useEffect(() => {
-    api.getAppInfo().then(setAppInfo).catch(() => {});
+    api.getAppInfo().then(setAppInfo).catch(() => { });
 
     const updateTime = () => {
       const now = new Date();
@@ -84,11 +83,10 @@ export default function App() {
                 key={item.id}
                 type="button"
                 onClick={() => setActiveTab(item.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono-technical uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer ${
-                  isActive
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono-technical uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer ${isActive
                     ? "bg-[#1c1c1c] text-[#ff3b30] border border-[#ff3b30] shadow-[0_0_12px_rgba(255,59,48,0.3)] font-bold"
                     : "text-[#d1d5db] hover:text-[#ffffff] hover:bg-[#222222] hover:border-[#ff3b30] border border-transparent"
-                }`}
+                  }`}
               >
                 <Icon size={14} className={isActive ? "text-[#ff3b30]" : "text-[#888888]"} />
                 <span>{item.label}</span>
@@ -104,11 +102,6 @@ export default function App() {
 
         {/* Right Header Controls */}
         <div className="flex items-center gap-2.5 text-xs app-no-drag shrink-0">
-          {/* Minimal Airgap Badge */}
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#121212] border border-[#ff3b30]/30 text-[10px] font-mono-technical text-[#ffffff] font-semibold">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#ff3b30] shadow-[0_0_6px_#ff3b30]" />
-            <span>AIRGAPPED</span>
-          </div>
 
           {/* Live Clock with terminal font */}
           {currentTime && (
@@ -116,9 +109,6 @@ export default function App() {
               {currentTime}
             </div>
           )}
-
-          {/* Theme Switcher */}
-          <ThemeSwitcher />
 
           {/* Desktop Window Controls */}
           {(api.isElectron || appInfo.isElectron) && (
@@ -139,11 +129,10 @@ export default function App() {
               key={item.id}
               type="button"
               onClick={() => setActiveTab(item.id)}
-              className={`px-2.5 py-1 rounded text-[11px] font-mono-technical uppercase tracking-wide flex items-center gap-1 shrink-0 ${
-                isActive
+              className={`px-2.5 py-1 rounded text-[11px] font-mono-technical uppercase tracking-wide flex items-center gap-1 shrink-0 ${isActive
                   ? "bg-[var(--bg-surface-elevated)] text-[var(--accent-cyan)] border border-[var(--accent-cyan)] font-bold"
                   : "text-[var(--text-muted)]"
-              }`}
+                }`}
             >
               <Icon size={12} />
               <span>{item.label}</span>

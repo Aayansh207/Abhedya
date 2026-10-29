@@ -482,9 +482,9 @@ export default function TechSecurity() {
                 },
                 {
                   title: "Decoy Mode & Multi-Message Embedding",
-                  status: "OPERATIONAL (CORE ENGINE)",
+                  status: "OPERATIONAL (FULL STACK: CORE, IPC & UI)",
                   statusClass: "bg-[var(--accent-brass-bg)] text-[var(--accent-brass-text)] border-[var(--accent-brass-border)]",
-                  desc: "Allows two distinct messages to be embedded into the same image with separate passphrases. Entering Password A reveals an innocuous decoy message, while Password B recovers the authentic classified secret under plausible deniability constraints."
+                  desc: "Allows two distinct messages (or 2-4 multi-carrier secrets) to be embedded into the same image with separate passphrases. Entering Password A reveals an innocuous decoy message, while Password B recovers the authentic classified secret under plausible deniability constraints."
                 },
                 {
                   title: "Statistical Steganalysis Suite",

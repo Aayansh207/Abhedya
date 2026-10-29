@@ -5,6 +5,7 @@ import {
   hideDecoyMessages,
   revealDecoyMessage,
   revealMessage,
+  hideMultipleMessages,
   embedMultipleMessages,
   extractMultipleMessage
 } from "../core/index.js";
@@ -156,5 +157,55 @@ describe("Decoy Mode & Multi-Message Functionality", () => {
       maxPartitions: 3
     });
     expect(resC.plaintext).toBe("Agent Gamma Report");
+  });
+
+  it("should embed 3 messages via high-level hideMultipleMessages and recover via revealMessage auto-mode", async () => {
+    const sourcePng = await generateTestPng(200, 200);
+
+    const entries = [
+      { message: "Mission Codename: Operation Vishanti", password: "CommanderKey#123" },
+      { message: "Logistics: Supply convoy departs at 0600 hrs", password: "LogisticsKey#456" },
+      { message: "Cover Story: Weather monitoring station research", password: "WeatherCoverKey#789" }
+    ];
+
+    const { pngBuffer } = await hideMultipleMessages({
+      imageBuffer: sourcePng,
+      entries
+    });
+
+    expect(Buffer.isBuffer(pngBuffer)).toBe(true);
+
+    // Reveal 1
+    const rev1 = await revealMessage({
+      imageBuffer: pngBuffer,
+      password: "CommanderKey#123",
+      mode: "auto"
+    });
+    expect(rev1.message).toBe("Mission Codename: Operation Vishanti");
+
+    // Reveal 2
+    const rev2 = await revealMessage({
+      imageBuffer: pngBuffer,
+      password: "LogisticsKey#456",
+      mode: "auto"
+    });
+    expect(rev2.message).toBe("Logistics: Supply convoy departs at 0600 hrs");
+
+    // Reveal 3
+    const rev3 = await revealMessage({
+      imageBuffer: pngBuffer,
+      password: "WeatherCoverKey#789",
+      mode: "auto"
+    });
+    expect(rev3.message).toBe("Cover Story: Weather monitoring station research");
+
+    // Wrong password fails safely
+    await expect(
+      revealMessage({
+        imageBuffer: pngBuffer,
+        password: "UnauthorizedAdversaryKey#000",
+        mode: "auto"
+      })
+    ).rejects.toThrow(AuthenticationError);
   });
 });

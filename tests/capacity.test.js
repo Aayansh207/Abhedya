@@ -45,6 +45,20 @@ describe("Capacity Estimation", () => {
     expect(decoy.decoyUsableRawBytes).toBe(Math.floor(basic.rawByteCapacity / 2));
   });
 
+  it("should accurately partition capacity in multi-carrier mode for 3 and 4 messages", () => {
+    const basic = calculateCapacity(300, 300, "basic");
+    const multi3 = calculateCapacity(300, 300, "multi", { partitions: 3 });
+    const multi4 = calculateCapacity(300, 300, "multi", { partitions: 4 });
+
+    expect(multi3.partitions).toBe(3);
+    expect(multi3.partitionUsableRawBytes).toBe(Math.floor(basic.rawByteCapacity / 3));
+    expect(multi3.maxPlaintextBytes).toBe(Math.floor(basic.rawByteCapacity / 3) - 66);
+
+    expect(multi4.partitions).toBe(4);
+    expect(multi4.partitionUsableRawBytes).toBe(Math.floor(basic.rawByteCapacity / 4));
+    expect(multi4.maxPlaintextBytes).toBe(Math.floor(basic.rawByteCapacity / 4) - 66);
+  });
+
   it("should reject invalid dimensions", () => {
     expect(() => calculateCapacity(0, 100)).toThrow(ImageValidationError);
     expect(() => calculateCapacity(100, -10)).toThrow(ImageValidationError);

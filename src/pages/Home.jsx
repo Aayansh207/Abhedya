@@ -14,7 +14,7 @@ export default function Home({ onNavigate }) {
   const [appInfo, setAppInfo] = useState({ version: "0.1.0", isElectron: false });
 
   useEffect(() => {
-    api.getAppInfo().then(setAppInfo).catch(() => {});
+    api.getAppInfo().then(setAppInfo).catch(() => { });
   }, []);
 
   return (
@@ -31,7 +31,7 @@ export default function Home({ onNavigate }) {
 
       {/* Main Infographic Grid: 3 Capsules Left, Central Red Circle, 3 Capsules Right */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center my-auto shrink-0">
-        
+
         {/* LEFT COLUMN: CAPSULES 01, 02, 06 */}
         <div className="lg:col-span-4 flex flex-col gap-3.5 sm:gap-4 order-2 lg:order-1">
           {/* CAPSULE 01: HIDE MESSAGE */}
@@ -129,7 +129,7 @@ export default function Home({ onNavigate }) {
               <div className="absolute inset-0 bg-radial from-[rgba(255,59,48,0.22)] to-transparent pointer-events-none" />
 
               <AbhedyaLogo size={52} />
-              
+
               <h2 className="text-base sm:text-lg md:text-xl font-pixel cyber-pixel-title text-[#ffffff] uppercase tracking-widest mt-3 select-none">
                 ABHEDYA
               </h2>

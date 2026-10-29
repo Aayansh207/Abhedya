@@ -140,17 +140,20 @@ export const api = {
     }
 
     // Web mock estimation
-    const { width = 1920, height = 1080 } = params;
+    const { width = 1920, height = 1080, mode = "standard", partitions } = params;
     const totalBitsAvailable = width * height * 3;
     const totalBytes = Math.floor(totalBitsAvailable / 8);
-    const maxPayloadBytes = Math.max(0, totalBytes - 64);
+    const effectivePartitions = partitions || (mode === "decoy" ? 2 : mode === "multi" ? 2 : 1);
+    const usableBytes = Math.floor(totalBytes / effectivePartitions);
+    const maxPayloadBytes = Math.max(0, usableBytes - 66);
     return {
       success: true,
       maxPayloadBytes,
       totalBitsAvailable,
-      overheadBytes: 64,
+      overheadBytes: 66,
       width,
       height,
+      partitions: effectivePartitions,
       isMockEstimate: true
     };
   },
@@ -166,11 +169,22 @@ export const api = {
     // Browser simulation
     return new Promise((resolve) => {
       setTimeout(() => {
+        const mode = params.mode || "standard";
+        let messageBytes = 0;
+        if (mode === "decoy") {
+          messageBytes = (params.primary?.message ? new Blob([params.primary.message]).size : 0) +
+            (params.decoy?.message ? new Blob([params.decoy.message]).size : 0);
+        } else if (mode === "multi" && Array.isArray(params.entries)) {
+          messageBytes = params.entries.reduce((acc, e) => acc + (e.message ? new Blob([e.message]).size : 0), 0);
+        } else {
+          messageBytes = new Blob([params.message || ""]).size;
+        }
+
         resolve({
           success: true,
-          suggestedName: `abhedya_secret_${Date.now()}.png`,
-          messageBytes: new Blob([params.message || ""]).size,
-          mode: params.mode || "standard",
+          suggestedName: `abhedya_${mode}_${Date.now()}.png`,
+          messageBytes,
+          mode,
           isMock: true
         });
       }, 700);
